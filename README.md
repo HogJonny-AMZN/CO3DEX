@@ -1,2 +1,4 @@
 # CO3DEX
-This is my personal (and shared) educational Codex for the Open 3D Engine (O3DE) and thus the combined name CO3DEX.  
+This is my personal (and shared) educational Codex for the Open 3D Engine (O3DE) and thus the combined name CO3DEX. This repository will use GitHub pages and a blog style, to provide written guide, tutorials, tips, talents, spells, magic items, potions and equipment I hope you find useful in navigating the dungeons, caverns and underbellies of the O3DE.
+
+At Amazon, what I do as a Design Technologist is a builder role that writes software (code) and/or authors creative technology driven experiences. (Overlaps with Game Dev Technical Artist roles and responsibilities.) HogJonny-AMZN.github.io is an opportunity to blog about the work I do and solutions I provide within a vibrant open source community. It's also a place I can create a supplimental 'How To's' cookbook for creators that use O3DE and the DCC tool ecosystem.

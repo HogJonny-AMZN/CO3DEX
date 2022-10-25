@@ -37,7 +37,7 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
 
 ---
-
+```markdown
 [O3DE (Open 3D Engine)](https://github.com/o3de/o3de) is an open-source, real-time, multi-platform 3D engine that enables developers and content creators to build AAA games, cinema-quality 3D worlds, and high-fidelity simulations without any fees or commercial obligations.
 
 ###### Disclaimer
@@ -47,3 +47,4 @@ The postings on this site are my own and do not necessarily represent the postin
 ###### License
 
 For terms please see the LICENSE*.TXT files at the root of this distribution.
+```

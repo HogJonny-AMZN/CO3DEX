@@ -12,8 +12,7 @@ If you aren’t familiar with Jekyll yet, you should know that it is a static si
 
 ## Watch Tutorial
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/cXBEfpn0qrg?rel=0&amp;controls=0&amp;showinfo=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cXBEfpn0qrg?rel=0&controls=0&showinfo=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Steps to create your blog using devlopr-jekyll and Host using Github Pages :
 
@@ -66,6 +65,7 @@ For ruby :
 $ ruby -v
 ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux-gnu]
 ```
+
 For bundler :
 
 ```bash
@@ -73,12 +73,14 @@ $ gem install bundler
 $ bundler -v
 Bundler version 2.2.29
 ```
+
 Add jekyll :
 
 ```bash
 $ bundle update
 $ bundle add jekyll
 ```
+
  This command will add the Jekyll gem to our Gemfile and install it to the ./vendor/bundle/ folder.
 
 You can check the jekyll version
@@ -100,6 +102,7 @@ $ bundle install
 ```bash
 $ bundle exec jekyll serve --watch
 ```
+
 or you can also serve using :
 
 ```bash
@@ -109,7 +112,6 @@ $ jekyll serve
 Visit [http://localhost:4000](http://localhost:4000) for development server
 
 ![Devlopr Jekyll Repo](/assets/img/posts/fork41.PNG){:class="img-fluid"}
-
 
 ### Adding Content
 
@@ -130,7 +132,6 @@ thumbnail: sample.png
 ---
 
 Hi ! This is sample post.
-
 ```
 
 #### YAML Page Example:
@@ -172,4 +173,3 @@ Visit your Github Repo settings ! Enable master branch as Github Pages Branch :
 > Congrats ! On your new shining Blog !
 
 You can visit the blog using [http://your-github-username.github.io](http://your-github-username.github.io).
-

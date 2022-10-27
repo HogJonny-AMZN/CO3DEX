@@ -1,10 +1,10 @@
-gtitle: devlopr
-subtitle: A Portfolio Jekyll Theme Built for Developers
+gtitle: hogjonny-devlopr
+subtitle: A Portfolio Jekyll Theme Built for Developers (modified from devlopr)
 description: >- # this means to ignore newlines until "baseurl:"
-  devlopr-jekyll is a beautiful Jekyll Theme Built For Developers, which is optimized for speed and readability.
+  hogjonny-devlopr-jekyll is a beautiful Jekyll Theme Built For Developers, which is optimized for speed and readability.
 
-url: "" # the base hostname & protocol for your site, e.g. https://example.github.io
-baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://www.co3dex.com" # the base hostname & protocol for your site, e.g. https://example.github.io
+baseurl: "https://www.co3dex.com" # the subpath of your site, e.g. /blog
 
 # Navigation
 urls:
@@ -25,36 +25,36 @@ urls:
 # Edit Author details (For multi authors check _data/authors.yml)
 
 author_logo: profile.png
-author: John Doe
-author_bio: Hi, my name is John Doe. I built this site using devlopr-jekyll :D
-author_email: "mail@sujaykundu.com"
-author_location: India
-author_website_url: "https://sujaykundu.com"
-typewrite-text: devlopr is a jekyll framework built for developers. You can edit this in _config.yml file
+author: Jonny Galloway (aka HogJonny)
+author_bio: Hi, my name is Jonny Galloway. I am a Sr. Design Technologist at Amazon working on technology, tools and workflows for creative professionals like video game developers and others who need the best in 3D and Realtime Rendering tool-sets. He started in 1993 as a Media Service Intern making 3D clip art for Strata3D (a graphics company). His first 3D point and click adventure game took 3 yrs to make and was released in 1996, and he has been involved in the 3D entertainment and video game technology world ever since (29 yrs.) Over the course of his career he has been a 3D Artist, Game Designer, Creative Director, Art Director and Technical Art Director (coding, yeah!) He's been the project lead and Producer on projects from small indie games to big AAA projects, managing development teams. He's worked in creative design, ideation, planning, under Product Development on large open world games like GTA and the Red Dead franchise. Most recently he has worked at several video game technology companies making better tools and workflows, and provide quality of life for creative professionals working in 3D. His ambition and goal it to make Amazon AWS a visual technology powerhouse (and this starts with culture.) ** Views expressed are my own. All opinions are my own. The opinions expressed here belong solely to myself, and do not reflect the views of my employer / Amazon and AWS, the Open 3D Foundation or it's sponsors. **
+
+author_email: "hogjonnyamzn@gmail.com"
+author_location: Austin, TX
+author_website_url: "https://jonathankimballgalloway.me/"
+typewrite-text: This is my personal (and shared) educational Codex for the Open 3D Engine (O3DE) and thus the combined name CO3DEX.
 hero_cover_img: sample_cover.jpg # replace this for changing homepage cover (eg. try cover.jpeg). Image should be in /assets/img
 
 # Experiences
 author_work_experiences:
-            - company_name: Google
-              company_logo: google.png
-              company_url: https://google.com
-              designation: Software Engineer
+            - company_name: Amazon
+              company_logo: AWS-Logo-700x394.png
+              company_url: https://aws.amazon.com/gametech/
+              designation: Sr. Design Technologist
               description: Worked on various Google Products
               visibility: true
-            - company_name: Microsoft
-              company_logo: microsoft.png
-              company_url: https://microsoft.com
-              designation: Azure Developer
-              description: Worked on various Azure Cloud Products
+            - company_name: Past Experience (see LinkedIn)
+              company_logo: bunker_600.jpg
+              company_url: https://www.linkedin.com/in/hogjonny
+              designation: Lifelong Video Game Developer
+              description: I've worked on many AAA games (and engines)
               visibility: true
 
 # Education
 author_education_details:
-              - college_logo: mit.png
-                college_name: MIT
-                college_url: https://mit.org
-                college_degree: CS Engineer
-                description: Bachelor of Technology
+              - college_logo: Utah_Tech_University_seal_2022.png
+                college_name: Utah Tech University
+                college_url: https://utahtech.edu/
+                description: Studies in Visual Communications Technology
                 visibility: true
 
 # Projects
@@ -63,39 +63,35 @@ author_project_details:
                 project_title: Gamers Hub
                 project_description: A Platform built for Gamers and Game Devs
                 project_url: https://gamershub.in
-                visibility: true
+                visibility: false
               - project_thumbnail: hack4r.PNG
                 project_title: Hack4r
                 project_description: A Platform built for Hackers and Penetration Testers
                 project_url: https://hack4r.com
-                visibility: true
+                visibility: false
 
 # social links
-twitter_username: johndoe
-github_username:  sujaykundu777
-facebook_username: johndoe
-linkedin_username: johndoe
-behance_username: johndoe
-instagram_username: johndoe
-medium_username: johndoe
-telegram_username: johndoe
-dribbble_username: johndoe
-flickr_username: johndoe
+twitter_username: hogjonny
+github_username:  HogJonny-AMZN
+facebook_username: hogjonny
+linkedin_username: hogjonny
+instagram_username: hogjonny
+flickr_username: hogjonny
 
 #for comments ( we got Disqus and Hyvor Commenting, uncomment the one you want to use )
 
-# disqus_shortname: sujay-kundu
-hyvor_talk_website_id: 476
+disqus_shortname: hogjonny
+# hyvor_talk_website_id: 476
 
 # wakatime username (coding activity)
-wakatime_username: sujaykundu777
+# wakatime_username: sujaykundu777
 
 # mailchimp embedded form url (newsletter):
-mailchimp_form_url: https://sujaykundu.us10.list-manage.com/subscribe/post?u=50bab1c85eae24ecfb0f68361&amp;id=3a2dd721d0
+# mailchimp_form_url: https://sujaykundu.us10.list-manage.com/subscribe/post?u=50bab1c85eae24ecfb0f68361&amp;id=3a2dd721d0
 
 # contact form - (choose formspress or getform)
 # getform_endpoint: 83b703c3-9e47-4df4-ac55-e24d7eb02abc
-formspree_email: johndoe@gmail.com
+# formspree_email: johndoe@gmail.com
 
 # releases - widget can be (sidebar, modal or embed)
 olvy_organization: devlopr

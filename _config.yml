@@ -3,7 +3,7 @@ subtitle: A Portfolio Jekyll Theme Built for Developers (modified from devlopr)
 description: >- # this means to ignore newlines until "baseurl:"
   hogjonny-devlopr-jekyll is a beautiful Jekyll Theme Built For Developers, which is optimized for speed and readability.
 
-url: "https://www.co3dex.com" # the base hostname & protocol for your site, e.g. https://example.github.io
+url: "" # the base hostname & protocol for your site, e.g. https://example.github.io
 baseurl: "" # the subpath of your site, e.g. /blog
 
 # Navigation

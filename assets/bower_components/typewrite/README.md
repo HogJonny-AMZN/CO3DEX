@@ -4,7 +4,8 @@ A javascript library to animate the **typing**, **deleting**, and **selecting** 
 
 <img src="https://raw.githubusercontent.com/mrvautin/typewrite/master/typewrite.gif" width="640">
 
-### Demo 
+### Demo
+
 See [here](https://rawgit.com/mrvautin/typewrite/master/index.html "Demo").
 
 ### Installation
@@ -13,26 +14,27 @@ See [here](https://rawgit.com/mrvautin/typewrite/master/index.html "Demo").
 
 From repo:
 
-``` javascript
+```javascript
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="dist/typewrite.min.js"></script>
 ```
 
 From CDN:
-``` javascript
+
+```javascript
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.rawgit.com/mrvautin/typewrite/master/dist/typewrite.min.js"></script>
 ```
 
 Setup your target element to type into:
 
-``` html
+```html
 <div id="typewriteText"></div>
 ```
 
 Some `typewrite` demo actions with default settings:
 
-``` javascript
+```javascript
 $(document).ready(function(){
     $('#typewriteText').typewrite({
         actions: [
@@ -65,7 +67,7 @@ $(document).ready(function(){
 
 Adding text is done by passing an object with a key of `type` and a value of the text you would like typed. e.g:
 
-``` javascript
+```javascript
 {type: 'Hello.'}
 ```
 
@@ -75,13 +77,13 @@ Removing text is done by passing a nested object with a key of `remove` and a ne
 
 To remove 5 characters, one character at a time:
 
-``` javascript
+```javascript
 {remove: {num: 5, type: 'stepped'}}
 ```
 
 To remove 5 characters, in one whole remove:
 
-``` javascript
+```javascript
 {remove: {num: 5, type: 'whole'}}
 ```
 
@@ -93,7 +95,7 @@ Selecting text is done by passing a nested object with a key of `select` and a n
 
 The following will select from the 11th character to the 16th:
 
-``` javascript
+```javascript
 {select: {from: 11, to: 16}}
 ```
 
@@ -103,7 +105,7 @@ Delay (pause) is done by passing an object with a key of `delay` and a value wit
 
 The following will delay for 1500 milliseconds (1.5 seconds).
 
-``` javascript
+```javascript
 {delay: 1500}
 ```
 
@@ -113,7 +115,7 @@ You can change the typing speed midway through the actions by passing an object 
 
 The following will change the typing speed to 22 characters per second.
 
-``` javascript
+```javascript
 {speed: 22}
 ```
 
@@ -133,7 +135,6 @@ The following will change the typing speed to 22 characters per second.
 
 **selectedText** {string}: The Hex color value of the selected text - Default: `'#333333'`
 
-
 ### Styling
 
 If you want to add additional CSS to further style `typewrite`, please use the following CSS classes:
@@ -146,7 +147,7 @@ If you want to add additional CSS to further style `typewrite`, please use the f
 
 `typewrite` supports the use of events for all the actions. Some actions trigger returned data and some don't, see below for examples:
 
-``` javascript
+```javascript
 $('#typewriteText')
     .on('typewriteStarted', function() {
         console.log('typewrite has started');

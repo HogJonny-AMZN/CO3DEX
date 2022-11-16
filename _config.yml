@@ -37,7 +37,7 @@ hero_cover_img: https://user-images.githubusercontent.com/23222931/196006867-cb1
 # Experiences
 author_work_experiences:
             - company_name: Amazon
-              company_logo: AWS-Logo-700x394.png
+              company_logo: AWS-Logo-700x700.png
               company_url: https://aws.amazon.com/gametech/
               designation: Sr. Design Technologist
               description: Worked on various Google Products
@@ -59,11 +59,12 @@ author_education_details:
 
 # Projects
 author_project_details:
-              - project_thumbnail: gamershub.png
-                project_title: Gamers Hub
-                project_description: A Platform built for Gamers and Game Devs
-                project_url: https://gamershub.in
-                visibility: false
+              - project_thumbnail: O3DE_Color_Logo.png
+                project_title: Open 3D Engine (O3DE)
+                project_description: Opensource, Real-time 3D Engine.  Easier team collaboration, artist workflows & multiplayer setup, increased terrain performance, new rendering features
+                project_url: https://github.com/o3de/o3de
+                visibility: true
+
               - project_thumbnail: hack4r.PNG
                 project_title: Hack4r
                 project_description: A Platform built for Hackers and Penetration Testers

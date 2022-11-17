@@ -30,8 +30,8 @@ author_bio: "Hi, my name is Jonny Galloway. I am a Sr. Design Technologist at Am
 author_email: "hogjonnyamzn@gmail.com"
 author_location: Austin, TX
 author_website_url: "https://jonathankimballgalloway.me/"
-typewrite-text: "Welcome to the Open 3D Engine co3dex, journey's in realtime 3D"
-hero_cover_img: https://user-images.githubusercontent.com/23222931/196006867-cb15edf9-ca10-48ae-8edc-4bd92bdcd9aa.png
+typewrite-text: "Welcome to the Open 3D Engine co3dex, journey's in realtime 3D ..."
+hero_cover_img: cover.png
 # replace this for changing homepage cover (eg. try cover.jpeg). Image should be in /assets/img
 
 # Experiences

@@ -34,8 +34,6 @@ typewrite-text: "Welcome to the Open 3D Engine co3dex, journey's in realtime 3D 
 hero_cover_img: cover.png
 # replace this for changing homepage cover (eg. try cover.jpeg). Image should be in /assets/img
 
-codex_logo: codex_logo.eps
-
 # Experiences
 author_work_experiences:
             - company_name: Amazon

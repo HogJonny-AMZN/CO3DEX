@@ -22,6 +22,7 @@ For this every Author needs to have a unique username (without space) For eg. If
 Under _authors folder create a author details file (username.md) with his/her username (as described above). For eg. **johndoe.md**.
 
 Then add this frontmatter to describe the author in **johndoe.md**.
+
 ```yml
 ---
 name: John Doe # Name of the Author
@@ -55,6 +56,7 @@ social:  # Author Social profile links
       url: "https://flickr.com/johndoe"
 ---
 ```
+
 You can create multiple authors similarly under _authors
 
 Next, copy the same frontmatter in _data/authors.yml (under individual author usernames) like this :
@@ -109,7 +111,6 @@ janedoe:
         url: "https://www.youtube.com/channel/UCSfLBFFfNU9r6ihfei6VeJw"
       - title: "facebook"
         url: "https://www.facebook.com/janedoe"
-
 ```
 
 Likewise ! This will be helpful for the widgets. (About Author, Recent Articles).
@@ -119,6 +120,7 @@ Likewise ! This will be helpful for the widgets. (About Author, Recent Articles)
 When creating a new post, just add the author in frontmatter using the username of the author
 
 For eg, In 2020-10-24-demo-article.md
+
 ```yml
 ---
 layout: post
@@ -130,7 +132,7 @@ This is Jane Doe's Article
 
 Now there will be Authors widget in Blog Sidebar, showing all authors like this :
 
-![Author Sidebar Widget](https://res.cloudinary.com/sujaykundu/image/upload/c_scale,fl_progressive,w_400/v1603700133/3_tiuar0.png)
+<img src="https://res.cloudinary.com/sujaykundu/image/upload/c_scale,fl_progressive,w_400/v1603700133/3_tiuar0.png" title="" alt="Author Sidebar Widget" data-align="inline">
 
 Also a Author Profile Page will be created for Jane Doe to showcase her written articles.
 
@@ -139,5 +141,3 @@ Also a Author Profile Page will be created for Jane Doe to showcase her written 
 Also, below this article you can see the Author Profile Card , who has written the article too ! ;)
 
 Cheers ! Hope You enjoy this new feature. :D
-
-

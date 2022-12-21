@@ -82,7 +82,7 @@ class WeatherApp(QMainWindow):
 
 So glad I still have a purpose here.
 
-Even if it's simply used to get started, or you just want an example of something basic and documentation for how that works, ChatGPT looks like it will be a seriously important and valuable tools for anyone who may want to get started in this realm of Technical Art.
+Even if it's simply used to get started, or you just want an example of something basic and documentation for how that works, ChatGPT looks like it will be a seriously important and valuable tool (or ecosystem) for anyone who may want to get started in this realm of Technical Art.
 
 Some people are afraid of the implications, but the way I see it, is this is just a time reallocation ... Apply the Pareto Principle (80/20 rule): get work started faster, reduce all the scaffolding and boilerplate time; so you can put 80% of your time, into the 20% of the code that is most important.
 

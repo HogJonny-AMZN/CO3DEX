@@ -78,7 +78,7 @@ class WeatherApp(QMainWindow):
         image =
 ```
 
-[NOTE] This code is not complete, notice the last line!  I believe it may be suggesting that this is where you implement code, to pass the city to a API, then generate an image (I'll bet in the future it would let you know that.  I bet if you asked it to, with the right prompt, it might be able to suggest a service/API and also suggest the logical code. As you will see, I have done a secondary primpt to refine a class later in theis post.)
+[NOTE] This code is not complete, notice the last line!  I believe it may be suggesting that this is where you implement code, to pass the city to a API, then generate an image (I'll bet in the future it would let you know that.  I bet if you asked it to, with the right prompt, it might be able to suggest a service/API and also suggest the logical code. As you will see, I have done a secondary prompt to refine a class later in theis post.)
 
 So glad I still have a purpose here.
 

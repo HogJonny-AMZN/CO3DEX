@@ -33,7 +33,7 @@ Knowing how to utilize this stack is very valuable to the field of Technical Art
 
 One way that you can use generative AI to enhance your day-to-day life and automate some of your tasks is by incorporating it into your technical art projects. For example, you could use a generative AI model to automatically create UI designs or graphics based on certain parameters or constraints. This could save you time and effort in the design process, allowing you to focus on other aspects of your project.
 
-The following code block was written by ChatGPT, as part of the prompts folded in to the generation of the pre-edited paragraphs included in portions of the text above.  This code, is the example it provided me in follwo up, to tie these ideas together: TechArt, Python, PySide2, and Generative AI.
+The following code block was written by ChatGPT, as part of the prompts folded in to the generation of the pre-edited paragraphs included in portions of the text above. This code, is the example it provided me, in follow up, to tie these ideas together: TechArt, Python, PySide2,and Generative AI.
 
 > Here's an example of how you could use PySide2 and a generative AI model to create a simple UI for a weather app.
 

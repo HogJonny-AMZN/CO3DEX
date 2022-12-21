@@ -1,4 +1,4 @@
-```yaml
+---
 layout: post
 title:  "PySide2 Help, Scaffolding Code, and Documentation with ChatGPT"
 summary: "ChatGPT+Python+PySide2"
@@ -7,9 +7,9 @@ date: '2022-12-20 17:55:00 -0600'
 category: info
 thumbnail: /assets/img/posts/2022-11-28-welcome-assets/3a17db46d14fe4b643a70263904ef7a878ac3558.png
 keywords: chatgpt,python,pyside2,generativeAI
-permalink: /blog/ChatGPT+Python+PySide2/
+permalink: /blog/ChatGPT_Python_PySide2/
 usemathjax: true
-```
+---
 
 # Welcome to the Co3deX
 

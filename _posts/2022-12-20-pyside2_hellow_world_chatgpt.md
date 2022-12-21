@@ -27,7 +27,7 @@ Python is a popular programming language that is widely used in the tech industr
 
 PySide2 is a Python binding for the Qt cross-platform application framework. It provides a comprehensive set of widgets and other tools for building modern, interactive UIs. PySide2 is easy to use, powerful, and well-documented, making it a great choice for technical art projects.
 
-This is basically the same stack used in the [Open 3D Engine](o3de.org) Editor applications, which also comes with Python and includes the PySide2 bindings for Qt UI coding ... and this type of stack, is also what happens to fuel many popular 3D Digital Content Creation apps (DCC), examples are Autodesk Maya, Adobe Substance Designer, and many others (Python is like Technical Art glue.)  There is a lot of potential for shared code, this is a big win there to me, a more homogeneous an ecosystem stack has multiplicative advantages IMO.
+This is basically the same stack used in the [Open 3D Engine](o3de.org) Editor applications, which also comes with Python and includes the PySide2 bindings for Qt UI coding ... and this type of stack, is also what happens to fuel many popular 3D Digital Content Creation apps (DCC), examples are Autodesk Maya, Adobe Substance Designer, and many others (Python is like Technical Art glue.)  There is a lot of potential for shared code, this is a big win to me, a more homogeneous ecosystem stack has multiplicative advantages IMO.
 
 Knowing how to utilize this stack is very valuable to the field of Technical Art, especially in relation to real-time 3D. It allows us to build custom tools and solutions that improve our workflows, and enhance production efficiency for our art teams.  
 

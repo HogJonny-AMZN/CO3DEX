@@ -39,17 +39,18 @@ Layer Setup
 
 Here is our original image, we are going to prepare the frequency separation in a manner that is similar to photo retouching.
 
-| Layer 1   | Layer 2   | Layer 3   |           |
-| --------- | --------- | --------- | --------- |
-| [ image ] | [ image ] | [ image ] |           |
-| txt       | txt       | txt       |           |
-|           | txt       | txt       | txt       |
-|           |           | [ image ] | [ image ] |
-|           |           | txt       | txt       |
+| Layer 1                                                                                                                        | Layer 2                                                            | Layer 3   |           |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ | --------- | --------- |
+| <img src="../assets/img/posts/2022-12-28-frequency_separation-assets/000.png" width="10%" title="" alt="" data-align="inline"> | [ image ]                                                          | [ image ] |           |
+| The original image is in the default "Layer 1"                                                                                 | 1.Duplicate the original image into a new layer called "Layer 2"\\ |           |           |
+| <br/>2.In "Layer 2" apply a gaussian blur filter, I used a value of 16 for the blur kernel.                                    | txt                                                                |           |           |
+|                                                                                                                                | txt                                                                | txt       | txt       |
+|                                                                                                                                |                                                                    | [ image ] | [ image ] |
+|                                                                                                                                |                                                                    | txt       | txt       |
 
 ### Layer Blending
 
-Now, it is possible to combine the _low pass _(layer 2) and the _high pass _(layer 3) 
+Now, it is possible to combine the _low pass_(layer 2) and the _high pass_(layer 3)
 
 In Photoshop, with "Layer 3" selected, set the layer blend mode of the *high pass to Linear light*
 
@@ -76,7 +77,7 @@ You will want to use the following steps in order to make sure that both the low
 - Image > Canvas Size
   - Width/Height: 33.33 ***percent***, or the  in**_ pixels_**
 
-### ***Why*** ...
+### ***Why***
 
 - Because these steps, allow the Gaussian blur to take into account the wrapped tiling along the adjacent borders.
 - So when the *low pass* (blur) is calculated, the pixel information wraps, then when it's subtracted and cropped both the *low pass* and the *high pass* will still tile properly.
@@ -191,7 +192,7 @@ Now that we briefly covered the math, lets try out some other tests with combini
 
 An example might be...
 
-1. A low-resolution [Terrain Macro Material color texture map](https://www.o3de.org/docs/user-guide/components/reference/terrain/terrain-macro-material/) 
+1. A low-resolution [Terrain Macro Material color texture map](https://www.o3de.org/docs/user-guide/components/reference/terrain/terrain-macro-material/)
    
    1x1 texel per-meter in world-space
    
@@ -231,7 +232,7 @@ One more try, how low can we go?  Let's drop the low-pass from 1024 pixels, to 
 | txt       | txt         | txt          | txt            | txt        |
 | [ image ] | [ image ]   | [ image ]    | [ image ]      | [ image ]  |
 
-OK - now we are starting to see a perceptible difference in integrity, and the quality is arguably diminished ... but the fidelity as far as using it is _good enough to me. _This is basically what will occur in the rendering engine, when a triangle/quad is rendered and reconstructs shading with low-res terrain macro color (1 texel per-meter) and a high-resolution detail texture (2048 textels per-meter)
+OK - now we are starting to see a perceptible difference in integrity, and the quality is arguably diminished ... but the fidelity as far as using it is _good enough to me._This is basically what will occur in the rendering engine, when a triangle/quad is rendered and reconstructs shading with low-res terrain macro color (1 texel per-meter) and a high-resolution detail texture (2048 textels per-meter)
 
 ### Results
 
@@ -292,13 +293,13 @@ Note: the more *homogeneous (in overall color)* your terrain detail texture is,
 |             | txt         | txt         | [ image ]     |
 | texture_040 | texture_044 | texture_042 | texture_045   |
 
-## FAQ:
+## FAQ
 
 **Q: Sniff test ... why should I care about this?**
 
-**A**: This ia a flexible and common approach to_ terrain detail_ mapping:
+**A**: This ia a flexible and common approach to_terrain detail_ mapping:
 
-CryEngine reference: _ [Creating Terrain Textures and Materials - CRYENGINE 3 Manual - Documentation](http://docs.cryengine.com/display/SDKDOC2/Creating+Terrain+Textures+and+Materials)_
+CryEngine reference: _[Creating Terrain Textures and Materials - CRYENGINE 3 Manual - Documentation](http://docs.cryengine.com/display/SDKDOC2/Creating+Terrain+Textures+and+Materials)_
 
 Splitting frequencies gets us:
 
@@ -308,7 +309,7 @@ Splitting frequencies gets us:
    3. Or we could use the low pass, to generate a color ramp (and a matching height map), which can be used as input in programs like World Machine to use in *colorization* *[Working with Texture Color Ramps](/display/lmbr/Working+with+Texture+Color+Ramps)*
 2. High-Pass, High-Frequency Detail
    1. Load the high-pass as the basecolor texture in a StandardPBR material and set the Blend mode to LinearLight.
-   2. This same approach can be used as the detail texture for a standard material, for instance 
+   2. This same approach can be used as the detail texture for a standard material, for instance
    3. Use the StandardPBR/TerrainDetailMaterial and blend the material across terrain, including good results when the macro color shifts (for example: an area that transitions from a light brown to a dark brown.)
 
 **Q: Can I just use the High Pass Filter in Photoshop?**
@@ -352,7 +353,7 @@ Speak like an artist... artists that use Photoshop, speak in the terms of Photos
 - It can similar be used in skin shading workflows, for instance highpass wrinkles and pore maps.
 - Image balance: get rid if uneven light and shadow in a material.
 
-## Reference:
+## Reference
 
 Cry doc ref related to this:
 

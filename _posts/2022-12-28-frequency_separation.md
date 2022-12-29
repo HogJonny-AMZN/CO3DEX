@@ -39,14 +39,13 @@ Layer Setup
 
 Here is our original image, we are going to prepare the frequency separation in a manner that is similar to photo retouching.
 
-| Layer 1                                                                                                                        | Layer 2                                                            | Layer 3   |           |
-| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ | --------- | --------- |
-| <img src="../assets/img/posts/2022-12-28-frequency_separation-assets/000.png" width="10%" title="" alt="" data-align="inline"> | [ image ]                                                          | [ image ] |           |
-| The original image is in the default "Layer 1"                                                                                 | 1.Duplicate the original image into a new layer called "Layer 2"\\ |           |           |
-| <br/>2.In "Layer 2" apply a gaussian blur filter, I used a value of 16 for the blur kernel.                                    | txt                                                                |           |           |
-|                                                                                                                                | txt                                                                | txt       | txt       |
-|                                                                                                                                |                                                                    | [ image ] | [ image ] |
-|                                                                                                                                |                                                                    | txt       | txt       |
+| Layer 1                                                                                                                        | Layer 2                                                                                                                                                  | Layer 3   |           |
+| ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- |
+| <img src="../assets/img/posts/2022-12-28-frequency_separation-assets/000.png" width="10%" title="" alt="" data-align="inline"> | [ image ]                                                                                                                                                | [ image ] |           |
+| The original image is in the default "Layer 1"                                                                                 | 1.Duplicate the original image into a new layer called "Layer 2"\\2.In "Layer 2" apply a gaussian blur filter, I used a value of 16 for the blur kernel. | txt       |           |
+|                                                                                                                                | txt                                                                                                                                                      | txt       | txt       |
+|                                                                                                                                |                                                                                                                                                          | [ image ] | [ image ] |
+|                                                                                                                                |                                                                                                                                                          | txt       | txt       |
 
 ### Layer Blending
 

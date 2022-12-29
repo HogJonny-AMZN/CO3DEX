@@ -35,17 +35,70 @@ This is a manual process for separating low / high frequency in an image editor 
 
 2. The other benefit here is having full control over the low pass data (and we get to understand HOW the high pass filter actually works)
 
-Layer Setup
+### Layer Setup
 
-Here is our original image, we are going to prepare the frequency separation in a manner that is similar to photo retouching.
+Here is our original image, we are going to prepare the frequency separation in a manner that is similar to photo retouching.  Below this table of images are the instructions for how to generate each layer.
 
-| Layer 1                                                                                                                        | Layer 2                                                                                                                                                  | Layer 3   |           |
-| ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- |
-| <img src="../assets/img/posts/2022-12-28-frequency_separation-assets/000.png" width="10%" title="" alt="" data-align="inline"> | [ image ]                                                                                                                                                | [ image ] |           |
-| The original image is in the default "Layer 1"                                                                                 | 1.Duplicate the original image into a new layer called "Layer 2"\\2.In "Layer 2" apply a gaussian blur filter, I used a value of 16 for the blur kernel. | txt       |           |
-|                                                                                                                                | txt                                                                                                                                                      | txt       | txt       |
-|                                                                                                                                |                                                                                                                                                          | [ image ] | [ image ] |
-|                                                                                                                                |                                                                                                                                                          | txt       | txt       |
+| Layer 1                                                                                                                        | Layer 2                                                                                                                        | Layer 3                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] |
+
+#### Layer 1
+
+1.  The original image is in the default "Layer 1"
+
+#### Layer 2
+
+1. Duplicate the original image into a new layer called "Layer 2"
+2. In "Layer 2" apply a Gaussian blur filter, I used a value of 16 for the blur kernel.
+
+**Note:** The higher the blur...
+
+- The less information in the low pass
+- *More* information in the high pass
+
+**Alternatively:** You could find the average single color value of the entire image, and then use this solid color as the low pass. This will maximize the amount of detail and color variance that remains in the *high pass* detail.
+
+#### Layer 3
+
+Now we are going to generate the *high pass*
+
+1. Duplicate the original "Layer 1" again, into a new "Layer 3", and make sure it is on the top of the layer stack
+2. In Photoshop, with "Layer 3" selected...
+3. Use the menu option:
+   1. Image > Apply Image
+
+There are different settings for this dialog depending on whether you are working with 9-bit or 16-bit color values:
+
+##### Hig Pass, 8-bit Color
+
+These settings are for an image with 8-bit color.
+
+In the dialog set it up like the following:
+
+- Layer: (use layer 2)
+- Offset: (use 128)
+- Blending: (use subtract)
+- Scale: (use 2)
+
+This will get you a high pass image like the one viewed above in Layer 3
+
+[ --- image ---------------------------------------------------------------------------------------------------------------- ]
+
+##### High Pass, 16-bit Color
+
+Note: the scale add offset is different for a 16-bit image.
+
+In the dialog set it up like the following:
+
+- Check invert
+- Offset: 0
+- Blending mode: Add
+- Scale: 2
+
+[ --- image ---------------------------------------------------------------------------------------------------------------- ]
+
+This should yield similar results.
 
 ### Layer Blending
 
@@ -217,19 +270,19 @@ We can mimic some of what happens during shading within Photoshop, lets' explore
 
 In this example, we are going to muck around with the low pass *and crunch it down* to a much smaller image, then reconstruct the image from two maps of different resolutions. Theoretically, we will loose some information which may decrease aspects like the fidelity, quality and overall data integrity of the image (but hey, we do that ALL the time in real time graphics.)
 
-| Original              | Downsampled       | Interpolated                    | Reconstruction                              | Difference                      |
-| --------------------- | ----------------- | ------------------------------- | ------------------------------------------- | ------------------------------- |
-| Low-pass, 1024 x 1024 | Low-pass, 16 x 16 | Low-pass, bilinear. 1024 x 1024 | Low-pass (bilinear), blended with high-pass | Original, minus reconcstruction |
-| [ image ]             | [ image ]         | [ image ]                       | [ image ]                                   | [ image ]                       |
+| Original                                                                                                                       | Downsampled                                                                                                                    | Interpolated                                                                                                                   | Reconstruction                                                                                                                 | Difference                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| Low-pass, 1024 x 1024                                                                                                          | Low-pass, 16 x 16                                                                                                              | Low-pass, bilinear. 1024 x 1024                                                                                                | Low-pass (bilinear), blended with high-pass                                                                                    | Original, minus reconcstruction                                                                                                |
+| [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] |
 
 As you can see in the final reconstructed image (and the diff) that there is not any perceptible loss in quality - in fact, you have to auto-level the hell out of that diff to even visualize the difference they are so minor.
 
 One more try, how low can we go?  Let's drop the low-pass from 1024 pixels, to 64, before recombining.
 
-| Original  | Downsampled | Interpolated | Reconstruction | Difference |
-| --------- | ----------- | ------------ | -------------- | ---------- |
-| txt       | txt         | txt          | txt            | txt        |
-| [ image ] | [ image ]   | [ image ]    | [ image ]      | [ image ]  |
+| Original                                                                                                                       | Downsampled                                                                                                                    | Interpolated                                                                                                                   | Reconstruction                                                                                                                 | Difference                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| txt                                                                                                                            | txt                                                                                                                            | txt                                                                                                                            | txt                                                                                                                            | txt                                                                                                                            |
+| [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] |
 
 OK - now we are starting to see a perceptible difference in integrity, and the quality is arguably diminished ... but the fidelity as far as using it is _good enough to me._This is basically what will occur in the rendering engine, when a triangle/quad is rendered and reconstructs shading with low-res terrain macro color (1 texel per-meter) and a high-resolution detail texture (2048 textels per-meter)
 
@@ -237,27 +290,27 @@ OK - now we are starting to see a perceptible difference in integrity, and the 
 
 Here are all three reconstructions again side-by-side, each is the final reconstructed resolution of 1024 pixels, only the resolution and up-sampling of the low-pass was altered.
 
-| Original        | 64x64 bilinear  | 16x16 bilinear  |
-| --------------- | --------------- | --------------- |
-| Low-pass: 1024  | Low-pass: 64    | Low-pass: 1024  |
-| High-pass: 1024 | High-pass: 1024 | High-pass: 1024 |
-| [ image ]       | [ image ]       | [ image ]       |
+| Original                                                                                                                       | 64x64 bilinear                                                                                                                 | 16x16 bilinear                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| Low-pass: 1024                                                                                                                 | Low-pass: 64                                                                                                                   | Low-pass: 1024                                                                                                                 |
+| High-pass: 1024                                                                                                                | High-pass: 1024                                                                                                                | High-pass: 1024                                                                                                                |
+| [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] |
 
 ### Color Alteration
 
 This is a pretty flexible technique, as the high pass frequency can be applied across a wide range of shifts in the low pass base colors and still arrive at decent looking results, here are a few extreme examples:
 
-| Original    | Downsampled    | Interpolated     | Reconstruction |
-| ----------- | -------------- | ---------------- | -------------- |
-| 1024 pixels | 32 x 32 pixels | Bilinear upscale | Blended        |
-| [ image ]   | [ image ]      | [ image ]        | [ image ]      |
+| Original                                                                                                                       | Downsampled                                                                                                                    | Interpolated                                                                                                                   | Reconstruction                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| 1024 pixels                                                                                                                    | 32 x 32 pixels                                                                                                                 | Bilinear upscale                                                                                                               | Blended                                                                                                                        |
+| [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] |
 
 And in this next version, we are simple going to hue shift our original low pass colors
 
-| Original    | Downsampled    | Interpolated     | Reconstruction |
-| ----------- | -------------- | ---------------- | -------------- |
-| 1024 pixels | 32 x 32 pixels | Bilinear upscale | Blended        |
-| [ image ]   | [ image ]      | [ image ]        | [ image ]      |
+| Original                                                                                                                       | Downsampled                                                                                                                    | Interpolated                                                                                                                   | Reconstruction                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| 1024 pixels                                                                                                                    | 32 x 32 pixels                                                                                                                 | Bilinear upscale                                                                                                               | Blended                                                                                                                        |
+| [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] |
 
 As you can see, we can make pretty abrupt and wild changes to the base color, and still arrive at visually interesting results!
 
@@ -265,12 +318,53 @@ As you can see, we can make pretty abrupt and wild changes to the base color, an
 
 Now let's briefly explore how we can use Photoshop's built-in *high pass filter* to generate our *high pass detail map*, then apply that back to the original to generate the matching *low pass macro texture*
 
-| Generate High-Pass | Linear Burn | Linear Add | Low Pass A | Low Pass B |
-| ------------------ | ----------- | ---------- | ---------- | ---------- |
-| txt                | txt         | txt        | txt        | txt        |
-|                    | [ image ]   | [ image ]  |            |            |
+| 1.Generate High-Pass                                                                                                           | 2.Linear Burn                                                                                                                  | 3.Linear Add                                                                                                                   | 4.Low-PassA                                                                                                                    | 5.Low-PassB                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] | [ --- image ---------------------------------------------------------------------------------------------------------------- ] |
 
-Note: There is a REALLY good chance, there is a correct error free way to do this that I simply haven't figured out yet. And I am guessing, it would be fairly easy to write a python script or some code that would do all of this work and spit out the separated frequencies.
+#### 1. Generate High-Pass
+
+In the base "Layer 1" with original image
+
+- Filter > Other > High Pass
+  
+  - Use a radius of 16
+
+#### 2. Linear Burn
+
+- Duplicate the High Pass (Layer 1) into "Layer 2""
+- Level the Image:
+  - Output Levels: 0 ... 128
+- Invert the Image
+- Set the Layer to *Linear Burn*
+
+[ --- image ---------------------------------------------------------------------------------------------------------------- ]
+
+#### 3. Linear Add
+
+- Duplicate the High Pass (Layer 1) again into "Layer 3""
+- Level the Image:
+  - Output Levels: 128 ... 255
+- Invert the Image
+- Set the Layer to *Linear Dodge (Add)*
+
+[ --- image ---------------------------------------------------------------------------------------------------------------- ]
+
+#### 4. Low-Pass
+
+As you can see, we are pretty close to the simple Gaussian Blurred Low Pass Method (close enough that after downsampling and interpolation the errors might be removed.)
+
+But as you can see in the image to the right, the error are a result of the *order of operation* ...
+
+#### 5. Low-Pass Alt (re-order)
+
+If we swap the ordering of Layer 2 / 3
+
+The error show up in the upper ranges!
+
+This is why I prefer the other method, it give you full control over the *low pass* ... and separating the *high pass* less steps and can be done in a single operation without errors.
+
+**Note**: There is a REALLY good chance, there is a correct error free way to do this that I simply haven't figured out yet. And I am guessing, it would be fairly easy to write a Python script or some code that would do all of this work and spit out the separated frequencies.
 
 ## Terrain Macro Color and Detail Materials
 
@@ -286,11 +380,12 @@ This approach works well for creating detail materials for terrain, here is the 
 
 Note: the more *homogeneous (in overall color)* your terrain detail texture is, the more successful this approach.  But let's use the image in their doc.
 
-| Source      | Low-Pass    | High-Pass   | Reconstructed |
-| ----------- | ----------- | ----------- | ------------- |
-| texture_040 | texture_041 | texture_042 | texture_043   |
-|             | txt         | txt         | [ image ]     |
-| texture_040 | texture_044 | texture_042 | texture_045   |
+| Source      | Low-Pass                                                                                                                                                                  | High-Pass                                                                                                                                                           | Reconstructed |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| texture_040 | texture_041                                                                                                                                                               | texture_042                                                                                                                                                         | texture_043   |
+|             | Above is a low-pass color map, which we resized to 32x32 pixels and then restored to the target resolution with bilinear sampling.
+<br/>Below is the average macro color. | As you can see in the diff on the right, there is almost no perceptible difference between the low pass and using a single color ( the stones appear a bit greener) | texture_045   |
+| texture_040 | texture_044                                                                                                                                                               | texture_042                                                                                                                                                         | texture_045   |
 
 ## FAQ
 

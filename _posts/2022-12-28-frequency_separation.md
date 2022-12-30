@@ -21,7 +21,7 @@ Hello and welcome to the Open 3D Engine CO3DEX, a blog of my Journey's in Real-t
 
 This article helps us understand the importance of *Frequency Separation* (FS), which is a technique used in image editing to separate the high-frequency details, such as texture and blemishes, from the low-frequency information, such as color and tone. This allows the editor to make adjustments to these different elements separately, allowing for more precise and targeted edits. For example, the Image Author could use frequency separation to smooth out the skin tone of a portrait without losing the texture of the skin, or to remove blemishes without affecting the overall skin tone. The technique involves creating two layers in the image, one for the high frequencies and one for the low frequencies, and then using blurring and other techniques to separate the two layers. Frequency separation can be a useful tool in a variety of editing situations, including portrait retouching, product photography, and landscape editing.
 
-As noted above, the frequency separation technique which is most often used in retouching photos, however it can also be a useful technique to understand and apply technically to the creating of textures for use in shading techniques.  For example, as we will explore,  frequency separation can be used as part of a workflow for generating macro color maps and high-frequency terrain detail materials for use in 3D graphics.  You may already know about *high pass filtering* and this is also related to that (for instance, *high pass terrain detail maps.*)  First we will explain frequency separation as a concept, then we will utilize it with a terrain detail texture.
+As noted above, the frequency separation technique which is most often used in retouching photos; however, it can also be a useful technique to understand and apply technically to the creating of textures for use in shading techniques.  For example, as we will explore, frequency separation can be used as part of a workflow for generating macro color maps and high-frequency terrain detail materials for use in 3D graphics.  You may already know about *high pass filtering* and this is also related to that (for instance, *high pass terrain detail maps.*)  First we will explain frequency separation as a concept, then we will utilize it with a terrain detail texture.
 
 ## Basic Frequency Separation
 
@@ -109,7 +109,7 @@ In Photoshop, with "Layer 3" selected, set the layer blend mode of the *high pas
 
 <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/005.png" width="65%" title="" alt="" data-align="inline">
 
-As you can see in the screenshot, we've restored the original image fidelity by properly blending the low + high pass frequencies back together.
+As you can see in the screenshot we've restored the original image fidelity by properly blending the low + high pass frequencies back together.
 
 ## Tiling Textures
 
@@ -128,7 +128,7 @@ You will want to use the following steps in order to make sure that both the low
   - Note:  This fills the image with the pattern, consider it a 3x3 tiled version of you image ... so we can work on the center tile.
 - ... now follow the steps up above for splitting the image frequencies ...
 - Image > Canvas Size
-  - Width/Height: 33.33 ***percent***, or the  in**_ pixels_**
+  - Width/Height: 33.33 ***percent***, or the in **_pixels_**
 
 ### ***Why***
 
@@ -464,7 +464,9 @@ General:
 
 - [The Power of the High Pass Filter](https://www.gamedeveloper.com/art/the-power-of-the-high-pass-filter)
 - [How to Retouch Skin Using Frequency Separation in Photoshop](https://www.makeuseof.com/photoshop-how-to-retouch-skin-frequency-separation/)
-- [[Inverted High Pass (IHP) Retouching Tutorial — Retoucher | Daniel Meadows](https://www.dmd-digital-retouching.com/blog/inverted-high-pass-ihp-retouching-tutorial/)
+- [Inverted High Pass (IHP) Retouching Tutorial — Retoucher | Daniel Meadows](https://www.dmd-digital-retouching.com/blog/inverted-high-pass-ihp-retouching-tutorial/)
+- [grunge-highpass-and-lowpass-textures](https://blog.stockvault.net/freebies/grunge-highpass-and-lowpass-textures/)
+
 
 ---
 

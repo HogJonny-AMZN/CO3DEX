@@ -39,11 +39,11 @@ This is a manual process for separating low / high frequency in an image editor 
 
 Here is our original image, we are going to prepare the frequency separation in a manner that is similar to photo retouching.  Below this table of images are the instructions for how to generate each layer.
 
-| #### Layer 1                                                                                                                        | #### Layer 2                                                                                                                        | #### Layer 3                                                                                                                        |
+| Layer 1                                                                                                                        | Layer 2                                                                                                                        | Layer 3                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/000.png" width="300px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/001.png" width="300px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/002.png" width="300px" title="" alt="" data-align="inline"> |
 
-
+_ _
 #### Layer 1
 
 1.  The original image is in the default "Layer 1"
@@ -297,6 +297,8 @@ Here are all three reconstructions again side-by-side, each is the final reconst
 | High-pass: 1024                                                                                                                | High-pass: 1024                                                                                                                | High-pass: 1024                                                                                                                |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/016.png" width="256px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/017.png" width="256px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/018.png" width="256px" title="" alt="" data-align="inline"> |
 
+_ _
+
 ### Color Alteration
 
 This is a pretty flexible technique, as the high pass frequency can be applied across a wide range of shifts in the low pass base colors and still arrive at decent looking results, here are a few extreme examples:
@@ -440,8 +442,8 @@ Speak like an artist... artists that use Photoshop, speak in the terms of Photos
 
 **A:** Yes. Substance 3D Designer has nodes that perform similar functions to a High Pass Filter:
 
-- [Highpass | Substance 3D Designer](https://substance3d.adobe.com/documentation/sddoc/highpass-159449203.html)
-- [Luminance Highpass | Substance 3D Designer](https://substance3d.adobe.com/documentation/sddoc/luminance-highpass-159449246.html)
+- [Highpass, Substance 3D Designer](https://substance3d.adobe.com/documentation/sddoc/highpass-159449203.html)
+- [Luminance Highpass, Substance 3D Designer](https://substance3d.adobe.com/documentation/sddoc/luminance-highpass-159449246.html)
 
 **Q: Can you give me a rundowon on 'Frequency separation' in game and realtime 3D content, versus it's use on photo retouching?**
 
@@ -464,8 +466,8 @@ General:
 
 - [The Power of the High Pass Filter](https://www.gamedeveloper.com/art/the-power-of-the-high-pass-filter)
 - [How to Retouch Skin Using Frequency Separation in Photoshop](https://www.makeuseof.com/photoshop-how-to-retouch-skin-frequency-separation/)
-- [Inverted High Pass (IHP) Retouching Tutorial — Retoucher | Daniel Meadows](https://www.dmd-digital-retouching.com/blog/inverted-high-pass-ihp-retouching-tutorial/)
-- [grunge-highpass-and-lowpass-textures](https://blog.stockvault.net/freebies/grunge-highpass-and-lowpass-textures/)
+- [Inverted High Pass (IHP) Retouching Tutorial — Retoucher — Daniel Meadows](https://www.dmd-digital-retouching.com/blog/inverted-high-pass-ihp-retouching-tutorial/)
+- [grunge highpass and lowpass textures](https://blog.stockvault.net/freebies/grunge-highpass-and-lowpass-textures/)
 
 
 ---

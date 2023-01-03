@@ -37,12 +37,13 @@ This is a manual process for separating low / high frequency in an image editor 
 
 ### Layer Setup
 
-Here is our original image, we are going to prepare the frequency separation in a manner that is similar to photo retouching.  Below this table of images are the instructions for how to generate each layer.  This image I generated using https://beta.dreamstudio.ai/dream with the following prompt "A colorful explosion of quantum particles in a swirling flow. Use a rainbow of color values, including blues, greens, reds, and yellows.  With high contrast. Make the center the brightest, where sun like particle has exploded yellow photons. High-def, high resolution.  3D simulation. Trending on ArtStation." And then I tweaked it some in Photoshop (The images I had orginally used, I am not sure if they were licensed.)
+Here is our original image, we are going to prepare the frequency separation in a manner that is similar to photo retouching.  Below this table of images are the instructions for how to generate each layer.  
 
 | Layer 1                                                                                                                        | Layer 2                                                                                                                        | Layer 3                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/000.png" width="300px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/001.png" width="300px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/002.png" width="300px" title="" alt="" data-align="inline"> |
 
+This image I generated using https://beta.dreamstudio.ai/dream with the following prompt "A colorful explosion of quantum particles in a swirling flow. Use a rainbow of color values, including blues, greens, reds, and yellows.  With high contrast. Make the center the brightest, where sun like particle has exploded yellow photons. High-def, high resolution.  3D simulation. Trending on ArtStation." And then I tweaked it some in Photoshop (The images I had orginally used, I am not sure if they were licensed.)
 
 #### Layer 1
 

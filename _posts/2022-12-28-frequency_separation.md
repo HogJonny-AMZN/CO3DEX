@@ -392,13 +392,13 @@ Note: the more *homogeneous (in overall color)* your terrain detail texture is,
 
 Let's do something similar to their doc, but we will use this freely available texture set: [polyhaven.com/a/cobblestone_floor_04]([http://docs.cryengine.com/display/SDKDOC2/Creating+Terrain+Textures+and+Materials](https://polyhaven.com/a/cobblestone_floor_04))
 
-1.Downlaod the texture set (.zip)
-2.Unpack the .zip
-3.We are only going to use the color map for this example (the other textures can be loaded into a PBR material.)
-4.These files should be renamed if you are going to use them in Open 3D Engine, due to naming conventions, our filemask suffix's need to be last to inform the asset processor ho to handle the texture channel type (basecoloc, normal, roughness, etc.)  I recommend making the same naming fix to all of the texture image files.
-5.Rename from this:  cobblestone_floor_04_diff_1k.jpg
-6.To this: cobblestone_floor_04_1k_diff.jpg
-7.Follow the steps for the "frequency seperation workflow"
+1.  Downlaod the texture set (.zip)
+2.  Unpack the .zip
+3.  We are only going to use the color map for this example (the other textures can be loaded into a PBR material.)
+4.  These files should be renamed if you are going to use them in Open 3D Engine, due to naming conventions, our filemask suffix's need to be last to inform the asset processor ho to handle the texture channel type (basecoloc, normal, roughness, etc.)  I recommend making the same naming fix to all of the texture image files.
+5.  Rename from this:  cobblestone_floor_04_diff_1k.jpg
+6.  To this: cobblestone_floor_04_1k_diff.jpg
+7.  Follow the steps for the "frequency seperation workflow"
 
 | Source                                                                                                                                 | Low-Pass                                                                                                                                                                  | High-Pass                                                                                                                                                           | Reconstructed                                                                                                                          |
 | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |

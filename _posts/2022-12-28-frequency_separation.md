@@ -406,7 +406,8 @@ Let's do something similar to their doc, but we will use this freely available t
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_040.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_044.png" width="200px" title="" alt="" data-align="inline">                                    | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_042.png" width="200px" title="" alt="" data-align="inline">                              | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_045.png" width="200px" title="" alt="" data-align="inline"> |
 
 - Above in the top row is a low-pass color map, which we resized to 32x32 pixels and then restored to the target resolution with bilinear sampling.
-- In the bottom row, we have used the average macro color instead.
+- In the bottom row, we have used the average macro color instead for the low-pass.
+- In the far right column, we compare the two reconstructions, as the resulting difference between them.
 
 As you can see in the diff on the right, there is almost no perceptible difference between the low pass and using a single color (the some contrast is loss, it's a bit more homogenous.)
 
@@ -466,9 +467,11 @@ Speak like an artist... artists that use Photoshop, speak in the terms of Photos
 **A:** Yes. There are a lot of areas it can be used, here are a few examples:
 
 - Separate macro color and high frequency detail, as described in this document: make a macro color texture, make a detail texture for terrain.
+- It's a viable approach to storing color as split-values for a PBR material (Quixel's native data is stored this way), in this sense there may be situations where it is a valued feature (1 texture, 2 jackets of slightly different hues)
+- This approach can also be used as an optimization, it's possible that the high-pass texture may have less visual compression artifacts (it thus may help combat DXT and other compression artifacts.)
 - It can be used to generate high-frequency detail textures for other non-terrain workflows as well, such as repeat patterns for blue jeans, other cloth, and leathers, etc.
 - It can similar be used in skin shading workflows, for instance highpass wrinkles and pore maps.
-- Image balance: get rid if uneven light and shadow in a material.
+- Image balance: get rid if uneven light and shadow in a material.  The game material example above, shows this, we lost some contrast and things became more homogenous, but in actuality that made the end results higher quality as the tiling-repeat of thos material will be less visually obvious.
 
 ## Reference
 

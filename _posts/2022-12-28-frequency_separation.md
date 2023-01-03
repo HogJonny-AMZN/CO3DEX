@@ -300,7 +300,7 @@ Here are all three reconstructions again side-by-side, each is the final reconst
 | High-pass: 1024                                                                                                                | High-pass: 1024                                                                                                                | High-pass: 1024                                                                                                                |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/016.png" width="256px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/009.png" width="256px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/014.png" width="256px" title="" alt="" data-align="inline"> |
 
-_ _
+Looking left to right here, I have a hard time picking out the differences.  I have to put them into photoshop layers to compare them before it's obvious.
 
 ### Color Alteration
 

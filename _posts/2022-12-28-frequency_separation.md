@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Understanding Image Frequency Separation, Macro Color and Detail Mapping"
+title:  "Image Frequency Separation, for Macro Color and Detail Mapping"
 summary: "Understanding Frequency Separation"
 author: hogjonny
 date: '2022-12-29 15:52:00 -0600'

@@ -424,7 +424,7 @@ Splitting frequencies gets us:
 1. Low-Pass Color
    1. This can be used directly as a texture input, for example in a terrain generator, or the o3de Terrain Macro Material
    2. Can be used to find the average color (down-sample to 1x1), this value can be placed into the color swatch of a StandardPBR material (or Terrain Detail Material)
-   3. Or we could use the low pass, to generate a color ramp (and a matching height map), which can be used as input in programs like World Machine to use in *colorization* *[Working with Texture Color Ramps](/display/lmbr/Working+with+Texture+Color+Ramps)*
+   3. Or we could use the low pass, to generate a color ramp (and a matching height map), which can be used as input in programs like World Machine to use in *Colorization: Working with Texture Color Ramps* (<-- future article to write.)
 2. High-Pass, High-Frequency Detail
    1. Load the high-pass as the basecolor texture in a StandardPBR material and set the Blend mode to LinearLight.
    2. This same approach can be used as the detail texture for a standard material, for instance
@@ -449,7 +449,7 @@ Speak like an artist... artists that use Photoshop, speak in the terms of Photos
 
 **A:** Yes, this is also covered above, but if you want a general crash course on the math here is reference for how to do a lot of Photoshop style_ blending and maths, in shader code:
 
-[WPFSLBlendModeFx/PhotoshopMathFP.hlsl at master · cplotts/WPFSLBlendModeFx · GitHub](https://github.com/cplotts/WPFSLBlendModeFx/blob/master/PhotoshopMathFP.hlsl)
+[PhotoshopMathFP.hlsl · cplotts/WPFSLBlendModeFx](https://github.com/cplotts/WPFSLBlendModeFx/blob/master/PhotoshopMathFP.hlsl)
 
 **Q: Do I need to use Photoshop?**
 

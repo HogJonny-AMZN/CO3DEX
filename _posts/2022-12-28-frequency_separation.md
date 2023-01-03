@@ -72,7 +72,7 @@ Now we are going to generate the *high pass*
 
 There are different settings for this dialog depending on whether you are working with 9-bit or 16-bit color values:
 
-##### Hig Pass, 8-bit Color
+##### High Pass, 8-bit Color
 
 These settings are for an image with 8-bit color.
 
@@ -110,7 +110,7 @@ In Photoshop, with "Layer 3" selected, set the layer blend mode of the *high pas
 
 <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/005.png" width="65%" title="" alt="" data-align="inline">
 
-As you can see in the screenshot we've restored the original image fidelity by properly blending the low + high pass frequencies back together.
+As you can see in the screenshot we've restored the original image fidelity by properly blending the low + high pass frequencies back together.  This is axactly the type of situation that may occur during the shading of a material, skip ahead to the section "Blending Math".
 
 ## Tiling Textures
 

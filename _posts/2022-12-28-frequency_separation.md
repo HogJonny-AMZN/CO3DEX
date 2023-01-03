@@ -278,7 +278,7 @@ In this example, we are going to muck around with the low pass *and crunch it d
 
 As you can see in the final reconstructed image, and the Difference next to it, there is not any perceptible loss in quality (the Difference appears black) - in fact, you have to maximize the leveling of the histogram to visually see where the differences might be, here is an example:
 
-<img src="/assets/img/posts/2022-12-28-frequency_separation-assets/difference.png" title="" alt="" data-align="inline">
+<img src="/assets/img/posts/2022-12-28-frequency_separation-assets/difference.png" title="" width="65%" alt="" data-align="inline">
 
 One more try, how low can we go?  Let's drop the low-pass from 1024 pixels, to 64, before recombining.
 
@@ -323,7 +323,7 @@ As you can see, we can make pretty abrupt and wild changes to the base color, an
 
 Now let's briefly explore how we can use Photoshop's built-in *high pass filter* to generate our *high pass detail map*, then apply that back to the original to generate the matching *low pass macro texture*
 
-| 1.Generate High-Pass                                                                                                           | 2.Linear Burn                                                                                                                  | 3.Linear Add                                                                                                                   | 4.Low-PassA                                                                                                                    | 5.Low-PassB                                                                                                                    |
+| 1.Generate High-Pass                                                                                                           | 2.Linear Burn                                                                                                                  | 3.Linear Add                                                                                                                   | 4.Low-Pass A                                                                                                                    | 5.Low-Pass B                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/027.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/028.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/029.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/030.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/031.png" width="200px" title="" alt="" data-align="inline"> |
 
@@ -336,12 +336,14 @@ Dupliacte the original image into "Layer 1", we will use this layer to generate 
 Use "Layer 1" to generate the high-pass using the filter method
 
 Filter > Other > High Pass
-- use a radius of 16
+- I used a radius of 16 in these examples
+- However, you can use any size kernal, like 32 or more
+- The best results, are tuning this value based on the variation within the textures color and details
 
 #### 2. Linear Burn
 
 - Duplicate the High-Pass (Layer 1) into "Layer 2"
-- You can hide "Layer 1", we aren't going to directly use the high-pass
+- You can hide "Layer 1", we aren't going to directly use the high-pass in this example
 - Level the Image in "Layer 2":
   - Output Levels: 0 ... 128
 - Invert the Image
@@ -359,29 +361,27 @@ Filter > Other > High Pass
 
 <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/033.png" title="" alt="" data-align="inline">
 
-#### 4. Low-Pass
+#### 4. Low-Pass A
 
 As you can see, we are pretty close to the simple Gaussian Blurred Low Pass Method (close enough that after down-sampling and interpolation the errors might be removed.)
 
 But as you can see in the image to the right, the error are a result of the *order of operation* ...
 
-#### 5. Low-Pass Alt (re-order)
+#### 5. Low-Pass B (Alt, re-order layers)
 
-If we swap the ordering of Layer 2 / 3
+Swap the ordering of Layer 2 & 3
 
-The error show up in the upper ranges!
+Now the error show up in the upper ranges!
 
-This is why I prefer the other method, it give you full control over the *low pass* ... and separating the *high pass* less steps and can be done in a single operation without errors.
+This is why I prefer the other method, it gives you full control over separating the *high pass* ... and generating a usable *low pass*. It's less steps and the blending can be done in a single operation (LinearLight) without introducing any errors.
 
-**Note**: There is a REALLY good chance, there is a correct error free way to do this that I simply haven't figured out yet. And I am guessing, it would be fairly easy to write a Python script or some code that would do all of this work and spit out the separated frequencies.
+**Note**: There is a REALLY good chance, there is a more correct and error free way to handle this approach, which I simply haven't figured out yet. And I am guessing, it would be fairly easy to write a Python script or some code that would do all of this work and spit out the separated frequencies.
 
 ## Terrain Macro Color and Detail Materials
 
-To use frequency separation for the purpose of , you would typically start by obtaining an image of the terrain that you want to create a color map and high-frequency detail material for. This image could be a photograph or a scan of real-world terrain, or it could be a digital image that you have created or obtained from another source.
+To use frequency separation for the purpose of Terain Detail Materials, you would typically start by obtaining an image of the terrain that you want to create a color map and high-frequency detail material for. This image could be a photograph or a scan of real-world terrain (such as Quixel materials), or it could be a digital image that you have created or obtained from another source.  Next, you would use the frequency separation technique to create two layers in the image: one for the high frequencies and one for the low frequencies. The high frequency layer would contain the detail and texture information, while the low frequency layer would contain the color and tone information. You could then use the high frequency layer to generate a high-frequency detail material for the terrain, and the low frequency layer to generate a macro color map. These materials could then be used in a 3D graphics application to create a detailed and realistic representation of the terrain.
 
-Next, you would use the frequency separation technique to create two layers in the image: one for the high frequencies and one for the low frequencies. The high frequency layer would contain the detail and texture information, while the low frequency layer would contain the color and tone information.
-
-You could then use the high frequency layer to generate a high-frequency detail material for the terrain, and the low frequency layer to generate a macro color map. These materials could then be used in a 3D graphics application to create a detailed and realistic representation of the terrain.
+That is the gist, when we talk scanned materials, photogrammetry, or Physically Based Rendering (PBR), there is more to it than that, but those concepts and details are outside the scope of this article.
 
 This approach works well for creating detail materials for terrain, here is the original cry doc that covers this:
 

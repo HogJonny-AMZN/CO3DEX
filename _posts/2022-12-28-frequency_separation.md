@@ -104,7 +104,7 @@ This should yield similar results.
 
 ### Layer Blending
 
-Now, it is possible to combine the _low pass_(layer 2) and the _high pass_(layer 3)
+Now, it is possible to combine the _low pass_ "layer 2" and the _high pass_ "layer 3"
 
 In Photoshop, with "Layer 3" selected, set the layer blend mode of the *high pass to Linear light*
 
@@ -129,7 +129,8 @@ You will want to use the following steps in order to make sure that both the low
   - Note:  This fills the image with the pattern, consider it a 3x3 tiled version of you image ... so we can work on the center tile.
 - ... now follow the steps up above for splitting the image frequencies ...
 - Image > Canvas Size
-  - Width/Height: 33.33 ***percent***, or the in **_pixels_**
+  - Width/Height: 33.33 ***percent***, or resolutions in **_pixels_**, in this case 1024
+  - This will preserve the original center tile, and crop out the border tiles
 
 ### ***Why***
 
@@ -242,7 +243,7 @@ float3 ApplyTextureBlend(float3 color, float3 blendColor, float factor, TextureB
 
 ## Recombinatorial Examples
 
-Now that we briefly covered the math, lets try out some other tests with combining the low-pass (color) an high-pass (detail.) This technique provides a lot of flexibility, that actually relates to usage within 3D graphics, such as terrain workflows.  In games, we might feed multiple textures of different resolutions, to different parts of the rendering system, where they are then recombined during shading.
+Now that we briefly covered the math, let's try out some other tests with combining the low-pass (color) an high-pass (detail.) This technique provides a lot of flexibility, that actually relates to usage within 3D graphics, such as terrain workflows.  In games, we might feed multiple textures of different resolutions, to different parts of the rendering system, where they are then recombined during shading. And the color of pixels may change as we transition across regions of the terrain.
 
 An example might be...
 
@@ -260,7 +261,7 @@ An example might be...
 
 Some of the benefits of taking this approach:
 
-- Terran macro color can be drawn in the distance without the detail texture and appear correct
+- Terran Macro Molor can be drawn in the distance without the Detail Texture and appear correct
 - Detail textures can use a LinearLight blend to combine high-frequency details with the underlying macro color (with stable visual results)
 - Detail texturing can blend in/out over distance smoothly, triangles in the background can render with less shading instructions (should equal performance gains)
 - Detail texturing can blend nicely with modulation and variance in the macro color (e.g. blending along an area where the macro color grades from a light brown to dark brown)
@@ -281,7 +282,7 @@ As you can see in the final reconstructed image, and the Difference next to it, 
 
 <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/difference.png" title="" width="65%" alt="" data-align="inline">
 
-One more try, how low can we go?  Let's drop the low-pass from 1024 pixels, to 64, before recombining.
+One more try, how low can we go?  Let's drop the low-pass from 1024 pixels, to 16x16, before recombining.
 
 | Original                                                                                                                       | Downsampled                                                                                                                    | Interpolated                                                                                                                   | Reconstruction                                                                                                                 | Difference                                                                                                                     |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |

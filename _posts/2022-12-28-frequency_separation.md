@@ -261,7 +261,7 @@ An example might be...
 
 Some of the benefits of taking this approach:
 
-- Terran Macro Molor can be drawn in the distance without the Detail Texture and appear correct
+- Terran Macro Color can be drawn in the distance without the Detail Texture and appear correct
 - Detail textures can use a LinearLight blend to combine high-frequency details with the underlying macro color (with stable visual results)
 - Detail texturing can blend in/out over distance smoothly, triangles in the background can render with less shading instructions (should equal performance gains)
 - Detail texturing can blend nicely with modulation and variance in the macro color (e.g. blending along an area where the macro color grades from a light brown to dark brown)
@@ -396,7 +396,7 @@ Let's do something similar to their doc, but we will use this freely available t
 1.  Downlaod the texture set (.zip)
 2.  Unpack the .zip
 3.  We are only going to use the color map for this example (the other textures can be loaded into a PBR material.)
-4.  These files should be renamed if you are going to use them in Open 3D Engine, due to naming conventions, our filemask suffix's need to be last to inform the asset processor ho to handle the texture channel type (basecoloc, normal, roughness, etc.)  I recommend making the same naming fix to all of the texture image files.
+4.  These files should be renamed if you are going to use them in Open 3D Engine, due to naming conventions, our filemask suffix's need to be last to inform the asset processor ho to handle the texture channel type (basecolor, normal, roughness, etc.)  I recommend making the same naming fix to all of the texture image files.
 5.  Rename from this:  cobblestone_floor_04_diff_1k.jpg
 6.  To this: cobblestone_floor_04_1k_diff.jpg
 7.  Follow the steps for the "frequency seperation workflow"
@@ -407,17 +407,17 @@ Let's do something similar to their doc, but we will use this freely available t
 |                                                                                                                                        |  |  | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_046.png" width="200px" title="" alt="" data-align="inline">                                                                                                                            |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_040.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_044.png" width="200px" title="" alt="" data-align="inline">                                    | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_042.png" width="200px" title="" alt="" data-align="inline">                              | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_045.png" width="200px" title="" alt="" data-align="inline"> |
 
-- Above in the top row is a low-pass color map, which we resized to 32x32 pixels and then restored to the target resolution with bilinear sampling.
+- Above in the top row is the low-pass color map, which we resized to 32x32 pixels and then resized back to the target resolution with bilinear sampling.
 - In the bottom row, we have used the average macro color instead for the low-pass.
-- In the far right column, we compare the two reconstructions, as the resulting difference between them.
+- In the far right column, we compare the two reconstructions, and the resulting differences between them.
 
-As you can see in the diff on the right, there is almost no perceptible difference between the low pass and using a single color (the some contrast is loss, it's a bit more homogenous.)
+As you can see in the diff on the right, there is almost no perceptible difference between the low-pass and using a single averaged color (some macro contrast is lost, the overall result is more homogenous.)  These results may vary of course depending on the amount of change in color and details across the image map. And it reiterate an important point, you may want to play with the blur size kernel to get the best results per image. Since that quality result may be subjective, automation pipelines may not be able to easily apply the best fit; seems like this is an opportunity for a future learning model that can make this best guess. 
 
 ## FAQ
 
 **Q: Sniff test ... why should I care about this?**
 
-**A**: This ia a flexible and common approach to_terrain detail_ mapping:
+**A**: This ia a flexible and common approach to _terrain detail_ mapping:
 
 CryEngine reference: _[Creating Terrain Textures and Materials - CRYENGINE 3 Manual - Documentation](http://docs.cryengine.com/display/SDKDOC2/Creating+Terrain+Textures+and+Materials)_
 
@@ -432,11 +432,26 @@ Splitting frequencies gets us:
    2. This same approach can be used as the detail texture for a standard material, for instance
    3. Use the StandardPBR/TerrainDetailMaterial and blend the material across terrain, including good results when the macro color shifts (for example: an area that transitions from a light brown to a dark brown.)
 
+Q: Where to next?
+
+A: There are a lot of ideas for where this can lead, here are some:
+
+- You could turn these steps into a Photoshop Action, this should allow you to automate running them on any image within Photoshop.
+  - [Automate your edits with Photoshop actions.](https://www.adobe.com/products/photoshop/actions.html#:~:text=Adobe%20Photoshop%20actions%20are%20a,they%20help%20you%20automate%20tasks.)
+- Once you've done that, you can use Actions in bulk automation (process a whole folder)
+  - Photoshop > File > Autoamtion > Batch...
+  - [Processing Batch Files](https://helpx.adobe.com/photoshop/using/processing-batch-files.html)
+- Once you have a Photoshop Action, that could be made into a Photoshop Droplet.  This would allow you to integrate into a pipeline and external automation.
+  - Photoshop > File > Autoamtion > Create Droplet
+  - [How and Why to Use Droplets](https://www.slrlounge.com/photoshop-tips-how-and-why-to-use-droplets/)
+- Write a Python image utility script that does all this work (with PIL, or OpenImageIO)
+- Make that py script into a Dockable Utility Panel tool that is integrated into the Editor and/or Content Tools and Workflows.
+
 **Q: Can I just use the High Pass Filter in Photoshop?**
 
 **A:** Yes. See the section above titled 'High Pass Filter'?
 
-- If you don't car about retrieving the low-pass color, then this is fine (and much quicker to perform)
+- If you don't care about retrieving the low-pass color, then this is fine (and much quicker to perform)
 - You can also derive a low-pass color map this way (but it's clunky as shown above)
 
 **Q: What does LinearLight mean?**
@@ -449,7 +464,7 @@ Speak like an artist... artists that use Photoshop, speak in the terms of Photos
 
 **Q: Can you tell me how the blending math works?**
 
-**A:** Yes, this is also covered above, but if you want a general crash course on the math here is reference for how to do a lot of Photoshop style_ blending and maths, in shader code:
+**A:** Yes, this is also covered above, but if you want a general crash course on the math here is reference for how to do a lot of _Photoshop style_ blending and maths, in shader code:
 
 [PhotoshopMathFP.hlsl · cplotts/WPFSLBlendModeFx](https://github.com/cplotts/WPFSLBlendModeFx/blob/master/PhotoshopMathFP.hlsl)
 
@@ -473,7 +488,7 @@ Speak like an artist... artists that use Photoshop, speak in the terms of Photos
 - This approach can also be used as an optimization, it's possible that the high-pass texture may have less visual compression artifacts (it thus may help combat DXT and other compression artifacts.)
 - It can be used to generate high-frequency detail textures for other non-terrain workflows as well, such as repeat patterns for blue jeans, other cloth, and leathers, etc.
 - It can similar be used in skin shading workflows, for instance highpass wrinkles and pore maps.
-- Image balance: get rid if uneven light and shadow in a material.  The game material example above, shows this, we lost some contrast and things became more homogenous, but in actuality that made the end results higher quality as the tiling-repeat of thos material will be less visually obvious.
+- Image balance: get rid of uneven light and shadow in a material.  The game material example above, shows this, we lost some contrast and things became more homogenous, but in actuality that made the end results higher quality as the tiling-repeat of thos material will be less visually obvious.
 
 ## Reference
 

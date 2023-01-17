@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Understanding Image Frequency Separation, Macro Color and Detail Mapping"
+title:  "Image Frequency Separation, for Macro Color and Detail Mapping"
 summary: "Understanding Frequency Separation"
 author: hogjonny
 date: '2022-12-29 15:52:00 -0600'
@@ -37,13 +37,14 @@ This is a manual process for separating low / high frequency in an image editor 
 
 ### Layer Setup
 
-Here is our original image, we are going to prepare the frequency separation in a manner that is similar to photo retouching.  Below this table of images are the instructions for how to generate each layer.
+Here is our original image, we are going to prepare the frequency separation in a manner that is similar to photo retouching.  Below this table of images are the instructions for how to generate each layer.  
 
 | Layer 1                                                                                                                        | Layer 2                                                                                                                        | Layer 3                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/000.png" width="300px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/001.png" width="300px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/002.png" width="300px" title="" alt="" data-align="inline"> |
 
-_ _
+This image I generated using https://beta.dreamstudio.ai/dream with the following prompt "A colorful explosion of quantum particles in a swirling flow. Use a rainbow of color values, including blues, greens, reds, and yellows.  With high contrast. Make the center the brightest, where sun like particle has exploded yellow photons. High-def, high resolution.  3D simulation. Trending on ArtStation." And then I tweaked it some in Photoshop (The images I had orginally used, I am not sure if they were licensed.)
+
 #### Layer 1
 
 1.  The original image is in the default "Layer 1"
@@ -71,7 +72,7 @@ Now we are going to generate the *high pass*
 
 There are different settings for this dialog depending on whether you are working with 9-bit or 16-bit color values:
 
-##### Hig Pass, 8-bit Color
+##### High Pass, 8-bit Color
 
 These settings are for an image with 8-bit color.
 
@@ -103,13 +104,13 @@ This should yield similar results.
 
 ### Layer Blending
 
-Now, it is possible to combine the _low pass_(layer 2) and the _high pass_(layer 3)
+Now, it is possible to combine the _low pass_ "layer 2" and the _high pass_ "layer 3"
 
 In Photoshop, with "Layer 3" selected, set the layer blend mode of the *high pass to Linear light*
 
 <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/005.png" width="65%" title="" alt="" data-align="inline">
 
-As you can see in the screenshot we've restored the original image fidelity by properly blending the low + high pass frequencies back together.
+As you can see in the screenshot we've restored the original image fidelity by properly blending the low + high pass frequencies back together.  This is axactly the type of situation that may occur during the shading of a material, skip ahead to the section "Blending Math".
 
 ## Tiling Textures
 
@@ -128,7 +129,8 @@ You will want to use the following steps in order to make sure that both the low
   - Note:  This fills the image with the pattern, consider it a 3x3 tiled version of you image ... so we can work on the center tile.
 - ... now follow the steps up above for splitting the image frequencies ...
 - Image > Canvas Size
-  - Width/Height: 33.33 ***percent***, or the in **_pixels_**
+  - Width/Height: 33.33 ***percent***, or resolutions in **_pixels_**, in this case 1024
+  - This will preserve the original center tile, and crop out the border tiles
 
 ### ***Why***
 
@@ -241,17 +243,17 @@ float3 ApplyTextureBlend(float3 color, float3 blendColor, float factor, TextureB
 
 ## Recombinatorial Examples
 
-Now that we briefly covered the math, lets try out some other tests with combining the low-pass (color) an high-pass (detail.) This technique provides a lot of flexibility, that actually relates to usage within 3D graphics, such as terrain workflows.  In games, we might feed multiple textures of different resolutions, to different parts of the rendering system, where they are then recombined during shading.
+Now that we briefly covered the math, let's try out some other tests with combining the low-pass (color) an high-pass (detail.) This technique provides a lot of flexibility, that actually relates to usage within 3D graphics, such as terrain workflows.  In games, we might feed multiple textures of different resolutions, to different parts of the rendering system, where they are then recombined during shading. And the color of pixels may change as we transition across regions of the terrain.
 
 An example might be...
 
 1. A low-resolution [Terrain Macro Material color texture map](https://www.o3de.org/docs/user-guide/components/reference/terrain/terrain-macro-material/)
    
-   1x1 texel per-meter in world-space
+   1 x 1 texel per-meter in world-space
    
    fed to the terrain system (along with macro height, macro normal map, etc.)
 
-2. A high-frequency _[Terrain Detail Material](https://www.o3de.org/docs/user-guide/components/reference/terrain/terrain-detail-material/)
+2. A high-frequency [Terrain Detail Material](https://www.o3de.org/docs/user-guide/components/reference/terrain/terrain-detail-material/)
    
    2048 resolution texels per-meter in world-space
    
@@ -259,7 +261,7 @@ An example might be...
 
 Some of the benefits of taking this approach:
 
-- Terran macro color can be drawn in the distance without the detail texture and appear correct
+- Terran Macro Color can be drawn in the distance without the Detail Texture and appear correct
 - Detail textures can use a LinearLight blend to combine high-frequency details with the underlying macro color (with stable visual results)
 - Detail texturing can blend in/out over distance smoothly, triangles in the background can render with less shading instructions (should equal performance gains)
 - Detail texturing can blend nicely with modulation and variance in the macro color (e.g. blending along an area where the macro color grades from a light brown to dark brown)
@@ -273,19 +275,21 @@ In this example, we are going to muck around with the low pass *and crunch it d
 
 | Original                                                                                                                       | Downsampled                                                                                                                    | Interpolated                                                                                                                   | Reconstruction                                                                                                                 | Difference                                                                                                                     |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| Low-pass, 1024 x 1024                                                                                                          | Low-pass, 16 x 16                                                                                                              | Low-pass, bilinear. 1024 x 1024                                                                                                | Low-pass (bilinear), blended with high-pass                                                                                    | Original, minus reconcstruction                                                                                                |
+| Low-pass, 1024px                                                                                                          | Low-pass, 64px                                                                                                              | Low-pass, bilinear, 1024px                                                                                                | Blended Reconstruction                                                                                    | Difference                                                                                                |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/006.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/007.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/008.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/009.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/010.png" width="200px" title="" alt="" data-align="inline"> |
 
-As you can see in the final reconstructed image (and the diff) that there is not any perceptible loss in quality - in fact, you have to auto-level the hell out of that diff to even visualize the difference they are so minor.
+As you can see in the final reconstructed image, and the Difference next to it, there is not any perceptible loss in quality (the Difference appears black) - in fact, you have to maximize the leveling of the histogram to visually see where the differences might be, here is an example:
 
-One more try, how low can we go?  Let's drop the low-pass from 1024 pixels, to 64, before recombining.
+<img src="/assets/img/posts/2022-12-28-frequency_separation-assets/difference.png" title="" width="65%" alt="" data-align="inline">
+
+One more try, how low can we go?  Let's drop the low-pass from 1024 pixels, to 16x16, before recombining.
 
 | Original                                                                                                                       | Downsampled                                                                                                                    | Interpolated                                                                                                                   | Reconstruction                                                                                                                 | Difference                                                                                                                     |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 |                                                                                                                             |                                                                                                                             |                                                                                                                             |                                                                                                                             |                                                                                                                             |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/011.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/012.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/013.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/014.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/015.png" width="200px" title="" alt="" data-align="inline"> |
 
-OK - now we are starting to see a perceptible difference in integrity, and the quality is arguably diminished ... but the fidelity as far as using it is _good enough to me._This is basically what will occur in the rendering engine, when a triangle/quad is rendered and reconstructs shading with low-res terrain macro color (1 texel per-meter) and a high-resolution detail texture (2048 textels per-meter)
+There, now we are really starting to see a perceptible difference in integrity, and the quality is arguably diminished ... but the fidelity as far as using it is _good enough to me._ This is basically what will occur in the rendering engine, when a triangle/quad is rendered and reconstructs shading with low-res terrain macro color (1 texel per-meter) and a high-resolution detail texture (2048 textels per-meter)
 
 ### Results
 
@@ -293,15 +297,15 @@ Here are all three reconstructions again side-by-side, each is the final reconst
 
 | Original                                                                                                                       | 64x64 bilinear                                                                                                                 | 16x16 bilinear                                                                                                                 |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| Low-pass: 1024                                                                                                                 | Low-pass: 64                                                                                                                   | Low-pass: 1024                                                                                                                 |
+| Low-pass: 1024                                                                                                                 | Low-pass: 64                                                                                                                   | Low-pass: 16                                                                                                                 |
 | High-pass: 1024                                                                                                                | High-pass: 1024                                                                                                                | High-pass: 1024                                                                                                                |
-| <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/016.png" width="256px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/017.png" width="256px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/018.png" width="256px" title="" alt="" data-align="inline"> |
+| <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/016.png" width="256px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/009.png" width="256px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/014.png" width="256px" title="" alt="" data-align="inline"> |
 
-_ _
+Looking left to right here, I have a hard time picking out the differences.  I have to put them into photoshop layers to compare them before it's obvious.
 
 ### Color Alteration
 
-This is a pretty flexible technique, as the high pass frequency can be applied across a wide range of shifts in the low pass base colors and still arrive at decent looking results, here are a few extreme examples:
+This is a pretty flexible technique, as the high pass frequency can be applied across a wide range of shifts in the low pass base colors and still arrive at decent looking results.  The idea here, would be hue shifts in areas of the terrain where the macro color is changing. Here are a few extreme examples:
 
 | Original                                                                                                                       | Downsampled                                                                                                                    | Interpolated                                                                                                                   | Reconstruction                                                                                                                 |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -321,22 +325,28 @@ As you can see, we can make pretty abrupt and wild changes to the base color, an
 
 Now let's briefly explore how we can use Photoshop's built-in *high pass filter* to generate our *high pass detail map*, then apply that back to the original to generate the matching *low pass macro texture*
 
-| 1.Generate High-Pass                                                                                                           | 2.Linear Burn                                                                                                                  | 3.Linear Add                                                                                                                   | 4.Low-PassA                                                                                                                    | 5.Low-PassB                                                                                                                    |
+| 1.Generate High-Pass                                                                                                           | 2.Linear Burn                                                                                                                  | 3.Linear Add                                                                                                                   | 4.Low-Pass A                                                                                                                    | 5.Low-Pass B                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/027.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/028.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/029.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/030.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/031.png" width="200px" title="" alt="" data-align="inline"> |
 
 #### 1. Generate High-Pass
 
-In the base "Layer 1" with original image
+Leave the original unaltered image in the default Photoshop layer "background".
 
-- Filter > Other > High Pass
-  
-  - Use a radius of 16
+Dupliacte the original image into "Layer 1", we will use this layer to generate the hihg-pass.
+
+Use "Layer 1" to generate the high-pass using the filter method
+
+Filter > Other > High Pass
+- I used a radius of 16 in these examples
+- However, you can use any size kernal, like 32 or more
+- The best results, are tuning this value based on the variation within the textures color and details
 
 #### 2. Linear Burn
 
-- Duplicate the High Pass (Layer 1) into "Layer 2""
-- Level the Image:
+- Duplicate the High-Pass (Layer 1) into "Layer 2"
+- You can hide "Layer 1", we aren't going to directly use the high-pass in this example
+- Level the Image in "Layer 2":
   - Output Levels: 0 ... 128
 - Invert the Image
 - Set the Layer to *Linear Burn*
@@ -346,42 +356,50 @@ In the base "Layer 1" with original image
 #### 3. Linear Add
 
 - Duplicate the High Pass (Layer 1) again into "Layer 3""
-- Level the Image:
+- Level the Image in "Layer 3":
   - Output Levels: 128 ... 255
 - Invert the Image
 - Set the Layer to *Linear Dodge (Add)*
 
 <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/033.png" title="" alt="" data-align="inline">
 
-#### 4. Low-Pass
+#### 4. Low-Pass A
 
 As you can see, we are pretty close to the simple Gaussian Blurred Low Pass Method (close enough that after down-sampling and interpolation the errors might be removed.)
 
 But as you can see in the image to the right, the error are a result of the *order of operation* ...
 
-#### 5. Low-Pass Alt (re-order)
+#### 5. Low-Pass B (Alt, re-order layers)
 
-If we swap the ordering of Layer 2 / 3
+Swap the ordering of Layer 2 & 3
 
-The error show up in the upper ranges!
+Now the error show up in the upper ranges!
 
-This is why I prefer the other method, it give you full control over the *low pass* ... and separating the *high pass* less steps and can be done in a single operation without errors.
+This is why I prefer the other method, it gives you full control over separating the *high pass* ... and generating a usable *low pass*. It's less steps and the blending can be done in a single operation (LinearLight) without introducing any errors.
 
-**Note**: There is a REALLY good chance, there is a correct error free way to do this that I simply haven't figured out yet. And I am guessing, it would be fairly easy to write a Python script or some code that would do all of this work and spit out the separated frequencies.
+**Note**: There is a REALLY good chance, there is a more correct and error free way to handle this approach, which I simply haven't figured out yet. And I am guessing, it would be fairly easy to write a Python script or some code that would do all of this work and spit out the separated frequencies.
 
 ## Terrain Macro Color and Detail Materials
 
-To use frequency separation for the purpose of , you would typically start by obtaining an image of the terrain that you want to create a color map and high-frequency detail material for. This image could be a photograph or a scan of real-world terrain, or it could be a digital image that you have created or obtained from another source.
+To use frequency separation for the purpose of Terain Detail Materials, you would typically start by obtaining an image of the terrain that you want to create a color map and high-frequency detail material for. This image could be a photograph or a scan of real-world terrain (such as Quixel materials), or it could be a digital image that you have created or obtained from another source.  Next, you would use the frequency separation technique to create two layers in the image: one for the high frequencies and one for the low frequencies. The high frequency layer would contain the detail and texture information, while the low frequency layer would contain the color and tone information. You could then use the high frequency layer to generate a high-frequency detail material for the terrain, and the low frequency layer to generate a macro color map. These materials could then be used in a 3D graphics application to create a detailed and realistic representation of the terrain.
 
-Next, you would use the frequency separation technique to create two layers in the image: one for the high frequencies and one for the low frequencies. The high frequency layer would contain the detail and texture information, while the low frequency layer would contain the color and tone information.
-
-You could then use the high frequency layer to generate a high-frequency detail material for the terrain, and the low frequency layer to generate a macro color map. These materials could then be used in a 3D graphics application to create a detailed and realistic representation of the terrain.
+That is the gist, when we talk scanned materials, photogrammetry, or Physically Based Rendering (PBR), there is more to it than that, but those concepts and details are outside the scope of this article.
 
 This approach works well for creating detail materials for terrain, here is the original cry doc that covers this:
 
 *[Creating Terrain Textures and Materials - CRYENGINE 3 Manual - Documentation](http://docs.cryengine.com/display/SDKDOC2/Creating+Terrain+Textures+and+Materials)*
 
-Note: the more *homogeneous (in overall color)* your terrain detail texture is, the more successful this approach.  But let's use the image in their doc.
+Note: the more *homogeneous (in overall color)* your terrain detail texture is, the more successful this approach.
+
+Let's do something similar to their doc, but we will use this freely available texture set: [polyhaven.com/a/cobblestone_floor_04]([http://docs.cryengine.com/display/SDKDOC2/Creating+Terrain+Textures+and+Materials](https://polyhaven.com/a/cobblestone_floor_04))
+
+1.  Downlaod the texture set (.zip)
+2.  Unpack the .zip
+3.  We are only going to use the color map for this example (the other textures can be loaded into a PBR material.)
+4.  These files should be renamed if you are going to use them in Open 3D Engine, due to naming conventions, our filemask suffix's need to be last to inform the asset processor ho to handle the texture channel type (basecolor, normal, roughness, etc.)  I recommend making the same naming fix to all of the texture image files.
+5.  Rename from this:  cobblestone_floor_04_diff_1k.jpg
+6.  To this: cobblestone_floor_04_1k_diff.jpg
+7.  Follow the steps for the "frequency seperation workflow"
 
 | Source                                                                                                                                 | Low-Pass                                                                                                                                                                  | High-Pass                                                                                                                                                           | Reconstructed                                                                                                                          |
 | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
@@ -389,16 +407,17 @@ Note: the more *homogeneous (in overall color)* your terrain detail texture is,
 |                                                                                                                                        |  |  | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_046.png" width="200px" title="" alt="" data-align="inline">                                                                                                                            |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_040.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_044.png" width="200px" title="" alt="" data-align="inline">                                    | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_042.png" width="200px" title="" alt="" data-align="inline">                              | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_045.png" width="200px" title="" alt="" data-align="inline"> |
 
-- Above in the top row is a low-pass color map, which we resized to 32x32 pixels and then restored to the target resolution with bilinear sampling.
-- In the bottom row, we have used the average macro color instead.
+- Above in the top row is the low-pass color map, which we resized to 32x32 pixels and then resized back to the target resolution with bilinear sampling.
+- In the bottom row, we have used the average macro color instead for the low-pass.
+- In the far right column, we compare the two reconstructions, and the resulting differences between them.
 
-As you can see in the diff on the right, there is almost no perceptible difference between the low pass and using a single color (the stones appear a bit greener.)
+As you can see in the diff on the right, there is almost no perceptible difference between the low-pass and using a single averaged color (some macro contrast is lost, the overall result is more homogenous.)  These results may vary of course depending on the amount of change in color and details across the image map. And it reiterate an important point, you may want to play with the blur size kernel to get the best results per image. Since that quality result may be subjective, automation pipelines may not be able to easily apply the best fit; seems like this is an opportunity for a future learning model that can make this best guess. 
 
 ## FAQ
 
 **Q: Sniff test ... why should I care about this?**
 
-**A**: This ia a flexible and common approach to_terrain detail_ mapping:
+**A**: This ia a flexible and common approach to _terrain detail_ mapping:
 
 CryEngine reference: _[Creating Terrain Textures and Materials - CRYENGINE 3 Manual - Documentation](http://docs.cryengine.com/display/SDKDOC2/Creating+Terrain+Textures+and+Materials)_
 
@@ -407,17 +426,32 @@ Splitting frequencies gets us:
 1. Low-Pass Color
    1. This can be used directly as a texture input, for example in a terrain generator, or the o3de Terrain Macro Material
    2. Can be used to find the average color (down-sample to 1x1), this value can be placed into the color swatch of a StandardPBR material (or Terrain Detail Material)
-   3. Or we could use the low pass, to generate a color ramp (and a matching height map), which can be used as input in programs like World Machine to use in *colorization* *[Working with Texture Color Ramps](/display/lmbr/Working+with+Texture+Color+Ramps)*
+   3. Or we could use the low pass, to generate a color ramp (and a matching height map), which can be used as input in programs like World Machine to use in *Colorization: Working with Texture Color Ramps* (<-- future article to write.)
 2. High-Pass, High-Frequency Detail
    1. Load the high-pass as the basecolor texture in a StandardPBR material and set the Blend mode to LinearLight.
    2. This same approach can be used as the detail texture for a standard material, for instance
    3. Use the StandardPBR/TerrainDetailMaterial and blend the material across terrain, including good results when the macro color shifts (for example: an area that transitions from a light brown to a dark brown.)
 
+Q: Where to next?
+
+A: There are a lot of ideas for where this can lead, here are some:
+
+- You could turn these steps into a Photoshop Action, this should allow you to automate running them on any image within Photoshop.
+  - [Automate your edits with Photoshop actions.](https://www.adobe.com/products/photoshop/actions.html#:~:text=Adobe%20Photoshop%20actions%20are%20a,they%20help%20you%20automate%20tasks.)
+- Once you've done that, you can use Actions in bulk automation (process a whole folder)
+  - Photoshop > File > Autoamtion > Batch...
+  - [Processing Batch Files](https://helpx.adobe.com/photoshop/using/processing-batch-files.html)
+- Once you have a Photoshop Action, that could be made into a Photoshop Droplet.  This would allow you to integrate into a pipeline and external automation.
+  - Photoshop > File > Autoamtion > Create Droplet
+  - [How and Why to Use Droplets](https://www.slrlounge.com/photoshop-tips-how-and-why-to-use-droplets/)
+- Write a Python image utility script that does all this work (with PIL, or OpenImageIO)
+- Make that py script into a Dockable Utility Panel tool that is integrated into the Editor and/or Content Tools and Workflows.
+
 **Q: Can I just use the High Pass Filter in Photoshop?**
 
 **A:** Yes. See the section above titled 'High Pass Filter'?
 
-- If you don't car about retrieving the low-pass color, then this is fine (and much quicker to perform)
+- If you don't care about retrieving the low-pass color, then this is fine (and much quicker to perform)
 - You can also derive a low-pass color map this way (but it's clunky as shown above)
 
 **Q: What does LinearLight mean?**
@@ -430,9 +464,9 @@ Speak like an artist... artists that use Photoshop, speak in the terms of Photos
 
 **Q: Can you tell me how the blending math works?**
 
-**A:** Yes, this is also covered above, but if you want a general crash course on the math here is reference for how to do a lot of Photoshop style_ blending and maths, in shader code:
+**A:** Yes, this is also covered above, but if you want a general crash course on the math here is reference for how to do a lot of _Photoshop style_ blending and maths, in shader code:
 
-[WPFSLBlendModeFx/PhotoshopMathFP.hlsl at master · cplotts/WPFSLBlendModeFx · GitHub](https://github.com/cplotts/WPFSLBlendModeFx/blob/master/PhotoshopMathFP.hlsl)
+[PhotoshopMathFP.hlsl · cplotts/WPFSLBlendModeFx](https://github.com/cplotts/WPFSLBlendModeFx/blob/master/PhotoshopMathFP.hlsl)
 
 **Q: Do I need to use Photoshop?**
 
@@ -450,9 +484,11 @@ Speak like an artist... artists that use Photoshop, speak in the terms of Photos
 **A:** Yes. There are a lot of areas it can be used, here are a few examples:
 
 - Separate macro color and high frequency detail, as described in this document: make a macro color texture, make a detail texture for terrain.
+- It's a viable approach to storing color as split-values for a PBR material (Quixel's native data is stored this way), in this sense there may be situations where it is a valued feature (1 texture, 2 jackets of slightly different hues)
+- This approach can also be used as an optimization, it's possible that the high-pass texture may have less visual compression artifacts (it thus may help combat DXT and other compression artifacts.)
 - It can be used to generate high-frequency detail textures for other non-terrain workflows as well, such as repeat patterns for blue jeans, other cloth, and leathers, etc.
 - It can similar be used in skin shading workflows, for instance highpass wrinkles and pore maps.
-- Image balance: get rid if uneven light and shadow in a material.
+- Image balance: get rid of uneven light and shadow in a material.  The game material example above, shows this, we lost some contrast and things became more homogenous, but in actuality that made the end results higher quality as the tiling-repeat of thos material will be less visually obvious.
 
 ## Reference
 

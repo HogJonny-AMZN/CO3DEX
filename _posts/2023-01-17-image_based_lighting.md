@@ -5,7 +5,7 @@ summary: "How to set up Global Lighting with an HDRi EXR"
 author: hogjonny
 date: '2023-01-17 12:15:36 -0600'
 category: info
-thumbnail: /assets/img/posts/2023-01-17-image_based_lighting/<out here>.png
+thumbnail: /assets/img/posts/2023-01-17-image_based_lighting/o3de-ibl-post-title.png
 keywords: welcome
 permalink: /blog/image-based-lighting/
 usemathjax: true
@@ -17,19 +17,19 @@ Hello and welcome to the Open 3D Engine CO3DEX, a blog of my Journey's in Real-t
 
 # Introduction
 
-This image uses a combination of lighting techniques, including Image Based Lighting (IBL), a technique used to simulate the lighting in a 3D scene by using an image of a real-world environment as the source of light.
+This image of a level in Open 3D Engine (O3DE) uses a combination of lighting techniques, including Image Based Lighting (IBL); a technique used to simulate the lighting in a 3D scene by using an image of a real-world environment as the source of light.
 
 ![A world lit with HDR Image Based Lighting (IBL) and directional Sun](https://user-images.githubusercontent.com/23222931/196006789-299b2e9f-f864-4a2a-988d-b75476ec043c.png "stargate")
 
 In my last post we covered [Frequency Separation](https://www.co3dex.com/blog/Understanding_Frequency_Separation/#/) to create high-pass textures for use in Physically Based Rendering (PBR) materials, for terrain and environment workflows.  Clearly I should write a follow up post on materials themselves (and I will, probably next), but photo-real environments and materials, need realistic lighting, so I felt it would be prudent to cover this topic first.  So Let's set up the global lighting in a scene, to do so we are going to use a technique called Image Based Lighting (IBL), this article is a deep dive on the topic.
 
-This article is lengthy, it's a deep dive (lowish context, methodical and explicit).  But it's educational, and you do not need to know every single granular detail to set up or use lighting (jump to the end) - but you may want to know more about these concepts if you a specialist in lighting or a technical artist.
+This article is lengthy, it's a deep dive (lowish context, methodical and explicit).  But it's educational, and you do not need to know every single granular detail to set up or use lighting (jump to the end) - but you may want to know more about these concepts if you are a specialist in lighting or a technical artist.
 
-Note: some of the information in this article, in regards to Global Lighting, is covered in my 2022 O3dcon workshop "World Building in Open 3D Engine", you can [download the slide deck here](https://github.com/o3de/o3de-workshops-2022/blob/main/Powerpoint/O3DECon_2022_JKG_WorldBuilding.pptx) (I've replicated some of these slide within the article.)
+Note: some of the information in this article, in regards to Global Lighting, is covered in my 2022 O3dcon workshop "World Building in Open 3D Engine", you can [download the slide deck here](https://github.com/o3de/o3de-workshops-2022/blob/main/Powerpoint/O3DECon_2022_JKG_WorldBuilding.pptx) (I've replicated some of these slides within the article.)
 
 # Image Based Lighting (IBL)
 
-Image-based lighting (IBL) is a technique used to simulate the lighting in a 3D scene by using an image of a real-world environment as the source of light. The image, known as an environment map, is typically captured by taking a photograph of a real-world location or by synthesizing an image using computer graphics techniques.
+Image-based lighting (IBL) is a technique used to simulate the lighting in a 3D scene by using an image of a real-world environment as the source of light. The image, known as an HDR environment map, is typically captured by taking a photograph of a real-world location or by synthesizing an image using computer graphics techniques.
 
 To generally use IBL in a 3D application, the environment map is first mapped onto a sphere or a cube, which is then used to illuminate the scene. This can be done by applying the environment map as a texture to a special type of light source, such as an infinite light or a skydome light, which is a virtual light that surrounds the scene.  (note: this is a general description, we will dive into the O3DE concepts, terminology, components and workflow later in this post.)
 
@@ -37,15 +37,15 @@ The main advantage of using IBL is that it can produce very realistic lighting a
 
 IBL is also often used in computer graphics for film and video game development, where it can help to create more realistic and immersive virtual environments.
 
-Here is a look, this is an image of a automotive vehicle I rendered in O3DE with IBL, it primarily uses a real-world HDRi for all of the subtle qualities and fidelity of lighting.
+Here is a look, this is an image of a environment I rendered in O3DE using IBL, it primarily uses a real-world HDRi for all of the subtle qualities and fidelity of lighting, along with a Sun (directional light).
 
-![automotive rendering using IBL in "Open 3D Engine" (O3DE)](../assets/img/posts/2023-01-07-image_based_lighting-assets/5064417ed8fc61052c78b7056f9f2bac461b1f51.png "automotive_render")
+![Terrain world with a stature and Image Based Lighting IBL](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-17-15-40-43-image.png)
 
-(Don't mind the obvious CG flaws: I didn't provide specular occlusion, engine doesn't have contact shadows yet. Sorry, I can't provide these assets or the o3de project, but I plan to build an open source automotive scene in the near future.)
+(Don't mind the obvious CG flaws: I didn't provide specular occlusion, engine doesn't have contact shadows yet. This level can be viewed in the [o3de-workshops-2022](https://github.com/o3de/o3de-workshops-2022), once you have the project up and running load the "Test-Large-Terrain" level.)
 
 # Terminology
 
-![A slide covering IBL terms](../assets/img/posts/2023-01-07-image_based_lighting-assets/d396e391039477874cc20879dc949e2cb5debdb5.png "Realistic Lighting")
+![A slide covering Image Based Lighting IBL terms](../assets/img/posts/2023-01-17-image_based_lighting-assets/d396e391039477874cc20879dc949e2cb5debdb5.png "Realistic Lighting")
 
 Let's cover some **terminology**...
 
@@ -59,27 +59,23 @@ Let's cover some **terminology**...
 
 <u>**Image Based Lighting**</u> (IBL) we have covered this above. This is when we use the HDRi as a lighting source for the scene. This is typically a globally defined entity. We also generate local probes that capture lighting (which would capture some amount of the global lighting.) 
 
-<u>**Specular reflections**</u> are the shiny, mirror-like reflections that are often seen on smooth and polished surfaces. They are caused by light bouncing off a surface at a single, well-defined angle, and are typically brighter and more focused than diffuse reflections, which are more scattered and diffuse. They are often used in conjunction with other techniques, such as normal mapping and environment mapping, to create more realistic and convincing surfaces.  In O3DE the specualr reflections are dealt with via a combination of various components and rendering algorithms, including the Light entities, Global Skylight (IBL), reflection probes (baked reflection volume), screen space reflections (SSR), and/or ray-traced reflections.
+<u>**Specular reflections**</u> are the shiny, mirror-like reflections that are often seen on smooth and polished surfaces. They are caused by light bouncing off a surface at a single, well-defined angle, and are typically brighter and more focused than diffuse reflections, which are more scattered and diffuse. They are often used in conjunction with other techniques, such as normal mapping and environment mapping, to create more realistic and convincing surfaces.  In O3DE the specular reflections are dealt with via a combination of various components and rendering algorithms, including the Light entities, Global Skylight (IBL), reflection probes (baked reflection volume), screen space reflections (SSR), and/or ray-traced reflections.
 
-<u>**Indirect diffuse**</u> lighting is the diffuse (scattered) light that has been reflected off of one or more surfaces before reaching a given point. Indirect diffuse lighting is often simulated using global illumination algorithms, which attempt to calculate the way light is scattered and reflected throughout a 3D scene.  Indirect diffuse lighting is important for creating realistic and believable lighting in 3D graphics, as it helps to simulate the way light bounces off of multiple surfaces and fills in the shadows. Indirect diffuse lighting can also contribute to the overall atmosphere and mood of a scene, as it can help to create soft, diffuse lighting that helps to create a sense of ambient light and depth. There are several different algorithms and techniques that can be used to simulate indirect diffuse lighting in 3D graphics, including raytracing, radiosity, and global illumination. These techniques all have their own strengths and limitations, and are often used in combination to achieve the desired lighting effect.
+<u>**Indirect diffuse**</u> lighting is the diffuse (scattered) light that has been reflected off of one or more surfaces before reaching a given point. Indirect diffuse lighting is often simulated using global illumination algorithms, which attempt to calculate the way light is scattered and reflected throughout a 3D scene.  Indirect diffuse lighting is important for creating realistic and believable lighting in 3D graphics, as it helps to simulate the way light bounces off of multiple surfaces and fills in the shadows (ever look and notice shadows are not actually black.) Indirect diffuse lighting can also contribute to the overall atmosphere and mood of a scene, as it can help to create soft, diffuse lighting that helps to create a sense of ambient light and depth. There are several different algorithms and techniques that can be used to simulate indirect diffuse lighting in 3D graphics, including raytracing, radiosity, and global illumination. These techniques all have their own strengths and limitations, and are often used in combination to achieve the desired lighting effect.
 
-**<u>HDRi</u>** is synonymous with IBL, it is a panoramic photo, which covers all angles from a single point and contains a large amount of data (usually HDR 32 bits per pixel per channel, with), which can be used for the illumination of CG scene.  This is a source input image (.exr, or .hdr), and it is usually a LatLong format (but [other formats](https://github.com/dariomanesku/cmftStudio) exist).
+**<u>HDRi</u>** is synonymous with IBL, it is a panoramic photo, which covers all angles from a single point and contains a large amount of data (usually HDR 32 bits per pixel per channel), which can be used for the illumination of CG scene.  This is a source input image (.exr, or .hdr), and it is usually a LatLong format (but [other formats](https://github.com/dariomanesku/cmftStudio) exist).
 
-![This is an HDRi from https://polyhaven.com/a/clarens_midday](../assets/img/posts/2023-01-07-image_based_lighting-assets/22e98ac6bce827c9c47386d4ab75d4b7a291dff7.png "Vlarens Midday HDRi")
+![This is an HDRi from https://polyhaven.com/a/clarens_midday](../assets/img/posts/2023-01-17-image_based_lighting-assets/22e98ac6bce827c9c47386d4ab75d4b7a291dff7.png "Clarens Midday HDRi")
 
-The awesome team at Polyhaven, has a large collection of freely available HDRi source images you can utilize in O3DE (and other engines) [HDRIs • Poly Haven](https://polyhaven.com/hdris)
+The awesome team at Polyhaven.com, has a large collection of freely available HDRi source images you can utilize in O3DE (and other engines) [HDRIs • Poly Haven](https://polyhaven.com/hdris)
 
 HDRi images are often created by taking multiple photographs of a scene at different exposures and then combining them into a single image. The resulting image has a higher dynamic range, which means that it can capture a wider range of tonal values and better represent the full range of luminance in the scene.
 
 The process of creating an HDRi image from multiple exposures is often referred to as "bracketing" or "exposure bracketing". This involves taking a series of photographs at different exposures, typically by adjusting the camera's aperture, shutter speed, or ISO sensitivity. The resulting photographs are then combined using specialized software to create the final HDRi image.
 
-**<u>Cubemap</u>** is a type of texture that contains 6 square 2D images, each one representing the view from a direction along the coordinate axes (up, down, left, right, front, and back). Cubemaps are commonly used in 3D computer graphics to simulate reflections or to create the illusion of being inside a space.  When we pass a HDRi source image to O3DE, the runtime asset output is a processed cubemap (the processing of the cubemap varies based on use.)
+**<u>Cubemap</u>** is a type of texture that contains 6 square 2D images, each one representing the view from a direction along the coordinate axes (up, down, left, right, front, and back). Cubemaps are commonly used in 3D computer graphics to simulate reflections or to create the illusion of being inside a space.  When we pass a HDRi source image to O3DE, the runtime asset output is a processed cubemap (the processing of the cubemap varies based on use.)  [Cubemap Description - polycount](http://wiki.polycount.com/wiki/Cube_map) and [Cube mapping - Wikipedia](https://en.wikipedia.org/wiki/Cube_mapping)
 
-<u>**Convolved Cubemap**</u> represents the light of the environment around a 3D object. Convolution is a mathematical operation that is used to blur or sharpen an image, or to extract features from it. In the case of a convolved cubemap, convolution is used to simulate the way that light interacts with the environment, by blurring the texture using importance sampling of inbound light (stored as mip chain). In O3DE when a source HDRi is processed, the floating point lighting are convolved, generally the source (latlong), is processed into lighting cubemaps (diffuse, specular) . This allows the HDRi to be used to create more realistic reflections on the surface of an object.
-
-Nvidia reference on Importance Sampling, and mip map sampling:
-
-[Chapter 20. GPU-Based Importance Sampling | NVIDIA Developer](https://developer.nvidia.com/gpugems/gpugems3/part-iii-rendering/chapter-20-gpu-based-importance-sampling)
+<u>**Convolved Cubemap**</u> represents the light of the environment around a 3D object. Convolution is a mathematical operation that is used to blur or sharpen an image, or to extract features from it. In the case of a convolved cubemap, convolution is used to simulate the way that light interacts with the environment, by blurring the texture using importance sampling of inbound light (stored as mip chain). In O3DE when a source HDRi is processed, the floating point lighting are convolved, generally the source (latlong), is processed into lighting cubemaps (diffuse, and specular) . This allows the HDRi to be used to create more realistic reflections on the surface of an object.  Nvidia reference on Importance Sampling, and mip map sampling: [Chapter 20. GPU-Based Importance Sampling | NVIDIA Developer](https://developer.nvidia.com/gpugems/gpugems3/part-iii-rendering/chapter-20-gpu-based-importance-sampling)
 
 **<u>EXR</u>** is a high dynamic range (HDR) image file format developed by Industrial Light & Magic (ILM) for use in computer graphics and visual effects workflows. EXR is an open format, meaning that anyone can use it without having to pay any licensing fees. This is the HDR image format supported in O3DE (there is another format commonly used .hdr, which is not yet supported by O3DE.)
 
@@ -89,9 +85,9 @@ Nvidia reference on Importance Sampling, and mip map sampling:
 
 **<u>Sky and Atmosphere</u>** aka "Physical Sky" is a feature in some 3D engines such as O3DE, which allows the artist to simulate the appearance of the sky and the surrounding atmosphere in a realistic way. A sky atmosphere component typically consists of a set of algorithms and parameters that are used to model the scattering of light through the atmosphere, as well as the appearance of the sky itself. Physically based sky and atmosphere refers to the use of physically based rendering (PBR) techniques to simulate the appearance of the sky and atmosphere. PBR techniques aim to accurately model the physical properties of materials and lighting, and are based on the principles of real-world physics. The artist can adjust various parameters to control the appearance of the sky and atmosphere, such as the time of day, the sun's position and intensity, the sky's color and turbidity, and the atmospheric scattering coefficients. These parameters can be used to create a wide range of sky and atmospheric effects, such as clear blue skies, overcast conditions, sunsets, and atmospheric haze. O3DE has a component called ["Sky Atmosphere"](https://github.com/o3de/o3de/pull/9649) that provides this, it can be used along with a skybox that renders behind it in the distance.
 
-![](https://user-images.githubusercontent.com/26804013/169208585-a7f74fe3-d10c-4931-8f31-b540464f6a18.png)
+![Open 3D Engine Sky and Atmosphere](https://user-images.githubusercontent.com/26804013/169208585-a7f74fe3-d10c-4931-8f31-b540464f6a18.png)
 
-We won't get to Sky Atmosphere in this article, but that is where I would go next to advance the *look and feel* of my level default global lighting.  We will walk into more advanced topics of physically based lighting, atmospherics and similar topics in future posts.  That's pretty much all of the core topics, let's dig in.
+We won't get into Sky Atmosphere in this article, but that is where I would go next to advance the *look and feel* of my level default global lighting.  We will walk into more advanced topics of physically based lighting, atmospherics and similar topics in future posts.  That's pretty much all of the core topics, let's dig in.
 
 ## Set Up ...
 
@@ -117,11 +113,11 @@ Find an HDRi you like, such as one of these:
 
 [Clarens Midday HDRI • Poly Haven](https://polyhaven.com/a/clarens_midday)
 
-![](https://cdn.polyhaven.com/asset_img/primary/clarens_midday.png?height=780)
+![Clarens Midday HDRi from Polyhaven.com](https://cdn.polyhaven.com/asset_img/primary/clarens_midday.png?height=780)
 
 [Goegap HDRI • Poly Haven](https://polyhaven.com/a/goegap) < -- this is the one we use below, it's already set up in O3DE.
 
-![](https://cdn.polyhaven.com/asset_img/primary/goegap.png?height=780)
+![Goegap HDRi from Polyhaven.com](https://cdn.polyhaven.com/asset_img/primary/goegap.png?height=780)
 
 ## Prewire ...
 
@@ -163,7 +159,7 @@ There are a few things to understand about the IBL workflows, so you can better 
 
 This slide from my presentation covers the most common HDRi naming conventions used with IBL
 
-![A slide covering IBL naming conventions](../assets/img/posts/2023-01-07-image_based_lighting-assets/ec8b2e92724d406187cd6fa66e64a93b458a7888.png "Naming Conventions")
+![A slide covering IBL naming conventions](../assets/img/posts/2023-01-17-image_based_lighting-assets/ec8b2e92724d406187cd6fa66e64a93b458a7888.png "Naming Conventions")
 
 A High-Contrast HDRi where you have two copies of the source, one with the Sun (skybox), and one without (lighting), will need these two naming conventions
 
@@ -231,7 +227,7 @@ Let's do this
    
    1. I am using my 2023 workshop project: [o3de-workshops-2022/Projects/Procedural-Worlds](https://github.com/o3de/o3de-workshops-2022/tree/main/Projects/Procedural-Worlds)
 
-3. Download your HDRi (I used 8k) [Clarens Midday HDRI • Poly Haven](https://polyhaven.com/a/clarens_midday)
+3. Download your HDRi (we used this at 8k): [Goegap HDRI • Poly Haven](https://polyhaven.com/a/goegap)
 
 4. Rename the file, I used the file mask:
    
@@ -248,7 +244,7 @@ Let's do this
    
    1. The default level looks like this
    
-   2. ![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-08-22-47-40-image.png)
+   2. ![Open 3D Engine default level](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-08-22-47-40-image.png)
 
 ### High-Contrast workflow
 
@@ -270,7 +266,7 @@ Why this setup?
 
 Let's breakdown the Anatomy of the O3DEs current default level and dissect the way Global Lighting is set up ...
 
-![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-10-23-17-14-image.png)
+![O3DE Workshop Slide for Global Lighting](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-10-23-17-14-image.png)
 
 1. An HDRi was selected: [Goegap HDRI • Poly Haven](https://polyhaven.com/a/goegap)
    
@@ -304,55 +300,55 @@ This type of setup creates a static lighting environment (the sun and lighting d
 
 In this slide, on the left is the duplicate set of the source image files, in a HDRi latlong format; the duplicate has the Sun removed.  On the right, it a visualization of the output, convolved lighting cubemaps specular reflections and indirect diffuse light.
 
-![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-10-23-39-07-image.png)
+![O3DE Workshop Slide for HDRi siblings](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-10-23-39-07-image.png)
 
 1. First, note that in the Asset Browser (lower left quadrant of the Editor), shows the duplicate set of HDRi siblings (you can search and filter by name); and beneath them it shows the output products they generate (texture streaming assets). The _skyboxcm source only generates one output cubemap, the _iblglobalcm asset is generating many, because it creates the diffuse and the specular which includes several levels of mip maps (you don't need to work the mips directly in the workflow, I am just pointing out what you are seeing.)
    
-   1. ![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-13-17-07-31-image.png)
+   1. ![O3DE LightingPreset](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-07-31-image.png)
 
 2. O3DE Levels, have a root node called the Level Entity (this is useful for setting up global level singletons, like some of the terrain system components.)
 
 3. Beneath that, in the Default Level, there is a node called "Atom Default Environment", populated with the template level entities (Atom is the O3DE rendering engine, and this concept of a default level, and it's make up, were developed with Atom before a complete integration with the engine system and editor frameworks.)
    
-   1. ![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-13-17-09-15-image.png)
+   1. ![O3DE Entity Outliner](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-09-15-image.png)
 
 4. Beneath that, we are looking for the Entity called "Global Sky".  If you select this (in the Entity Outliner on the left), you will see it has two component cards attached to it (seen on the right of the screen, in the Entity Inspector.)
    
    1. [Global Skylight (IBL)](https://www.o3de.org/docs/user-guide/components/reference/atom/global-skylight-ibl/), this loads the diffuse and specular lighting cubemaps
       
-      1. ![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-13-17-09-55-image.png)
+      1. ![O3DE Global Skylight](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-09-55-image.png)
    
    2. [HDRi Skybox](https://www.o3de.org/docs/user-guide/components/reference/atom/hdri-skybox/), this loads the generated skybox cubemap
       
-      1. ![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-13-17-10-21-image.png)
+      1. ![O#DE HDRi Skybox](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-10-21-image.png)
 
 ##### HDRi Skybox
 
 The original HDRi with the visible Sun is loaded here.
 
-![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-11-00-06-46-image.png)
+![O3DE workshop slide skybox](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-11-00-06-46-image.png)
 
 ##### Global Skylight (IBL), Specular
 
 The duplicate with the Sun painted out, created a convolved  **specular**  cubemap and this is loaded here, in the field labeled 'Specular image'.
 
-![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-11-00-09-25-image.png)
+![O3DE workshop slide specular](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-11-00-09-25-image.png)
 
 ##### Global Skylight (IBL), Diffuse
 
 The duplicate with the Sun painted out, also created a convolved diffuse cubemap and this is also loaded here in the first slot, labeled 'Diffuse image'.
 
-![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-11-00-18-25-image.png)
+![O3DE workshop slide diffuse](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-11-00-18-25-image.png)
 
-Note: in this slide, I am using the diffuse cubemap as the skybox - I just wanted to visually show the concept of what the lighting environment looked like as a latlong project and suggest the idea that this is the inbound indirect diffuse light. When you follow the workflow, you'll have the previous high-res skybox (It is possible to actually load the soft diffuse cubemap into the skybox and render it, this is used intentionally in all of the Material Editors LightingPresets as a visually less distracting LookDev mode.)
+Note: in this slide, I am using the diffuse cubemap as the skybox - I just wanted to visually show the concept of what the lighting environment looked like as a latlong projection and suggest the idea that this is the inbound indirect diffuse light. When you follow the workflow, you'll have the previous high-res skybox (It is possible to actually load the soft diffuse cubemap into the skybox and render it, this is used intentionally in all of the Material Editors LightingPresets as a visually less distracting LookDev mode.)
 
-Tip: It's also possible to now take the O3DE cubemaps (skybox, specular and diffuse) and use them outside in external applications such as 3D Digital Content creation tools such as Maya and Blender (take your game lighting with you.)  Maya as an example can utilize the cubemaps directly (if you have the DDS loader plugin active), you can load them into a StingrayPBS material. Other applications or workflows may prefer a LatLong, a good example is [Marmoset Toolbag](https://marmoset.co/toolbag/), you could use the same source EXR to build a matching lighting environment in that tool.  If you want to convert O3DE cubemaps back into a LatLong format, you could use a tool like [GitHub - dariomanesku/cmftStudio: cmftStudio:](https://github.com/dariomanesku/cmftStudio)
+**Tip**: It's also possible to now take the O3DE cubemaps (skybox, specular and diffuse) and use them outside in external applications such as 3D Digital Content creation tools such as Maya and Blender (take your game lighting with you.)  Maya as an example can utilize the cubemaps directly (if you have the DDS loader plugin active), you can load them into a StingrayPBS material. Other applications or workflows may prefer a LatLong, a good example is [Marmoset Toolbag](https://marmoset.co/toolbag/), you could use the same source EXR to build a matching lighting environment in that tool.  If you want to convert O3DE cubemaps back into a LatLong format, you could use a tool like [GitHub - dariomanesku/cmftStudio: cmftStudio:](https://github.com/dariomanesku/cmftStudio)
 
 ##### Directional Light (Sun)
 
 Now to generate shadows and provide the Sun's lighting Energy, there is an Entity called "Sun", if you select this, in the "Entity Inspector" on the right-edge of the Editor, you will see this Entity has a [Directional Light Component](https://www.o3de.org/docs/user-guide/components/reference/atom/directional-light/). This component's transform, is then angled so the light is aligned with the Sun's position in the Sky.
 
-![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-13-17-04-11-image.png)
+![O3DE workshop slide Sun](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-04-11-image.png)
 
 <u>**Tip**</u>: If you'd like to make it easier to accurately align the entity rotation to match the Sun angle in the sky, you can use this trick.  Create a Camera Entity and parent the Sun (directional light) to it, then you can 'look through' this camera and point it to the Sun.
 
@@ -360,7 +356,7 @@ Now to generate shadows and provide the Sun's lighting Energy, there is an Entit
 
 2. Select the Sun (directional light), and drag-n-drop the Sun onto it so it's a child
    
-   1. ![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-13-17-27-09-image.png)
+   1. ![Sun-camera setup](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-27-09-image.png)
 
 3. After parenting the Sun to Camera, zero out the Sun's transform (directional light), then set it's Z rotation to 180.  Basically, you want a setup where as you move the camera, the Sun moves with it.
 
@@ -368,31 +364,31 @@ Now to generate shadows and provide the Sun's lighting Energy, there is an Entit
 
 Your setup will look and behave like this:
 
-![Editor_tauQLjFkUB.gif](../assets/img/posts/2023-01-07-image_based_lighting-assets/a1e98f39012173d1c11af03c48d3849acc670675.gif)
+![Shows the Sun-Camera rig and how it works](../assets/img/posts/2023-01-17-image_based_lighting-assets/a1e98f39012173d1c11af03c48d3849acc670675.gif)
 
 And when you look through the camera, you will be able to pan to align with the Sun
 
-![Editor_bjKA97j8YG.gif](../assets/img/posts/2023-01-07-image_based_lighting-assets/ef1193a3989d1efd2e08cc2ba29dbb7444f305da.gif)
+![Look through the Sun-Camera to position light](../assets/img/posts/2023-01-17-image_based_lighting-assets/ef1193a3989d1efd2e08cc2ba29dbb7444f305da.gif)
 
 <u>**Tip**</u>: If you open your EXR in Photoshop, you can sample the color and intensity of the Sun in the sky.  
 
-![Photoshop_880bjXBnLj.gif](../assets/img/posts/2023-01-07-image_based_lighting-assets/83d204e221d282b14946d3d8075d33b86fd324bc.gif)
+![IBL EXR image open in Photoshop, color picking the Sun value](../assets/img/posts/2023-01-17-image_based_lighting-assets/83d204e221d282b14946d3d8075d33b86fd324bc.gif)
 
-In this article, we are not going to dig past the surface plane of physically based lighting, that is a whole in in-depth topic.  But basically, we can use these sampled values from Photoshop as a *starting point* for HDR lighting values. Note: this is not necessarily accurate physically based HDR lighting values, we'd need to focus on a much more technical workflow for that, but it is HDR (high dynamic range) and good enough as a starting point.
+In this article, we are not going to dig past the surface plane of physically based lighting, that is a whole in-depth topic.  But basically, we can use these sampled values from Photoshop as a *starting point* for HDR lighting values. Note: this is not necessarily accurate physically based HDR lighting values, we'd need to focus on a much more technical workflow for that, but it is HDR (high dynamic range) and good enough as a starting point.
 
 Here is our 32-bit color picker:
 
-![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-16-11-17-01-image.png)
+![Adobe Photoshop 32-bit HDR color picker](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-16-11-17-01-image.png)
 
 - The sRGB value in the lower right, can be used as the color for the Sun (directional light)
 
 - And the Intensity is the number of stops of [Exposure value](https://en.wikipedia.org/wiki/Exposure_value) for that brightness.   This can be plugged into the Intensity of our Sun (directional light.)
 
-![Editor_IguiLQcAoV.gif](../assets/img/posts/2023-01-07-image_based_lighting-assets/78fdfd5d6cf1027cc3c12a562924a6c168e4ceed.gif)
+![O3DE set the color of the Sun](../assets/img/posts/2023-01-17-image_based_lighting-assets/78fdfd5d6cf1027cc3c12a562924a6c168e4ceed.gif)
 
-Note: It's important to understand "color space" (sRGB, Linear RGB, ACEScg, etc.) and "color model" (RGB or HSV, etc.), but that could also be a whole in-depth article. What's important to know, is that in the color picker you are visually working with color picking in the sRGB color space, but the values that Color Pickers returns for the renderer are converted to and stored in a Linear RGB Color Space.
+Note: It's important to understand "color space" (sRGB, Linear RGB, ACEScg, etc.) and "color model" (RGB or HSV, etc.), but that could also be a whole in-depth article. What's important to know, is that in the color picker you are *visually working with color picking* in the sRGB color space, but the values that Color Pickers returns for the renderer are *converted to and stored in a Linear RGB Color Space*.
 
-![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-16-11-38-25-image.png)
+![O3DE Color Picker](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-16-11-38-25-image.png)
 
 ##### Global Lighting Exposure
 
@@ -400,13 +396,13 @@ Now we have really bright lighting from the Sun, but much brighter then the ambi
 
 Select the Entity named "Global Sky" and set the Exposure value on the Global Skylight (IBL) and Skybox (HDRi) components.  This will put them into a similar HDR range (again, this is not accurate ... just a starting point, you'll have to tune and balance the exposure for lighting to your own taste.)
 
-![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-17-11-17-06-image.png)
+![O3DE Skylight and Sybox Exposure](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-17-11-17-06-image.png)
 
 **Now the lighting is blown out everywhere, what the hell!?** 
 
 **Why would I want to do this?**
 
-![](../assets/img/posts/2023-01-07-image_based_lighting-assets/2023-01-17-11-32-37-image.png)
+![O3DE Blown Out HDR lighting](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-17-11-32-37-image.png)
 
 This is because the renderer is physically based (PBR), so we are emulating real-world light energy; the renderer is a virtual camera like a DSLR (or your smartphone), and we need the camera to auto-expose the light energy back into a visible range.
 
@@ -422,9 +418,9 @@ Here are the steps to do that:
 
 This will enable auto-exposure on your main camera (for now, don't worry about concepts such as PostFX Layers or Volumes.)  This is set up to mimic the way the human eye responds to light when moving in and out of light to dark areas.
 
-![Editor_OzJoIk4217.gif](../assets/img/posts/2023-01-07-image_based_lighting-assets/406041bb2682bfa588a18b1b4b42971ea4ed4502.gif)
+![O3DE Exposure Control Component](../assets/img/posts/2023-01-17-image_based_lighting-assets/406041bb2682bfa588a18b1b4b42971ea4ed4502.gif)
 
-Now you might still wonder why we want to continue down this path, because it looks the same as before we set HDR exposure values on the global sky and lighting.  The reason, is because in many environments we will want both bright HDR outdoor lighting, as well as realistic indoor lighting with much lower energy levels - imagine walking from a bright outdoor environment, into a dark cave dimly lit cave only lit with bounce Global Illumination (GI) light or a few torches.
+Now you might still wonder why we want to continue down this path, because it looks the same as before we set HDR exposure values on the global sky and lighting.  The reason, is because in many environments we will want both bright HDR outdoor lighting, as well as realistic indoor lighting with much lower energy levels - imagine walking from a bright outdoor environment, into a dark cave dimly lit cave only lit with bounce Global Illumination (GI) light or a few torches - when you walk into the cave your iris will open up to allow more light in, in effect your eyes are performing an automatic exposure to adapt your vision to the darkness (Exposure Control mimics this.)
 
 ##### Exposure Heatmap
 
@@ -440,9 +436,13 @@ This heatmap allows us to visualize the inbound lighting energy that camera plan
 
 Note: the hump of the histogram stays roughly around 10 EV, the exposure value we happened to use as the base value for our Sun (directional light) and IBL (skybox, skylight.)  Also notice, that the Sun pixels render red, this shows that those pixels are above the exposure threshold value of "Maximum Exposure", if you lower that value you'll see that more of the pixels clip red.  These are helpful tools for Lighitng Specialist who want the most accurate results when working with physically based rendering.
 
-![Editor_sNxAAJnppY.gif](../assets/img/posts/2023-01-07-image_based_lighting-assets/e279c49a3ad60cbb7e01a6d02e8c889e8137ea6f.gif)
+![O3de Exposure Control component, EV histogram](../assets/img/posts/2023-01-17-image_based_lighting-assets/e279c49a3ad60cbb7e01a6d02e8c889e8137ea6f.gif)
 
-In reality, this outdoor scene with no clouds in the sky should be in the 14-16 EV range along the lines of [Full sunlight on a cloudless day, bright subject (i.e. the beach)](https://photographylife.com/exposure-value).  This is an easy enough fix, you can go back and adjust your light EV values and bump them all to 15... you won't notice much of a difference because the Camera Exposure Control component will compensate with auto-exposure adjustments, but it will be a more correct global energy level, and lighting cascades into many other systems, so it's vital to have an understanding of what is actually going on.  Imagine that you are working towards building a Digital Twin or a Simulation, that has a virtualized emulation of a real-world camera sensor; in such a situation you may need to be as accurate as possible and expect these inbound values to mimic reality.
+In reality, this outdoor scene with no clouds in the sky should be in the 14-16 EV range along the lines of [Full sunlight on a cloudless day, bright subject (i.e. the beach)](https://photographylife.com/exposure-value).  This is an easy enough fix, you can go back and adjust your light EV values and bump them all to 15 or 16... you won't notice much of a difference because the Camera Exposure Control component will compensate with auto-exposure adjustments, but it will be a more correct global energy level, and lighting cascades into many other systems, so it's vital to have an understanding of what is actually going on. Imagine that you are working towards building a Digital Twin or a Simulation, that has a virtualized emulation of a real-world camera sensor; in such a situation you may need to be as accurate as possible and expect these inbound values to mimic reality. Games fortunately are very forgiving, so you may play outside the lines or accuracy and simply tune things until you think they look great for your use case.
+
+![Terrain world beauty shot](../assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-17-14-32-01-image.png)
+
+Above is a another beauty shot of our terrain based world. It's goes a bit beyond the lighting techniques above; I used a low-contrast HDRi (no visible Sun) which was then modified in Photoshop, and in addition to the Sun (directional light), I've also added the Sky Atmosphere component and some PostFX (Depth of Field, color grading, etc.)  Then after tuning the global lighting, I used the Cubemap Capture component to bake new global lighting cubemaps (diffuse and specular reflections) which I used as replacements in the Skylight (but retained the original skybox), as this approach will include capturing the terrain and the atmospherics into those replacement cubemaps which enhances the realism even further.
 
 # Reference
 
@@ -458,13 +458,16 @@ Here are some additional reference links:
 
 - [Exposure Value (EV) Explained - Plus EV Charts](https://photographylife.com/exposure-value)
 
----
+- [How the Hell do I make a cubemap with my own art? | The Art of Jude Godin](https://judegodin.wordpress.com/2011/12/06/how-the-hell-do-i-make-a-cubemap/)
 
+- [Image Based Lighting - 3Delight for Maya (RenderMan) - 3DL Docs](https://documentation.3delightcloud.com/display/3DFM/Image+Based+Lighting)
+
+---
 ```python
 import logging as _logging
 _MODULENAME = 'co3dex'
 _LOGGER = _logging.getLogger(_MODULENAME)
 _LOGGER.info(f'Initializing: {_MODULENAME} ... Image Base Lighting!')
 ```
-
 ---
+

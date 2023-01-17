@@ -43,7 +43,7 @@ Here is our original image, we are going to prepare the frequency separation in 
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/000.png" width="300px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/001.png" width="300px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/002.png" width="300px" title="" alt="" data-align="inline"> |
 
-This image I generated using https://beta.dreamstudio.ai/dream with the following prompt "A colorful explosion of quantum particles in a swirling flow. Use a rainbow of color values, including blues, greens, reds, and yellows.  With high contrast. Make the center the brightest, where sun like particle has exploded yellow photons. High-def, high resolution.  3D simulation. Trending on ArtStation." And then I tweaked it some in Photoshop (The images I had orginally used, I am not sure if they were licensed.)
+This image I generated using https://beta.dreamstudio.ai/dream with the following prompt "A colorful explosion of quantum particles in a swirling flow. Use a rainbow of color values, including blues, greens, reds, and yellows.  With high contrast. Make the center the brightest, where sun like particle has exploded yellow photons. High-def, high resolution.  3D simulation. Trending on ArtStation." And then I tweaked it some in Photoshop (The images I had originally used, I am not sure if they were licensed.)
 
 #### Layer 1
 
@@ -110,7 +110,7 @@ In Photoshop, with "Layer 3" selected, set the layer blend mode of the *high pas
 
 <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/005.png" width="65%" title="" alt="" data-align="inline">
 
-As you can see in the screenshot we've restored the original image fidelity by properly blending the low + high pass frequencies back together.  This is axactly the type of situation that may occur during the shading of a material, skip ahead to the section "Blending Math".
+As you can see in the screenshot we've restored the original image fidelity by properly blending the low + high pass frequencies back together.  This is exactly the type of situation that may occur during the shading of a material, skip ahead to the section "Blending Math".
 
 ## Tiling Textures
 
@@ -275,7 +275,7 @@ In this example, we are going to muck around with the low pass *and crunch it d
 
 | Original                                                                                                                       | Downsampled                                                                                                                    | Interpolated                                                                                                                   | Reconstruction                                                                                                                 | Difference                                                                                                                     |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| Low-pass, 1024px                                                                                                          | Low-pass, 64px                                                                                                              | Low-pass, bilinear, 1024px                                                                                                | Blended Reconstruction                                                                                    | Difference                                                                                                |
+| Low-pass, 1024px                                                                                                               | Low-pass, 64px                                                                                                                 | Low-pass, bilinear, 1024px                                                                                                     | Blended Reconstruction                                                                                                         | Difference                                                                                                                     |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/006.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/007.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/008.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/009.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/010.png" width="200px" title="" alt="" data-align="inline"> |
 
 As you can see in the final reconstructed image, and the Difference next to it, there is not any perceptible loss in quality (the Difference appears black) - in fact, you have to maximize the leveling of the histogram to visually see where the differences might be, here is an example:
@@ -286,7 +286,7 @@ One more try, how low can we go?  Let's drop the low-pass from 1024 pixels, to 
 
 | Original                                                                                                                       | Downsampled                                                                                                                    | Interpolated                                                                                                                   | Reconstruction                                                                                                                 | Difference                                                                                                                     |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-|                                                                                                                             |                                                                                                                             |                                                                                                                             |                                                                                                                             |                                                                                                                             |
+|                                                                                                                                |                                                                                                                                |                                                                                                                                |                                                                                                                                |                                                                                                                                |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/011.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/012.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/013.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/014.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/015.png" width="200px" title="" alt="" data-align="inline"> |
 
 There, now we are really starting to see a perceptible difference in integrity, and the quality is arguably diminished ... but the fidelity as far as using it is _good enough to me._ This is basically what will occur in the rendering engine, when a triangle/quad is rendered and reconstructs shading with low-res terrain macro color (1 texel per-meter) and a high-resolution detail texture (2048 textels per-meter)
@@ -297,11 +297,11 @@ Here are all three reconstructions again side-by-side, each is the final reconst
 
 | Original                                                                                                                       | 64x64 bilinear                                                                                                                 | 16x16 bilinear                                                                                                                 |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| Low-pass: 1024                                                                                                                 | Low-pass: 64                                                                                                                   | Low-pass: 16                                                                                                                 |
+| Low-pass: 1024                                                                                                                 | Low-pass: 64                                                                                                                   | Low-pass: 16                                                                                                                   |
 | High-pass: 1024                                                                                                                | High-pass: 1024                                                                                                                | High-pass: 1024                                                                                                                |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/016.png" width="256px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/009.png" width="256px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/014.png" width="256px" title="" alt="" data-align="inline"> |
 
-Looking left to right here, I have a hard time picking out the differences.  I have to put them into photoshop layers to compare them before it's obvious.
+Looking left to right here, I have a hard time picking out the differences.  I have to put them into Photoshop layers to compare them before it's obvious.
 
 ### Color Alteration
 
@@ -325,7 +325,7 @@ As you can see, we can make pretty abrupt and wild changes to the base color, an
 
 Now let's briefly explore how we can use Photoshop's built-in *high pass filter* to generate our *high pass detail map*, then apply that back to the original to generate the matching *low pass macro texture*
 
-| 1.Generate High-Pass                                                                                                           | 2.Linear Burn                                                                                                                  | 3.Linear Add                                                                                                                   | 4.Low-Pass A                                                                                                                    | 5.Low-Pass B                                                                                                                    |
+| 1.Generate High-Pass                                                                                                           | 2.Linear Burn                                                                                                                  | 3.Linear Add                                                                                                                   | 4.Low-Pass A                                                                                                                   | 5.Low-Pass B                                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/027.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/028.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/029.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/030.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/031.png" width="200px" title="" alt="" data-align="inline"> |
 
@@ -333,13 +333,14 @@ Now let's briefly explore how we can use Photoshop's built-in *high pass filter
 
 Leave the original unaltered image in the default Photoshop layer "background".
 
-Dupliacte the original image into "Layer 1", we will use this layer to generate the hihg-pass.
+duplicate the original image into "Layer 1", we will use this layer to generate the high-pass.
 
 Use "Layer 1" to generate the high-pass using the filter method
 
 Filter > Other > High Pass
+
 - I used a radius of 16 in these examples
-- However, you can use any size kernal, like 32 or more
+- However, you can use any size kernel, like 32 or more
 - The best results, are tuning this value based on the variation within the textures color and details
 
 #### 2. Linear Burn
@@ -381,7 +382,7 @@ This is why I prefer the other method, it gives you full control over separating
 
 ## Terrain Macro Color and Detail Materials
 
-To use frequency separation for the purpose of Terain Detail Materials, you would typically start by obtaining an image of the terrain that you want to create a color map and high-frequency detail material for. This image could be a photograph or a scan of real-world terrain (such as Quixel materials), or it could be a digital image that you have created or obtained from another source.  Next, you would use the frequency separation technique to create two layers in the image: one for the high frequencies and one for the low frequencies. The high frequency layer would contain the detail and texture information, while the low frequency layer would contain the color and tone information. You could then use the high frequency layer to generate a high-frequency detail material for the terrain, and the low frequency layer to generate a macro color map. These materials could then be used in a 3D graphics application to create a detailed and realistic representation of the terrain.
+To use frequency separation for the purpose of Terrain Detail Materials, you would typically start by obtaining an image of the terrain that you want to create a color map and high-frequency detail material for. This image could be a photograph or a scan of real-world terrain (such as Quixel materials), or it could be a digital image that you have created or obtained from another source.  Next, you would use the frequency separation technique to create two layers in the image: one for the high frequencies and one for the low frequencies. The high frequency layer would contain the detail and texture information, while the low frequency layer would contain the color and tone information. You could then use the high frequency layer to generate a high-frequency detail material for the terrain, and the low frequency layer to generate a macro color map. These materials could then be used in a 3D graphics application to create a detailed and realistic representation of the terrain.
 
 That is the gist, when we talk scanned materials, photogrammetry, or Physically Based Rendering (PBR), there is more to it than that, but those concepts and details are outside the scope of this article.
 
@@ -394,24 +395,24 @@ Note: the more *homogeneous (in overall color)* your terrain detail texture is,
 Let's do something similar to their doc, but we will use this freely available texture set: [polyhaven.com/a/cobblestone_floor_04]([http://docs.cryengine.com/display/SDKDOC2/Creating+Terrain+Textures+and+Materials](https://polyhaven.com/a/cobblestone_floor_04))
 
 1.  Downlaod the texture set (.zip)
-2.  Unpack the .zip
-3.  We are only going to use the color map for this example (the other textures can be loaded into a PBR material.)
-4.  These files should be renamed if you are going to use them in Open 3D Engine, due to naming conventions, our filemask suffix's need to be last to inform the asset processor ho to handle the texture channel type (basecolor, normal, roughness, etc.)  I recommend making the same naming fix to all of the texture image files.
-5.  Rename from this:  cobblestone_floor_04_diff_1k.jpg
-6.  To this: cobblestone_floor_04_1k_diff.jpg
-7.  Follow the steps for the "frequency seperation workflow"
+2. Unpack the .zip
+3. We are only going to use the color map for this example (the other textures can be loaded into a PBR material.)
+4. These files should be renamed if you are going to use them in Open 3D Engine, due to naming conventions, our filemask suffix's need to be last to inform the asset processor ho to handle the texture channel type (basecolor, normal, roughness, etc.)  I recommend making the same naming fix to all of the texture image files.
+5. Rename from this:  cobblestone_floor_04_diff_1k.jpg
+6. To this: cobblestone_floor_04_1k_diff.jpg
+7. Follow the steps for the "frequency separation workflow"
 
-| Source                                                                                                                                 | Low-Pass                                                                                                                                                                  | High-Pass                                                                                                                                                           | Reconstructed                                                                                                                          |
-| -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_040.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_041.png" width="200px" title="" alt="" data-align="inline">                                    | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_042.png" width="200px" title="" alt="" data-align="inline">                              | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_043.png" width="200px" title="" alt="" data-align="inline"> |
-|                                                                                                                                        |  |  | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_046.png" width="200px" title="" alt="" data-align="inline">                                                                                                                            |
-| <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_040.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_044.png" width="200px" title="" alt="" data-align="inline">                                    | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_042.png" width="200px" title="" alt="" data-align="inline">                              | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_045.png" width="200px" title="" alt="" data-align="inline"> |
+| Source                                                                                                                                 | Low-Pass                                                                                                                               | High-Pass                                                                                                                              | Reconstructed                                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_040.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_041.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_042.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_043.png" width="200px" title="" alt="" data-align="inline"> |
+|                                                                                                                                        |                                                                                                                                        |                                                                                                                                        | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_046.png" width="200px" title="" alt="" data-align="inline"> |
+| <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_040.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_044.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_042.png" width="200px" title="" alt="" data-align="inline"> | <img src="/assets/img/posts/2022-12-28-frequency_separation-assets/texture_045.png" width="200px" title="" alt="" data-align="inline"> |
 
 - Above in the top row is the low-pass color map, which we resized to 32x32 pixels and then resized back to the target resolution with bilinear sampling.
 - In the bottom row, we have used the average macro color instead for the low-pass.
 - In the far right column, we compare the two reconstructions, and the resulting differences between them.
 
-As you can see in the diff on the right, there is almost no perceptible difference between the low-pass and using a single averaged color (some macro contrast is lost, the overall result is more homogenous.)  These results may vary of course depending on the amount of change in color and details across the image map. And it reiterate an important point, you may want to play with the blur size kernel to get the best results per image. Since that quality result may be subjective, automation pipelines may not be able to easily apply the best fit; seems like this is an opportunity for a future learning model that can make this best guess. 
+As you can see in the diff on the right, there is almost no perceptible difference between the low-pass and using a single averaged color (some macro contrast is lost, the overall result is more homogeneous.)  These results may vary of course depending on the amount of change in color and details across the image map. And it reiterate an important point, you may want to play with the blur size kernel to get the best results per image. Since that quality result may be subjective, automation pipelines may not be able to easily apply the best fit; seems like this is an opportunity for a future learning model that can make this best guess. 
 
 ## FAQ
 
@@ -439,10 +440,10 @@ A: There are a lot of ideas for where this can lead, here are some:
 - You could turn these steps into a Photoshop Action, this should allow you to automate running them on any image within Photoshop.
   - [Automate your edits with Photoshop actions.](https://www.adobe.com/products/photoshop/actions.html#:~:text=Adobe%20Photoshop%20actions%20are%20a,they%20help%20you%20automate%20tasks.)
 - Once you've done that, you can use Actions in bulk automation (process a whole folder)
-  - Photoshop > File > Autoamtion > Batch...
+  - Photoshop > File > automation > Batch...
   - [Processing Batch Files](https://helpx.adobe.com/photoshop/using/processing-batch-files.html)
 - Once you have a Photoshop Action, that could be made into a Photoshop Droplet.  This would allow you to integrate into a pipeline and external automation.
-  - Photoshop > File > Autoamtion > Create Droplet
+  - Photoshop > File > automation > Create Droplet
   - [How and Why to Use Droplets](https://www.slrlounge.com/photoshop-tips-how-and-why-to-use-droplets/)
 - Write a Python image utility script that does all this work (with PIL, or OpenImageIO)
 - Make that py script into a Dockable Utility Panel tool that is integrated into the Editor and/or Content Tools and Workflows.
@@ -479,7 +480,7 @@ Speak like an artist... artists that use Photoshop, speak in the terms of Photos
 - [Highpass, Substance 3D Designer](https://substance3d.adobe.com/documentation/sddoc/highpass-159449203.html)
 - [Luminance Highpass, Substance 3D Designer](https://substance3d.adobe.com/documentation/sddoc/luminance-highpass-159449246.html)
 
-**Q: Can you give me a rundowon on 'Frequency separation' in game and realtime 3D content, versus it's use on photo retouching?**
+**Q: Can you give me a rundown on 'Frequency separation' in game and real-time 3D content, versus it's use on photo retouching?**
 
 **A:** Yes. There are a lot of areas it can be used, here are a few examples:
 
@@ -488,7 +489,7 @@ Speak like an artist... artists that use Photoshop, speak in the terms of Photos
 - This approach can also be used as an optimization, it's possible that the high-pass texture may have less visual compression artifacts (it thus may help combat DXT and other compression artifacts.)
 - It can be used to generate high-frequency detail textures for other non-terrain workflows as well, such as repeat patterns for blue jeans, other cloth, and leathers, etc.
 - It can similar be used in skin shading workflows, for instance highpass wrinkles and pore maps.
-- Image balance: get rid of uneven light and shadow in a material.  The game material example above, shows this, we lost some contrast and things became more homogenous, but in actuality that made the end results higher quality as the tiling-repeat of thos material will be less visually obvious.
+- Image balance: get rid of uneven light and shadow in a material.  The game material example above, shows this, we lost some contrast and things became more homogeneous, but in actuality that made the end results higher quality as the tiling-repeat of those materials will be less visually obvious.
 
 ## Reference
 
@@ -504,7 +505,6 @@ General:
 - [How to Retouch Skin Using Frequency Separation in Photoshop](https://www.makeuseof.com/photoshop-how-to-retouch-skin-frequency-separation/)
 - [Inverted High Pass (IHP) Retouching Tutorial — Retoucher — Daniel Meadows](https://www.dmd-digital-retouching.com/blog/inverted-high-pass-ihp-retouching-tutorial/)
 - [grunge highpass and lowpass textures](https://blog.stockvault.net/freebies/grunge-highpass-and-lowpass-textures/)
-
 
 ---
 

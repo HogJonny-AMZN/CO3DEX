@@ -15,10 +15,9 @@ You can use Devlopr as a starter for building your own Site. we purposely keep t
 
 Highly Customizable and No Hosting or Maintainence Cost is required !
 
-![devlopr jekyll](https://github.com/sujaykundu777/devlopr-jekyll/blob/master/assets/img/screenshot.PNG?raw=true)
+![www.co3dex.com](https://user-images.githubusercontent.com/23222931/213036094-29d28e6a-2203-4c97-b493-8ee760138294.png)
 
 devlopr uses Markdown Files to generate data like Blog Posts, Gallery, Shop Products etc. No external database is required.
-
 
 ### Launch your Static Site using Devlopr in minutes :rocket:
 

@@ -57,9 +57,9 @@ Let's cover some **terminology**...
 
 **<u>Look Development</u>** aka LookDev is the process of creating and refining the visual style of a 3D computer graphics (CG) character, object, or environment. It involves designing and defining the appearance of the CG assets, including the textures, materials, lighting, and shading, to achieve a desired visual look. IBL is very important to the LookDev workflow as we will explore in this article.
 
-**<u>Image Based Lighting</u>** (IBL) we have covered this above. This is when we use the HDRi as a lighting source for the scene. This is typically a globally defined entity. We also generate local probes that capture lighting (which would capture some amount of the global lighting.) 
+**<u>Image Based Lighting</u>** (IBL) we have covered this above. This is when we use the HDRi as a lighting source for the scene. This is typically a globally defined entity. We also generate local probes that capture scene lighting, these would capture the inbound global lighting and propogate lighting into other systems like global illumination and eventually contribut light to material shading on objects in the scene. 
 
-**<u>Specular reflections</u>** are the shiny, mirror-like reflections that are often seen on smooth and polished surfaces. They are caused by light bouncing off a surface at a single, well-defined angle, and are typically brighter and more focused than diffuse reflections, which are more scattered and diffuse. They are often used in conjunction with other techniques, such as normal mapping and environment mapping, to create more realistic and convincing surfaces.  In O3DE the specular reflections are dealt with via a combination of various components and rendering algorithms, including the Light entities, Global Skylight (IBL), reflection probes (baked reflection volume), screen space reflections (SSR), and/or ray-traced reflections.
+**<u>Specular reflections</u>** are the shiny, mirror-like reflections that are often seen on smooth and polished surfaces. They are caused by light bouncing off a surface at a single, well-defined angle, and are typically brighter and more focused than diffuse reflections, which are more scattered and soft. They are often used in conjunction with other techniques, such as normal mapping and environment mapping, to create more realistic and convincing surfaces.  In O3DE the specular reflections are dealt with via a combination of various components and rendering algorithms, including the Light entities, Global Skylight (IBL), reflection probes (baked reflection volume), screen space reflections (SSR), and/or ray-traced reflections.
 
 **<u>Indirect diffuse</u>** lighting is the diffuse (scattered) light that has been reflected off of one or more surfaces before reaching a given point. Indirect diffuse lighting is often simulated using global illumination algorithms, which attempt to calculate the way light is scattered and reflected throughout a 3D scene.  Indirect diffuse lighting is important for creating realistic and believable lighting in 3D graphics, as it helps to simulate the way light bounces off of multiple surfaces and fills in the shadows (ever look and notice shadows are not actually black.) Indirect diffuse lighting can also contribute to the overall atmosphere and mood of a scene, as it can help to create soft, diffuse lighting that helps to create a sense of ambient light and depth. There are several different algorithms and techniques that can be used to simulate indirect diffuse lighting in 3D graphics, including raytracing, radiosity, and global illumination. These techniques all have their own strengths and limitations, and are often used in combination to achieve the desired lighting effect.
 
@@ -131,7 +131,7 @@ There are a few things to understand about the IBL workflows, so you can better 
 
 3. EXR is the recommended image format for feeding HDRi source assets to the O3DE [Asset Processor](https://www.o3de.org/docs/user-guide/assets/asset-processor/), as it supports HDR floating point values (32-bit). Other [texture formats](https://www.o3de.org/docs/user-guide/assets/texture-settings/texture-assets/) will work also, but the EXR will yield superior results.
 
-4. There are a couple places in the engine you can find default examples (these are provided for the default level, and as LightingPreset environments in the [Material Editor](https://www.o3de.org/docs/atom-guide/look-dev/materials/material-editor/):
+4. There are a couple places in the engine you can find default examples; these are provided for the default level, and as LightingPreset environments in the [Material Editor](https://www.o3de.org/docs/atom-guide/look-dev/materials/material-editor/):
    
    1. [LightingPresets](https://github.com/o3de/o3de/tree/development/Gems/Atom/Feature/Common/Assets/LightingPresets)
    
@@ -141,17 +141,18 @@ There are a few things to understand about the IBL workflows, so you can better 
    
    4. [MaterialEditor/LightingPresets](https://github.com/o3de/o3de/tree/development/Gems/Atom/Tools/MaterialEditor/Assets/MaterialEditor/LightingPresets)
    
-   5. Tip: lighting preset files, named *.lightingpreset.azasset are JSON files, that define a lighting preset to used in 3D viewports such as the Material Editor, or Asset Browser preview. This allows you a pre-defined set of lighting environments you can quickly switch between when authoring materials. These can live in any asset folder (of the engine, your project, or an asset gem.)  They are hand editable in a text editor, or they can be made in the Material Editor [Viewport Settings panel](https://www.o3de.org/docs/atom-guide/look-dev/materials/material-editor/#viewport-settings). Any LightingPresets found will be surfaced in the Material Editor for use.
+   5. **Tip**: lighting preset files, named *.lightingpreset.azasset are JSON files, that define a lighting preset to used in 3D viewports such as the Material Editor, or Asset Browser preview. This allows you a pre-defined set of lighting environments you can quickly switch between when authoring materials. These can live in any asset folder (of the engine, your project, or an asset gem.)  They are hand editable in a text editor, or they can be made in the Material Editor [Viewport Settings panel](https://www.o3de.org/docs/atom-guide/look-dev/materials/material-editor/#viewport-settings). Any LightingPresets found will be surfaced in the Material Editor for use.
    
-   6. Tip: You can use the [CubeMap Capture Component](https://www.o3de.org/docs/user-guide/components/reference/atom/cubemap-capture/) placed anywhere in your level, to bake out specular and diffuse cubemaps, via this approach you can make LightingPresets from any of your game levels!
+   6. **Tip**: You can use the [CubeMap Capture Component](https://www.o3de.org/docs/user-guide/components/reference/atom/cubemap-capture/) placed anywhere in your level, to bake out specular and diffuse cubemaps, via this approach you can make LightingPresets from any of your game levels!
 
-5. IBL itself will provide global indirect lighting (diffuse light, you can think of this as ambient light), and reflections (specular).  But no shadows are generated from this lighting (that could however possibly be done with real-time raytracing in the future); what this means is that generally you will be adding a [Directional Light](https://www.o3de.org/docs/user-guide/components/reference/atom/directional-light/) component, which will act as the Sun and cast shadows into the scene (as seen in the car rendering above.)  Why this is important, is that if your HDRi is high-contrast and includes a visible Sun, that will mean bright light energy coming from the skylight, and when the Directional Light is added, it will also add it's light energy (effectively, incorrect doubling of the Sun's light energy.)  To counteract this, you would need to duplicate the image, and in the copy paint out the Sun (this can be quite a headache, doing this with clouds is difficult to say the least) The original image with the visible Sun can be used as your HDRi Skybox, and the modified version without the Sun as the Global Skylight (IBL).  Then the Suns lighting energy will be replaced with the Directional Light.
+5. IBL itself will provide global indirect lighting (diffuse light, you can think of this as ambient light), and reflections (specular).  But no shadows are generated from this lighting (that could however possibly be done with real-time raytracing in the future); what this means is that generally you will be adding a [Directional Light](https://www.o3de.org/docs/user-guide/components/reference/atom/directional-light/) component, which will act as the Sun and cast shadows into the scene (as seen in the car rendering above.)  Why this is important, is that if your HDRi is high-contrast and includes a visible Sun, that will mean bright light energy coming from the skylight (via your lighting cubemaps), and when the Directional Light is added, it will also add its light energy (effectively, incorrect doubling of the Sun's light energy.)  To counteract this, you would need to duplicate the image, and in the copy paint out the Sun (this can be quite a headache, doing this with clouds is difficult to say the least) The original image with the visible Sun can be used as your HDRi Skybox, and the modified version without the Sun as the Global Skylight (IBL).  Then the Suns lighting energy will be replaced with the Directional Light.
    
    1. You can [find low-contrast HDRis here](https://polyhaven.com/hdris/outdoor/low%20contrast), that may not need to be manipulated
    
    2. We'll cover the High-Contrast workflow below in the article.
    
    3. The Low-Contrast workflow is similar, it's easier because it doesn't require the modification to a duplicate of the HDRi to paint out the Sun.
+   4. An alternate workflow, is to use the Sky Atmosphere component which will render a Sun and atmosphere into the Skybox pass. This can be combined with a HDRi skybox that renders as the furthest background layer. (results will vary, but you have options here based on your needs.)
 
 6. In O3DE, the most common approach is to use [texture naming conventions](https://www.o3de.org/docs/user-guide/assets/texture-settings/texture-presets/) with asset file names, as a way to inform the Asset Processor what type of asset it is, and how to process it (which [image processing profile](https://github.com/o3de/o3de/tree/development/Gems/Atom/Asset/ImageProcessingAtom/Assets/Config) to apply), to generate the correct output products (process into IBL cubemaps, versus a standard texture format.) We also refer to these as 'file masks', and they are formatted as a `_suffix` at the end of the file name. There are several of these that are relevant to the IBL workflow, we will cover those below.  The alternative, is that you can use the [Texture Settings User Interface](https://www.o3de.org/docs/user-guide/assets/texture-settings/interface/) to assign the correct profile without altering the file name (this is stored as metadata in a `.assetinfo` sidecar file.)
 
@@ -175,7 +176,7 @@ A High-Contrast HDRi where you have two copies of the source, one with the Sun (
 
 - The cubemap generated (in the project cache) will be named:
   
-  - < HDRi name >_**skyboxcm**.exr.streamingimage
+  - < HDRi name >`_**skyboxcm**.exr.streamingimage`
   
   - Use this in the "HDRi Skybox Component"
 
@@ -191,7 +192,7 @@ A High-Contrast HDRi where you have two copies of the source, one with the Sun (
   
   - The cubemap(s) generated (in the project cache) will be named:
     
-    - < HDRi name >_**iblglobalcm** _iblspecular.exr.stream…
+    - < HDRi name > _**iblglobalcm** `_iblspecular.exr.stream…`
     
     - Use this in the "Global Skylight (IBL) Component"
 
@@ -203,7 +204,7 @@ A High-Contrast HDRi where you have two copies of the source, one with the Sun (
   
   - The cubemap generated (in the project cache) will be named:
     
-    - < HDRi name >_**iblglobalcm** _ibldiffuse.exr.stream…
+    - < HDRi name > _**iblglobalcm** `_ibldiffuse.exr.stream…`
     
     - Use this in the "Global Skylight (IBL) Component"
 
@@ -213,11 +214,11 @@ A Low-Contrast HDRi that doesn't have a strong or visible Sun, may not need a du
 
 - This will generate all three cubemap output products:
   
-  - < HDRi name >_**skyboxcm**.exr.streamingimage
+  - < HDRi name > `_**skyboxcm**.exr.streamingimage`
   
-  - < HDRi name >_**iblglobalcm** _iblspecular.exr.stream…
+  - < HDRi name > `_**iblglobalcm** _iblspecular.exr.stream…`
   
-  - < HDRi name >_**iblglobalcm** _ibldiffuse.exr.stream…
+  - < HDRi name > `_**iblglobalcm** _ibldiffuse.exr.stream…`
 
 ## Getting Started
 
@@ -242,9 +243,7 @@ Let's do this ...
 
 6. When you start the Editor, it will start the Asset Processor.  You can find it in the system tray.  Allow it to finish processing assets, then the Editor will start.
 
-7. When the Editor is open, create a new level, I called mine "HDRi_test"
-   
-   1. The default level looks like this
+7. When the Editor is open, create a new level, I called mine "HDRi_test". The default level looks like this:
    
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-08-22-47-40-image.png" width="512px" title="Open 3D Engine default level" alt="o3de-default-level" data-align="inline">
 
@@ -254,15 +253,15 @@ The default level, uses the High-Contrast workflow, with this HDRi setup:
 
 - [High-Contrast Lighting](https://github.com/o3de/o3de/tree/development/Gems/Atom/Feature/Common/Assets/LightingPresets/HighContrast)
 
-- The original image (with Sun) to be used as the Skybox is: "o3de\Gems\Atom\Feature\Common\Assets\LightingPresets\HighContrast\goegap_4k_**iblglobalcm**.exr"
+- The original image (with Sun) to be used as the Skybox is: `o3de\Gems\Atom\Feature\Common\Assets\LightingPresets\HighContrast\goegap_4k_**iblglobalcm**.exr`
 
-- The duplicate with Sun painted out is:  "o3de\Gems\Atom\Feature\Common\Assets\LightingPresets\HighContrast\goegap_4k_**skyboxcm**.exr"
+- The duplicate with Sun painted out is:  `o3de\Gems\Atom\Feature\Common\Assets\LightingPresets\HighContrast\goegap_4k_**skyboxcm**.exr`
 
 Why this setup?
 
-1. The HDRi has a visible Sun, we are going to render that in the skybox so it's visible.  This will be the original source goegap_4k, with the file mask suffix _skyboxcm, which will only generate skybox cubemap (not convolved, no mips)
+1. The HDRi has a visible Sun, we are going to render that in the skybox so it's visible.  This will be the original source goegap_4k, with the file mask suffix `_skyboxcm`, which will only generate skybox cubemap (not convolved, no mips)
 
-2. The duplicate has the Sun painted out, so we can use it to generate the global lighting cubemaps, with the file mask suffix _iblglobalcm, which will generate a set of convolved diffuse and specular cubemaps (global skylight)
+2. The duplicate has the Sun painted out, so we can use it to generate the global lighting cubemaps, with the file mask suffix `_iblglobalcm`, which will generate a set of convolved diffuse and specular cubemaps (global skylight)
 
 ### Anatomy of Default Level (Global Lighting)
 
@@ -296,7 +295,7 @@ Let's breakdown the Anatomy of the O3DEs current default level and dissect the w
 
 5. This duplicate was open in an image editor (Photoshop) and the Sun was removed.
 
-This type of setup creates a static lighting environment (the sun and lighting don't move, no dynamic time of day.)  Those things may be possible but are out of the scope for this article. A static HDR lighting environment is still great for many small environments or games that don't need dynamic time of day, and the uses cases are many such as product visualization, architectural visualization, etc.
+This type of setup creates a static lighting environment; the sun and lighting don't move, no dynamic time of day. Those things may be possible but are out of the scope for this article. A static HDR lighting environment is still great for many small environments or games that don't need dynamic time of day, and the uses cases are many such as product visualization, architectural visualization, etc.
 
 #### Sibling HDRi
 
@@ -304,7 +303,7 @@ In this slide, on the left is the duplicate set of the source image files, in a 
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-10-23-39-07-image.png" width="512px" title="O3DE Workshop Slide for HDRi siblings" alt="o3de-workshop-slide-5" data-align="inline">
 
-1. First, note that in the Asset Browser (lower left quadrant of the Editor), shows the duplicate set of HDRi siblings (you can search and filter by name); and beneath them it shows the output products they generate (texture streaming assets). The _skyboxcm source only generates one output cubemap, the _iblglobalcm asset is generating many, because it creates the diffuse and the specular which includes several levels of mip maps (you don't need to work the mips directly in the workflow, I am just pointing out what you are seeing.)
+1. First, note that in the Asset Browser (lower left quadrant of the Editor), shows the duplicate set of HDRi siblings (you can search and filter by name); and beneath them it shows the output products they generate (texture streaming assets). The `_skyboxcm` source only generates one output cubemap, the `_iblglobalcm` asset is generating many, because it creates the diffuse and the specular which includes several levels of mip maps (you don't need to work the mips directly in the workflow, I am just pointing out what you are seeing.)
    
    1. <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-07-31-image.png" width="400px" title="O3DE LightingPreset" alt="O3DE-LightingPreset" data-align="inline">
 
@@ -346,13 +345,15 @@ The duplicate with the Sun painted out, also created a convolved diffuse cubemap
 
 **Tip**: It's also possible to now take the O3DE cubemaps (skybox, specular and diffuse) and use them outside in external applications such as 3D Digital Content creation tools such as Maya and Blender (take your game lighting with you.)  Maya as an example can utilize the cubemaps directly (if you have the DDS loader plugin active), you can load them into a StingrayPBS material. Other applications or workflows may prefer a LatLong, a good example is [Marmoset Toolbag](https://marmoset.co/toolbag/), you could use the same source EXR to build a matching lighting environment in that tool.  If you want to convert O3DE cubemaps back into a LatLong format, you could use a tool like [GitHub - dariomanesku/cmftStudio: cmftStudio:](https://github.com/dariomanesku/cmftStudio)
 
+I call this 'Synced Lighting Workflow', and it could be it's own future post. Each DCC tools capabilities and workflows are slightly different, so this would be a lengthy and detailed article (looking forward to writing it.)
+
 ##### Directional Light (Sun)
 
 Now to generate shadows and provide the Sun's lighting Energy, there is an Entity called "Sun", if you select this, in the "Entity Inspector" on the right-edge of the Editor, you will see this Entity has a [Directional Light Component](https://www.o3de.org/docs/user-guide/components/reference/atom/directional-light/). This component's transform, is then angled so the light is aligned with the Sun's position in the Sky.
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-04-11-image.png" width="512px" title="O3DE workshop slide Sun" alt="o3de-workshop-slide-9" data-align="inline">
 
-<u>**Tip**</u>: If you'd like to make it easier to accurately align the entity rotation to match the Sun angle in the sky, you can use this trick.  Create a Camera Entity and parent the Sun (directional light) to it, then you can 'look through' this camera and point it to the Sun.
+**<u>Tip</u>**: If you'd like to make it easier to accurately align the entity rotation to match the Sun angle in the sky, you can use this trick.  Create a Camera Entity and parent the Sun (directional light) to it, then you can 'look through' this camera and point it to the Sun.
 
 1. Create an Entity: Camera-Sun, add a Camera Component
 
@@ -372,7 +373,7 @@ And when you look through the camera, you will be able to pan to align with the 
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/ef1193a3989d1efd2e08cc2ba29dbb7444f305da.gif" width="512px" title="Look through the Sun-Camera to position light" alt="look-through-sun" data-align="inline">
 
-<u>**Tip**</u>: If you open your EXR in Photoshop, you can sample the color and intensity of the Sun in the sky.  
+**<u>Tip</u>**: If you open your EXR in Photoshop, you can sample the color and intensity of the Sun in the sky.  
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/83d204e221d282b14946d3d8075d33b86fd324bc.gif" width="512px" title="IBL EXR image open in Photoshop, color picking the Sun value" alt="sun-color-PS" data-align="inline">
 

@@ -455,7 +455,7 @@ Here are some additional reference links:
 
 - [Using High-Contrast IBL in BabylonJS](https://babylonjs.medium.com/using-high-contrast-image-based-lighting-in-babylon-js-627ac721f20)
 
-- [Using An HDR Environment For PBR | Babylon.js Documentation](https://doc.babylonjs.com/features/featuresDeepDive/materials/using/HDREnvironment)
+- [Using An HDR Environment For PBR in BabylonJS Documentation](https://doc.babylonjs.com/features/featuresDeepDive/materials/using/HDREnvironment)
 
 - [Filament Image Based Lights](https://google.github.io/filament/Filament.md.html#lighting/imagebasedlights)
 

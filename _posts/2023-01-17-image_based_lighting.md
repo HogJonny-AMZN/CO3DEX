@@ -6,7 +6,7 @@ author: hogjonny
 date: '2023-01-17 12:15:36 -0600'
 category: techart
 thumbnail: /assets/img/posts/2023-01-17-image_based_lighting-assets/o3de-ibl-post-title.png
-keywords: welcome
+keywords: techart,IBL,image-based-lighting,O3DE,global-lighting,skylight,skybox,exr,hdri
 permalink: /blog/image-based-lighting-1/
 usemathjax: true
 ---

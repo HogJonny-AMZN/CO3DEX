@@ -25,13 +25,13 @@ In my last post we covered [Frequency Separation](https://www.co3dex.com/blog/Un
 
 This article is lengthy, it's a deep dive (lowish context, methodical and explicit).  But it's educational, and you do not need to know every single granular detail to set up or use lighting (jump to the end) - but you may want to know more about these concepts if you are a specialist in lighting or a technical artist.
 
-Note: some of the information in this article, in regards to Global Lighting, is covered in my 2022 O3dcon workshop "World Building in Open 3D Engine", you can [download the slide deck here](https://github.com/o3de/o3de-workshops-2022/blob/main/Powerpoint/O3DECon_2022_JKG_WorldBuilding.pptx) (I've replicated some of these slides within the article.)
+**Note**: some of the information in this article, in regards to Global Lighting, is covered in my 2022 O3dcon workshop "World Building in Open 3D Engine", you can [download the slide deck here](https://github.com/o3de/o3de-workshops-2022/blob/main/Powerpoint/O3DECon_2022_JKG_WorldBuilding.pptx) (I've replicated some of these slides within the article.)
 
 # Image Based Lighting (IBL)
 
 Image-based lighting (IBL) is a technique used to simulate the lighting in a 3D scene by using an image of a real-world environment as the source of light. The image, known as an HDR environment map, is typically captured by taking a photograph of a real-world location or by synthesizing an image using computer graphics techniques.
 
-To generally use IBL in a 3D application, the environment map is first mapped onto a sphere or a cube, which is then used to illuminate the scene. This can be done by applying the environment map as a texture to a special type of light source, such as an infinite light or a skydome light, which is a virtual light that surrounds the scene.  (note: this is a general description, we will dive into the O3DE concepts, terminology, components and workflow later in this post.)
+To generally use IBL in a 3D application, the environment map is first mapped onto a sphere or a cube, which is then used to illuminate the scene. This can be done by applying the environment map as a texture to a special type of light source, such as an infinite light or a skydome light, which is a virtual light that surrounds the scene.  (**note**: this is a general description, we will dive into the O3DE concepts, terminology, components and workflow later in this post.)
 
 The main advantage of using IBL is that it can produce very realistic lighting and reflections in a 3D scene, since it is based on actual photographs of real-world environments. This can be especially useful for creating realistic visualizations of architectural designs, product prototypes, and other objects that will be seen in real-world settings. (aka Look Development)
 
@@ -49,19 +49,19 @@ Here is a look, this is an image of a environment I rendered in O3DE using IBL, 
 
 Let's cover some **terminology**...
 
-<u>**High Dynamic Range**</u> (HDR) capable renderer is a type of software that is able to display and process images with a wider range of colors and brightness levels than traditional renderers. This allows for more realistic and accurate representations of real-world lighting and color, including bright highlights and deep shadows. HDR rendering is often used in the film and video game industries to create more immersive and visually stunning experiences.
+**<u>High Dynamic Range</u>** (HDR) capable renderer is a type of software that is able to display and process images with a wider range of colors and brightness levels than traditional renderers. This allows for more realistic and accurate representations of real-world lighting and color, including bright highlights and deep shadows. HDR rendering is often used in the film and video game industries to create more immersive and visually stunning experiences.
 
-<u>**Standard Dynamic Range**</u> (SDR) is a term used to describe the typical range of brightness and color that most current displays, such as computer monitors, TVs and mobile screens, are able to produce. In SDR, the range of brightness is limited, and the color space is smaller than what is possible with HDR (High Dynamic Range) displays. SDR images have a lower contrast ratio and less vivid colors than HDR images. Therefore, SDR images are not able to represent the full range of real-world lighting and color, and may appear less realistic and immersive than HDR images.
+**<u>Standard Dynamic Range</u>** (SDR) is a term used to describe the typical range of brightness and color that most current displays, such as computer monitors, TVs and mobile screens, are able to produce. In SDR, the range of brightness is limited, and the color space is smaller than what is possible with HDR (High Dynamic Range) displays. SDR images have a lower contrast ratio and less vivid colors than HDR images. Therefore, SDR images are not able to represent the full range of real-world lighting and color, and may appear less realistic and immersive than HDR images.
 
-<u>**HDR tone mapping**</u> is a technique used to display high dynamic range (HDR) images on devices that have a lower dynamic range, such as standard computer monitors or TVs. The process involves compressing the wide range of brightness levels in an HDR image into the narrower range that can be displayed by the output device. This is done by applying a mathematical algorithm, called a tone mapping operator, to the HDR image. The goal of tone mapping is to preserve as much of the original image's visual information as possible while still ensuring that it can be properly displayed on the output device. This can include adjusting the contrast, brightness, and color saturation of the image to achieve a more visually pleasing result.
+**<u>HDR tone mapping</u>** is a technique used to display high dynamic range (HDR) images on devices that have a lower dynamic range, such as standard computer monitors or TVs. The process involves compressing the wide range of brightness levels in an HDR image into the narrower range that can be displayed by the output device. This is done by applying a mathematical algorithm, called a tone mapping operator, to the HDR image. The goal of tone mapping is to preserve as much of the original image's visual information as possible while still ensuring that it can be properly displayed on the output device. This can include adjusting the contrast, brightness, and color saturation of the image to achieve a more visually pleasing result.
 
 **<u>Look Development</u>** aka LookDev is the process of creating and refining the visual style of a 3D computer graphics (CG) character, object, or environment. It involves designing and defining the appearance of the CG assets, including the textures, materials, lighting, and shading, to achieve a desired visual look. IBL is very important to the LookDev workflow as we will explore in this article.
 
-<u>**Image Based Lighting**</u> (IBL) we have covered this above. This is when we use the HDRi as a lighting source for the scene. This is typically a globally defined entity. We also generate local probes that capture lighting (which would capture some amount of the global lighting.) 
+**<u>Image Based Lighting</u>** (IBL) we have covered this above. This is when we use the HDRi as a lighting source for the scene. This is typically a globally defined entity. We also generate local probes that capture lighting (which would capture some amount of the global lighting.) 
 
-<u>**Specular reflections**</u> are the shiny, mirror-like reflections that are often seen on smooth and polished surfaces. They are caused by light bouncing off a surface at a single, well-defined angle, and are typically brighter and more focused than diffuse reflections, which are more scattered and diffuse. They are often used in conjunction with other techniques, such as normal mapping and environment mapping, to create more realistic and convincing surfaces.  In O3DE the specular reflections are dealt with via a combination of various components and rendering algorithms, including the Light entities, Global Skylight (IBL), reflection probes (baked reflection volume), screen space reflections (SSR), and/or ray-traced reflections.
+**<u>Specular reflections</u>** are the shiny, mirror-like reflections that are often seen on smooth and polished surfaces. They are caused by light bouncing off a surface at a single, well-defined angle, and are typically brighter and more focused than diffuse reflections, which are more scattered and diffuse. They are often used in conjunction with other techniques, such as normal mapping and environment mapping, to create more realistic and convincing surfaces.  In O3DE the specular reflections are dealt with via a combination of various components and rendering algorithms, including the Light entities, Global Skylight (IBL), reflection probes (baked reflection volume), screen space reflections (SSR), and/or ray-traced reflections.
 
-<u>**Indirect diffuse**</u> lighting is the diffuse (scattered) light that has been reflected off of one or more surfaces before reaching a given point. Indirect diffuse lighting is often simulated using global illumination algorithms, which attempt to calculate the way light is scattered and reflected throughout a 3D scene.  Indirect diffuse lighting is important for creating realistic and believable lighting in 3D graphics, as it helps to simulate the way light bounces off of multiple surfaces and fills in the shadows (ever look and notice shadows are not actually black.) Indirect diffuse lighting can also contribute to the overall atmosphere and mood of a scene, as it can help to create soft, diffuse lighting that helps to create a sense of ambient light and depth. There are several different algorithms and techniques that can be used to simulate indirect diffuse lighting in 3D graphics, including raytracing, radiosity, and global illumination. These techniques all have their own strengths and limitations, and are often used in combination to achieve the desired lighting effect.
+**<u>Indirect diffuse</u>** lighting is the diffuse (scattered) light that has been reflected off of one or more surfaces before reaching a given point. Indirect diffuse lighting is often simulated using global illumination algorithms, which attempt to calculate the way light is scattered and reflected throughout a 3D scene.  Indirect diffuse lighting is important for creating realistic and believable lighting in 3D graphics, as it helps to simulate the way light bounces off of multiple surfaces and fills in the shadows (ever look and notice shadows are not actually black.) Indirect diffuse lighting can also contribute to the overall atmosphere and mood of a scene, as it can help to create soft, diffuse lighting that helps to create a sense of ambient light and depth. There are several different algorithms and techniques that can be used to simulate indirect diffuse lighting in 3D graphics, including raytracing, radiosity, and global illumination. These techniques all have their own strengths and limitations, and are often used in combination to achieve the desired lighting effect.
 
 **<u>HDRi</u>** is synonymous with IBL, it is a panoramic photo, which covers all angles from a single point and contains a large amount of data (usually HDR 32 bits per pixel per channel), which can be used for the illumination of CG scene.  This is a source input image (.exr, or .hdr), and it is usually a LatLong format (but [other formats](https://github.com/dariomanesku/cmftStudio) exist).
 
@@ -75,7 +75,7 @@ The process of creating an HDRi image from multiple exposures is often referred 
 
 **<u>Cubemap</u>** is a type of texture that contains 6 square 2D images, each one representing the view from a direction along the coordinate axes (up, down, left, right, front, and back). Cubemaps are commonly used in 3D computer graphics to simulate reflections or to create the illusion of being inside a space.  When we pass a HDRi source image to O3DE, the runtime asset output is a processed cubemap (the processing of the cubemap varies based on use.)  [Cubemap Description - polycount](http://wiki.polycount.com/wiki/Cube_map) and [Cube mapping - Wikipedia](https://en.wikipedia.org/wiki/Cube_mapping)
 
-<u>**Convolved Cubemap**</u> represents the light of the environment around a 3D object. Convolution is a mathematical operation that is used to blur or sharpen an image, or to extract features from it. In the case of a convolved cubemap, convolution is used to simulate the way that light interacts with the environment, by blurring the texture using importance sampling of inbound light (stored as mip chain). In O3DE when a source HDRi is processed, the floating point lighting are convolved, generally the source (latlong), is processed into lighting cubemaps (diffuse, and specular) . This allows the HDRi to be used to create more realistic reflections on the surface of an object.  Nvidia reference on Importance Sampling, and mip map sampling:
+**<u>Convolved Cubemap</u>** represents the light of the environment around a 3D object. Convolution is a mathematical operation that is used to blur or sharpen an image, or to extract features from it. In the case of a convolved cubemap, convolution is used to simulate the way that light interacts with the environment, by blurring the texture using importance sampling of inbound light (stored as mip chain). In O3DE when a source HDRi is processed, the floating point lighting are convolved, generally the source (latlong), is processed into lighting cubemaps (diffuse, and specular) . This allows the HDRi to be used to create more realistic reflections on the surface of an object.  Nvidia reference on Importance Sampling, and mip map sampling:
 
 [Chapter 20 GPU-Based Importance Sampling NVIDIA Developer](https://developer.nvidia.com/gpugems/gpugems3/part-iii-rendering/chapter-20-gpu-based-importance-sampling)
 
@@ -141,7 +141,7 @@ There are a few things to understand about the IBL workflows, so you can better 
    
    4. [MaterialEditor/LightingPresets](https://github.com/o3de/o3de/tree/development/Gems/Atom/Tools/MaterialEditor/Assets/MaterialEditor/LightingPresets)
    
-   5. Tip: lighting preset files, named *.lightingpreset.azasset are JSON files, that define a lighting present used in viewports such as the Material Editor.  This allows you a pre-defined set of lighting environments you can quickly switch between when authoring materials. These can live in any asset folder (of the engine, your project, or an asset gem.)  They are hand editable in a text editor, or they can be made in the Material Editor [Viewport Settings panel](https://www.o3de.org/docs/atom-guide/look-dev/materials/material-editor/#viewport-settings). Any LightingPresets found will be surfaced in the Material Editor for use.
+   5. Tip: lighting preset files, named *.lightingpreset.azasset are JSON files, that define a lighting preset to used in 3D viewports such as the Material Editor, or Asset Browser preview. This allows you a pre-defined set of lighting environments you can quickly switch between when authoring materials. These can live in any asset folder (of the engine, your project, or an asset gem.)  They are hand editable in a text editor, or they can be made in the Material Editor [Viewport Settings panel](https://www.o3de.org/docs/atom-guide/look-dev/materials/material-editor/#viewport-settings). Any LightingPresets found will be surfaced in the Material Editor for use.
    
    6. Tip: You can use the [CubeMap Capture Component](https://www.o3de.org/docs/user-guide/components/reference/atom/cubemap-capture/) placed anywhere in your level, to bake out specular and diffuse cubemaps, via this approach you can make LightingPresets from any of your game levels!
 
@@ -153,9 +153,9 @@ There are a few things to understand about the IBL workflows, so you can better 
    
    3. The Low-Contrast workflow is similar, it's easier because it doesn't require the modification to a duplicate of the HDRi to paint out the Sun.
 
-6. In O3DE, the most common approach is to use [texture naming conventions](https://www.o3de.org/docs/user-guide/assets/texture-settings/texture-presets/) with asset file names, as a way to inform the Asset Processor what type of asset it is, and how to process with the  it (which [image processing profile](https://github.com/o3de/o3de/tree/development/Gems/Atom/Asset/ImageProcessingAtom/Assets/Config) to apply), to generate the correct output products (IBL versus a standard texture.) We also refer to these as 'file masks', and they are formatted as a _suffix at the end of the file name. There are several of these that are relevant to the IBL workflow, we will cover those below.  The alternative, is that you can use the [Texture Settings User Interface](https://www.o3de.org/docs/user-guide/assets/texture-settings/interface/) to assign the correct profile without altering the file name (this is stored as metadata in a `.assetinfo` sidecar file.)
+6. In O3DE, the most common approach is to use [texture naming conventions](https://www.o3de.org/docs/user-guide/assets/texture-settings/texture-presets/) with asset file names, as a way to inform the Asset Processor what type of asset it is, and how to process it (which [image processing profile](https://github.com/o3de/o3de/tree/development/Gems/Atom/Asset/ImageProcessingAtom/Assets/Config) to apply), to generate the correct output products (process into IBL cubemaps, versus a standard texture format.) We also refer to these as 'file masks', and they are formatted as a `_suffix` at the end of the file name. There are several of these that are relevant to the IBL workflow, we will cover those below.  The alternative, is that you can use the [Texture Settings User Interface](https://www.o3de.org/docs/user-guide/assets/texture-settings/interface/) to assign the correct profile without altering the file name (this is stored as metadata in a `.assetinfo` sidecar file.)
 
-7. Note: in this article, we are using HDR lighting, and Atom (the O3DE rendering engine) is an HDR capable renderer.  Atom can output final imagery to be displayed on a variety of devices with different display capabilities (SDR vs HDR) using tone mapping.  For this article we rendering in HDR but displaying the final post-tone-mapped images on a SDR sRGB monitor (The web doesn't really deal with HDR display well, with the exception of HDR videos.)
+7. **Note**: in this article, we are using HDR lighting, and Atom (the O3DE rendering engine) is an HDR capable renderer.  Atom can output final imagery to be displayed on a variety of devices with different display capabilities (SDR vs HDR) using tone mapping.  For this article we rendering in HDR but displaying the final post-tone-mapped images on a SDR sRGB monitor (The web doesn't really deal with HDR display well, with the exception of HDR videos.)
 
 ### HDRi, IBL Naming Conventions
 
@@ -165,7 +165,7 @@ This slide from my presentation covers the most common HDRi naming conventions u
 
 A High-Contrast HDRi where you have two copies of the source, one with the Sun (skybox), and one without (lighting), will need these two naming conventions
 
-#### 1. _SkyboxCM
+#### 1. `_SkyboxCM`
 
 - This will only generate a high-res cubemap that is suitable for use as a Skybox.
 
@@ -179,7 +179,7 @@ A High-Contrast HDRi where you have two copies of the source, one with the Sun (
   
   - Use this in the "HDRi Skybox Component"
 
-#### 2. _IBLglobalCM
+#### 2. `_IBLglobalCM`
 
 - This will only generate the global indirect diffuse and specular reflections lighting cubemaps:
 
@@ -207,9 +207,9 @@ A High-Contrast HDRi where you have two copies of the source, one with the Sun (
     
     - Use this in the "Global Skylight (IBL) Component"
 
-A Low-Contrast HDRi that doesn't have a strong or visible Sun, may not need a duplicate source image, and can most likely just use this naming convention.
+#### 3. `_IBLskyboxCM`
 
-#### 3. _IBLskyboxCM
+A Low-Contrast HDRi that doesn't have a strong or visible Sun, may not need a duplicate source image, and can most likely just use this naming convention.
 
 - This will generate all three cubemap output products:
   
@@ -219,9 +219,9 @@ A Low-Contrast HDRi that doesn't have a strong or visible Sun, may not need a du
   
   - < HDRi name >_**iblglobalcm** _ibldiffuse.exr.stream…
 
-## Getting Started ...
+## Getting Started
 
-Let's do this
+Let's do this ...
 
 1. Start the O3DE Project manager (o3de.exe)
 
@@ -233,7 +233,7 @@ Let's do this
 
 4. Rename the file, I used the file mask:
    
-   1. clarens_midday_8k_IBLskyboxCM
+   1. goegap_4k`_IBLskyboxCM`
 
 5. Move to an asset folder, in this post we are using the default:
    
@@ -286,13 +286,13 @@ Let's breakdown the Anatomy of the O3DEs current default level and dissect the w
    
    4. ... it's up to you to decide how you organize your data
 
-3. The original source file was renames with file mask suffix for a skybox cubemap:
+3. The original source file was renamed with file mask suffix for a skybox cubemap:
    
-   1. goegap_4k_**skyboxcm**.exr
+   1. goegap_4k`_skyboxcm`.exr
 
 4. The files was duplicated, then renamed with file mask suffix for a global lighting cubemaps:
    
-   1. goegap_4k_**iblglobalcm**.exr
+   1. goegap_4k`_iblglobalcm`.exr
 
 5. This duplicate was open in an image editor (Photoshop) and the Sun was removed.
 
@@ -342,7 +342,7 @@ The duplicate with the Sun painted out, also created a convolved diffuse cubemap
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-11-00-18-25-image.png" width="512px" title="O3DE workshop slide diffuse" alt="o3de-workshop-slide-8" data-align="inline">
 
-Note: in this slide, I am using the diffuse cubemap as the skybox - I just wanted to visually show the concept of what the lighting environment looked like as a latlong projection and suggest the idea that this is the inbound indirect diffuse light. When you follow the workflow, you'll have the previous high-res skybox (It is possible to actually load the soft diffuse cubemap into the skybox and render it, this is used intentionally in all of the Material Editors LightingPresets as a visually less distracting LookDev mode.)
+**Note**: in this slide, I am using the diffuse cubemap as the skybox - I just wanted to visually show the concept of what the lighting environment looked like as a latlong projection and suggest the idea that this is the inbound indirect diffuse light. When you follow the workflow, you'll have the previous high-res skybox (It is possible to actually load the soft diffuse cubemap into the skybox and render it, this is used intentionally in all of the Material Editors LightingPresets as a visually less distracting LookDev mode.)
 
 **Tip**: It's also possible to now take the O3DE cubemaps (skybox, specular and diffuse) and use them outside in external applications such as 3D Digital Content creation tools such as Maya and Blender (take your game lighting with you.)  Maya as an example can utilize the cubemaps directly (if you have the DDS loader plugin active), you can load them into a StingrayPBS material. Other applications or workflows may prefer a LatLong, a good example is [Marmoset Toolbag](https://marmoset.co/toolbag/), you could use the same source EXR to build a matching lighting environment in that tool.  If you want to convert O3DE cubemaps back into a LatLong format, you could use a tool like [GitHub - dariomanesku/cmftStudio: cmftStudio:](https://github.com/dariomanesku/cmftStudio)
 
@@ -376,7 +376,7 @@ And when you look through the camera, you will be able to pan to align with the 
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/83d204e221d282b14946d3d8075d33b86fd324bc.gif" width="512px" title="IBL EXR image open in Photoshop, color picking the Sun value" alt="sun-color-PS" data-align="inline">
 
-In this article, we are not going to dig past the surface plane of physically based lighting, that is a whole in-depth topic.  But basically, we can use these sampled values from Photoshop as a *starting point* for HDR lighting values. Note: this is not necessarily accurate physically based HDR lighting values, we'd need to focus on a much more technical workflow for that, but it is HDR (high dynamic range) and good enough as a starting point.
+In this article, we are not going to dig past the surface plane of physically based lighting, that is a whole in-depth topic.  But basically, we can use these sampled values from Photoshop as a *starting point* for HDR lighting values. **Note**: this is not necessarily accurate physically based HDR lighting values, we'd need to focus on a much more technical workflow for that, but it is HDR (high dynamic range) and good enough as a starting point.
 
 Here is our 32-bit color picker:
 
@@ -388,7 +388,7 @@ Here is our 32-bit color picker:
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/78fdfd5d6cf1027cc3c12a562924a6c168e4ceed.gif" width="512px" title="O3DE set the color of the Sun" alt="set-sun-color-o3de" data-align="inline">
 
-Note: It's important to understand "color space" (sRGB, Linear RGB, ACEScg, etc.) and "color model" (RGB or HSV, etc.), but that could also be a whole in-depth article. What's important to know, is that in the color picker you are *visually working with color picking* in the sRGB color space, but the values that Color Pickers returns for the renderer are *converted to and stored in a Linear RGB Color Space*.
+**Note**: It's important to understand "color space" (sRGB, Linear RGB, ACEScg, etc.) and "color model" (RGB or HSV, etc.), but that could also be a whole in-depth article. What's important to know, is that in the color picker you are *visually working with color picking* in the sRGB color space, but the values that Color Pickers returns for the renderer are *converted to and stored in a Linear RGB Color Space*.
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-16-11-38-25-image.png" width="512px" title="O3DE Color Picker" alt="o3de-color-picker" data-align="inline">
 
@@ -406,7 +406,7 @@ Select the Entity named "Global Sky" and set the Exposure value on the Global Sk
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-17-11-32-37-image.png" width="512px" title="O3DE Blown Out HDR lighting" alt="over-exposed" data-align="inline">
 
-This is because the renderer is physically based (PBR), so we are emulating real-world light energy; the renderer is a virtual camera like a DSLR (or your smartphone), and we need the camera to auto-expose the light energy back into a visible range.
+This is because the renderer is physically based (PBR), so we are emulating real-world light energy; the renderer is a virtual camera like a DSLR (or your smartphone), and we need the camera to auto-expose the HDR light energy back into a into the range that looks good and is pleasing to human eyeballs.
 
 Here are the steps to do that:
 
@@ -418,7 +418,7 @@ Here are the steps to do that:
 
 4. Now in the Exposure component, set the Control Type to "Eye Adaptation"
 
-This will enable auto-exposure on your main camera (for now, don't worry about concepts such as PostFX Layers or Volumes.)  This is set up to mimic the way the human eye responds to light when moving in and out of light to dark areas.
+This will enable auto-exposure on your main camera (for now, don't worry about concepts such as PostFX Layers or Volumes, which can be covered in a future article.)  This is set up to mimic the way the human eye responds to light when moving in and out of light to dark areas.
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/406041bb2682bfa588a18b1b4b42971ea4ed4502.gif" width="512px" title="O3DE Exposure Control Component" alt="auto-exposure" data-align="inline">
 
@@ -436,7 +436,7 @@ We can see a little more about what is going on under the hood, and this will be
 
 This heatmap allows us to visualize the inbound lighting energy that camera plane is receiving, much like an advanced mode for photography on a professional DSLR.  As we move the camera view around, we can see the histogram update to represent the light energy entering the view.
 
-Note: the hump of the histogram stays roughly around 10 EV, the exposure value we happened to use as the base value for our Sun (directional light) and IBL (skybox, skylight.)  Also notice, that the Sun pixels render red, this shows that those pixels are above the exposure threshold value of "Maximum Exposure", if you lower that value you'll see that more of the pixels clip red.  These are helpful tools for Lighitng Specialist who want the most accurate results when working with physically based rendering.
+**Note**: the hump of the histogram stays roughly around 10 EV, the exposure value we happened to use as the base value for our Sun (directional light) and IBL (skybox, skylight.)  Also notice, that the Sun pixels render red, this shows that those pixels are above the exposure threshold value of "Maximum Exposure", if you lower that value you'll see that more of the pixels clip red.  These are helpful tools for Lighitng Specialist who want the most accurate results when working with physically based rendering.
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/e279c49a3ad60cbb7e01a6d02e8c889e8137ea6f.gif" width="512px" title="O3DE Exposure Control component, EV histogram" alt="ev-histogram" data-align="inline">
 

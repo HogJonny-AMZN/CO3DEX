@@ -77,7 +77,7 @@ The process of creating an HDRi image from multiple exposures is often referred 
 
 <u>**Convolved Cubemap**</u> represents the light of the environment around a 3D object. Convolution is a mathematical operation that is used to blur or sharpen an image, or to extract features from it. In the case of a convolved cubemap, convolution is used to simulate the way that light interacts with the environment, by blurring the texture using importance sampling of inbound light (stored as mip chain). In O3DE when a source HDRi is processed, the floating point lighting are convolved, generally the source (latlong), is processed into lighting cubemaps (diffuse, and specular) . This allows the HDRi to be used to create more realistic reflections on the surface of an object.  Nvidia reference on Importance Sampling, and mip map sampling:
 
-[Chapter 20. GPU-Based Importance Sampling | NVIDIA Developer](https://developer.nvidia.com/gpugems/gpugems3/part-iii-rendering/chapter-20-gpu-based-importance-sampling)
+[Chapter 20 GPU-Based Importance Sampling NVIDIA Developer](https://developer.nvidia.com/gpugems/gpugems3/part-iii-rendering/chapter-20-gpu-based-importance-sampling)
 
 **<u>EXR</u>** is a high dynamic range (HDR) image file format developed by Industrial Light & Magic (ILM) for use in computer graphics and visual effects workflows. EXR is an open format, meaning that anyone can use it without having to pay any licensing fees. This is the HDR image format supported in O3DE (there is another format commonly used .hdr, which is not yet supported by O3DE.)
 
@@ -306,30 +306,29 @@ In this slide, on the left is the duplicate set of the source image files, in a 
 
 1. First, note that in the Asset Browser (lower left quadrant of the Editor), shows the duplicate set of HDRi siblings (you can search and filter by name); and beneath them it shows the output products they generate (texture streaming assets). The _skyboxcm source only generates one output cubemap, the _iblglobalcm asset is generating many, because it creates the diffuse and the specular which includes several levels of mip maps (you don't need to work the mips directly in the workflow, I am just pointing out what you are seeing.)
    
-   1. ![O3DE LightingPreset](/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-07-31-image.png?width=400)
+   1. <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-07-31-image.png" width="400px" title="O3DE LightingPreset" alt="O3DE-LightingPreset" data-align="inline">
 
 2. O3DE Levels, have a root node called the Level Entity (this is useful for setting up global level singletons, like some of the terrain system components.)
 
 3. Beneath that, in the Default Level, there is a node called "Atom Default Environment", populated with the template level entities (Atom is the O3DE rendering engine, and this concept of a default level, and it's make up, were developed with Atom before a complete integration with the engine system and editor frameworks.)
    
-   1. ![O3DE Entity Outliner](/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-09-15-image.png?height=200)
+   1. <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-09-15-image.png" height="200px" title="O3DE Entity Outliner" alt="O3DE-Entity-Outliner" data-align="inline">
 
 4. Beneath that, we are looking for the Entity called "Global Sky".  If you select this (in the Entity Outliner on the left), you will see it has two component cards attached to it (seen on the right of the screen, in the Entity Inspector.)
    
    1. [Global Skylight (IBL)](https://www.o3de.org/docs/user-guide/components/reference/atom/global-skylight-ibl/), this loads the diffuse and specular lighting cubemaps
       
-      1. ![O3DE Global Skylight](/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-09-55-image.png?widtht=256)
+      1. <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-09-55-image.png" width="256px" title="O3DE Global Skylight" alt="O3DE-Global-Skylight" data-align="inline">
    
    2. [HDRi Skybox](https://www.o3de.org/docs/user-guide/components/reference/atom/hdri-skybox/), this loads the generated skybox cubemap
       
-      1. ![O#DE HDRi Skybox](/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-10-21-image.png?width=256)
+      1. <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-10-21-image.png" width="256px" title="O3DE HDRi Skybox" alt="O3DE-HDRi-Skybox" data-align="inline">
 
 ##### HDRi Skybox
 
 The original HDRi with the visible Sun is loaded here.
 
 <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-11-00-06-46-image.png" width="512px" title="O3DE workshop slide skybox" alt="o3de-workshop-slide-6" data-align="inline">
-
 
 ##### Global Skylight (IBL), Specular
 
@@ -359,7 +358,7 @@ Now to generate shadows and provide the Sun's lighting Energy, there is an Entit
 
 2. Select the Sun (directional light), and drag-n-drop the Sun onto it so it's a child
    
-   1. ![Sun-camera setup](/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-27-09-image.png?height=256)
+   1. <img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-13-17-27-09-image.png" width="256px" title="Sun-camera setup" alt="Sun-camera-setup" data-align="inline">
 
 3. After parenting the Sun to Camera, zero out the Sun's transform (directional light), then set it's Z rotation to 180.  Basically, you want a setup where as you move the camera, the Sun moves with it.
 
@@ -381,7 +380,7 @@ In this article, we are not going to dig past the surface plane of physically ba
 
 Here is our 32-bit color picker:
 
-![Adobe Photoshop 32-bit HDR color picker](/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-16-11-17-01-image.png?height=200)
+<img src="/assets/img/posts/2023-01-17-image_based_lighting-assets/2023-01-16-11-17-01-image.png" height="200px" title="Adobe Photoshop 32-bit HDR color picker" alt="PS-color-picker" data-align="inline">
 
 - The sRGB value in the lower right, can be used as the color for the Sun (directional light)
 

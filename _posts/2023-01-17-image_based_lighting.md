@@ -470,7 +470,7 @@ Here are some additional reference links:
 import logging as _logging
 _MODULENAME = 'co3dex'
 _LOGGER = _logging.getLogger(_MODULENAME)
-_LOGGER.info(f'Initializing: {_MODULENAME} ... Image Base Lighting!')
+_LOGGER.info(f'Initializing: {_MODULENAME} ... Image Based Lighting!')
 ```
 ---
 

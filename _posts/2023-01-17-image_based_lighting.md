@@ -176,7 +176,7 @@ A High-Contrast HDRi where you have two copies of the source, one with the Sun (
 
 - The cubemap generated (in the project cache) will be named:
   
-  - < HDRi name >`_**skyboxcm**.exr.streamingimage`
+  - < HDRi name >`_skyboxcm.exr.streamingimage`
   
   - Use this in the "HDRi Skybox Component"
 
@@ -214,11 +214,11 @@ A Low-Contrast HDRi that doesn't have a strong or visible Sun, may not need a du
 
 - This will generate all three cubemap output products:
   
-  - < HDRi name > `_**skyboxcm**.exr.streamingimage`
+  - < HDRi name > _**skyboxcm**`.exr.streamingimage`
   
-  - < HDRi name > `_**iblglobalcm** _iblspecular.exr.stream…`
+  - < HDRi name > _**iblglobalcm**`_iblspecular.exr.stream…`
   
-  - < HDRi name > `_**iblglobalcm** _ibldiffuse.exr.stream…`
+  - < HDRi name > _**iblglobalcm**`_ibldiffuse.exr.stream…`
 
 ## Getting Started
 
@@ -239,7 +239,7 @@ Let's do this ...
 5. Move to an asset folder, in this post we are using the default:
    
    1. `C:\path\to\o3de\Gems\Atom\Feature\Common\Assets\LightingPresets\HighContrast\goegap_4k_iblglobalcm.exr`
-   2. `C:\path\to\o3de\v\Gems\Atom\Feature\Common\Assets\LightingPresets\HighContrast\goegap_4k_skyboxcm.exr`
+   2. `C:\path\to\o3de\Gems\Atom\Feature\Common\Assets\LightingPresets\HighContrast\goegap_4k_skyboxcm.exr`
 
 6. When you start the Editor, it will start the Asset Processor.  You can find it in the system tray.  Allow it to finish processing assets, then the Editor will start.
 
@@ -253,9 +253,9 @@ The default level, uses the High-Contrast workflow, with this HDRi setup:
 
 - [High-Contrast Lighting](https://github.com/o3de/o3de/tree/development/Gems/Atom/Feature/Common/Assets/LightingPresets/HighContrast)
 
-- The original image (with Sun) to be used as the Skybox is: `o3de\Gems\Atom\Feature\Common\Assets\LightingPresets\HighContrast\goegap_4k_**iblglobalcm**.exr`
+- The original image (with Sun) to be used as the Skybox is: `o3de\Gems\Atom\Feature\Common\Assets\LightingPresets\HighContrast\goegap_4k_iblglobalcm.exr`
 
-- The duplicate with Sun painted out is:  `o3de\Gems\Atom\Feature\Common\Assets\LightingPresets\HighContrast\goegap_4k_**skyboxcm**.exr`
+- The duplicate with Sun painted out is:  `o3de\Gems\Atom\Feature\Common\Assets\LightingPresets\HighContrast\goegap_4k_skyboxcm.exr`
 
 Why this setup?
 

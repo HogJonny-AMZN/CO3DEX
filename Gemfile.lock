@@ -3,7 +3,7 @@ GEM
   specs:
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
-    backports (3.23.0)
+    backports (3.24.0)
     colorator (1.1.0)
     concurrent-ruby (1.2.0)
     em-websocket (0.5.3)
@@ -127,7 +127,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  backports (~> 3.23)
+  backports (~> 3.24)
   bundler (~> 2.3.23)
   faraday-retry
   jekyll (~> 4.3.2)

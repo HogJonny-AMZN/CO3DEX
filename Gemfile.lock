@@ -130,11 +130,11 @@ GEM
     trollop (2.9.9)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2023.3)
+    tzinfo-data (1.2025.1)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.6.0)
-    wdm (0.1.1)
-    webrick (1.8.1)
+    wdm (0.2.0)
+    webrick (1.9.1)
 
 PLATFORMS
   universal-darwin-21
@@ -156,8 +156,8 @@ DEPENDENCIES
   puma
   tzinfo (~> 2.0)
   tzinfo-data
-  wdm (~> 0.1.1)
-  webrick (~> 1.8)
+  wdm (~> 0.2.0)
+  webrick (~> 1.9)
 
 BUNDLED WITH
    2.3.23

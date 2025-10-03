@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem 'jekyll', '~> 4.4.1'
 gem 'bundler', '~> 2.3.23'
 gem 'faraday-retry'
-gem 'backports', '~> 3.24'
+gem 'backports', '~> 3.25'
 gem 'kramdown'
 gem 'puma'
 
@@ -15,13 +15,13 @@ gem 'puma'
 # Plugins
 group :jekyll_plugins do
     # gem 'devlopr', '~> 0.4.5'
-    gem 'jgd', '~> 1.13'
+    gem 'jgd', '~> 1.14'
     gem 'jekyll-feed', '~> 0.17.0'
     gem 'jekyll-paginate', '~> 1.1.0'
     gem 'jekyll-gist', '~> 1.5.0'
     gem 'jekyll-seo-tag', '~> 2.8.0'
     gem 'jekyll-sitemap', '~> 1.4.0'
-    gem 'jekyll-admin', '~> 0.11.1'
+    gem 'jekyll-admin', '~> 0.12.0'
 end
 
 

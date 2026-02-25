@@ -1,7 +1,7 @@
-gtitle: hogjonny-devlopr
-subtitle: A technical art co3dex of tips and tricks for the Open 3D Engine (o3de.org)
+gtitle: CO3DEX
+subtitle: A Technical Art Codex - Tools, Engines, Rendering & Procedural Worlds
 description: >- # this means to ignore newlines until "baseurl:"
-  devlopr-jekyll is a beautiful Jekyll Theme Built For Developers, which is optimized for speed and readability. This is a customized version for my site www.co3dex.com
+  CO3DEX is a technical art codex by Jonny Galloway - covering real-time rendering, game engines, Python tools, procedural generation, and the intersection of art and technology in AAA game development.
 
 url: "" # the base hostname & protocol for your site, e.g. https://example.github.io
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -24,29 +24,29 @@ urls:
 # Edit Author details (For multi authors check _data/authors.yml)
 
 author_logo: profile.png
-author: HogJonny
-author_bio: "Hi, my name is Jonny Galloway. I am a Sr. Design Technologist, I work for @AWSCloud & my opinions are my own. At AWS I am working on technology, tools and workflows for creative professionals like video game developers and others who need the best in 3D and Realtime Rendering tool-sets. He started in 1993 as a Media Service Intern making 3D clip art for Strata3D (a graphics company). His first 3D point and click adventure game took 3 yrs to make and was released in 1996, and he has been involved in the 3D entertainment and video game technology world ever since (29 yrs.) Over the course of his career he has been a 3D Artist, Game Designer, Creative Director, Art Director and Technical Art Director (coding, yeah!) He's been the project lead and Producer on projects from small indie games to big AAA projects, managing development teams. He's worked in creative design, ideation, planning, under Product Development on large open world games like GTA and the Red Dead franchise. Most recently he has worked at several video game technology companies making better tools and workflows, and provide quality of life for creative professionals working in 3D. His ambition and goal it to make Amazon AWS a visual technology powerhouse (and this starts with culture.) ** Views expressed are my own. All opinions are my own. The opinions expressed here belong solely to myself, and do not reflect the views of my employer / Amazon and AWS, the Open 3D Foundation or it's sponsors. **"
+author: Jonny Galloway (HogJonny)
+author_bio: "I'm a polymath technical art leader who bridges art, tools, engine, and product. Principal Technical Artist at Bluepoint Games (Sony/PlayStation) with 30+ years in AAA game development, specializing in real-time rendering, Python tooling, procedural world-building, and performance optimization."
 
-author_email: "hogjonnyamzn@gmail.com"
+author_email: "AMA_HogJonny@co3dex.com"
 author_location: Austin, TX
 author_website_url: "https://jonathankimballgalloway.me/"
-typewrite-text: "Welcome to the Open 3D Engine co3dex, journey's in realtime 3D ..."
+typewrite-text: "Technical Art • Real-time Rendering • Tools & Pipelines • Game Engines"
 hero_cover_img: cover.png
 # replace this for changing homepage cover (eg. try cover.jpeg). Image should be in /assets/img
 
 # Experiences
 author_work_experiences:
-            - company_name: Amazon
-              company_logo: AWS-Logo-700x700.png
-              company_url: https://aws.amazon.com/gametech/
-              designation: Sr. Design Technologist
-              description: Worked on various Google Products
-              visibility: true
-            - company_name: Past Experience (see LinkedIn)
+            - company_name: Bluepoint Games (Sony/PlayStation)
               company_logo: bunker_600.jpg
               company_url: https://www.linkedin.com/in/hogjonny
-              designation: Lifelong Video Game Developer
-              description: I've worked on many AAA games (and engines)
+              designation: Principal Technical Artist
+              description: Leading technical art and tooling for unannounced PS5 title. Python pipelines, DCC integrations, procedural tools, runtime optimization
+              visibility: true
+            - company_name: Previous Experience
+              company_logo: AWS-Logo-700x700.png
+              company_url: https://www.linkedin.com/in/hogjonny
+              designation: 30+ Years in AAA Development
+              description: Amazon/AWS (O3DE/Lumberyard), Rockstar (GTA/Red Dead), Bluepoint (Uncharted/Gravity Rush), Sony (Starhawk/Warhawk), Ritual (Elite Force 2), and more
               visibility: true
 
 # Education
@@ -90,9 +90,10 @@ disqus_shortname: hogjonny
 # mailchimp embedded form url (newsletter):
 # mailchimp_form_url: https://sujaykundu.us10.list-manage.com/subscribe/post?u=50bab1c85eae24ecfb0f68361&amp;id=3a2dd721d0
 
-# contact form - (choose formspress or getform)
-getform_endpoint: a48652dc-487c-4e5e-8126-49c2e71f0a13
-# formspree_email: johndoe@gmail.com
+# contact form - using Formspree (free tier: 50 submissions/month)
+# Form endpoint from https://formspree.io/forms
+formspree_endpoint: xdalbnrd
+# forminit_form_id: 5bxiup48m3v
 
 # releases - widget can be (sidebar, modal or embed)
 olvy_organization: devlopr

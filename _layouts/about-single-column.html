@@ -1,0 +1,221 @@
+---
+layout: default
+---
+<div class="container">
+  <!-- Hero Header Section - Centered Profile -->
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card text-center" style="margin-bottom: 2rem;">
+        <div style="padding: 2rem 1rem;">
+          <a href="/">
+            <img src="{{site.url}}{{site.baseurl}}/assets/img/{{ site.author_logo }}" 
+                 class="profile-img" 
+                 style="width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 1rem; display: block; object-fit: cover;" 
+                 alt="{{ site.author }}" />
+          </a>
+          <h1 style="margin-bottom: 0.5rem;">{{ site.author }}</h1>
+          <p style="font-size: 1.2rem; color: #666; margin-bottom: 1.5rem;">{{ site.subtitle }}</p>
+          
+          <!-- Social Links -->
+          <div style="margin-bottom: 1rem;">
+            {% if site.github_username %}
+            <a class="social-link" href="http://github.com/{{ site.github_username }}" style="margin: 0 0.5rem;">
+              <i class="fab fa-github fa-2x"></i>
+            </a>
+            {% endif %}
+            {% if site.linkedin_username %}
+            <a class="social-link" href="http://linkedin.com/in/{{ site.linkedin_username }}" style="margin: 0 0.5rem;">
+              <i class="fab fa-linkedin-in fa-2x"></i>
+            </a>
+            {% endif %}
+            {% if site.twitter_username %}
+            <a class="social-link" href="http://twitter.com/{{ site.twitter_username }}" style="margin: 0 0.5rem;">
+              <i class="fab fa-twitter fa-2x"></i>
+            </a>
+            {% endif %}
+            {% if site.instagram_username %}
+            <a class="social-link" href="http://instagram.com/{{ site.instagram_username }}" style="margin: 0 0.5rem;">
+              <i class="fab fa-instagram fa-2x"></i>
+            </a>
+            {% endif %}
+            {% if site.facebook_username %}
+            <a class="social-link" href="http://facebook.com/{{ site.facebook_username }}" style="margin: 0 0.5rem;">
+              <i class="fab fa-facebook-f fa-2x"></i>
+            </a>
+            {% endif %}
+            {% if site.medium_username %}
+            <a class="social-link" href="http://medium.com/@{{ site.medium_username }}" style="margin: 0 0.5rem;">
+              <i class="fab fa-medium-m fa-2x"></i>
+            </a>
+            {% endif %}
+            {% if site.youtube_username %}
+            <a class="social-link" href="http://youtube.com/@{{ site.youtube_username }}" style="margin: 0 0.5rem;">
+              <i class="fab fa-youtube fa-2x"></i>
+            </a>
+            {% endif %}
+            {% if site.flickr_username %}
+            <a class="social-link" href="https://www.flickr.com/photos/{{ site.flickr_username }}" style="margin: 0 0.5rem;">
+              <i class="fab fa-flickr fa-2x"></i>
+            </a>
+            {% endif %}
+          </div>
+          
+          <!-- Contact Info -->
+          <div style="font-size: 0.95rem; color: #666;">
+            {% if site.author_location %}
+            <span style="margin: 0 1rem;">
+              <i class="fas fa-map-marker-alt"></i> {{ site.author_location }}
+            </span>
+            {% endif %}
+            {% if site.author_email %}
+            <span style="margin: 0 1rem;">
+              <i class="fas fa-envelope"></i> <a href="mailto:{{ site.author_email }}">Email</a>
+            </span>
+            {% endif %}
+            {% if site.author_website_url %}
+            <span style="margin: 0 1rem;">
+              <i class="fas fa-link"></i> <a href="{{ site.author_website_url }}">Website</a>
+            </span>
+            {% endif %}
+          </div>
+          
+          <!-- Professional Documents -->
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p style="font-size: 0.9rem; color: #999; margin-bottom: 0.5rem;">Professional Documents:</p>
+            <div style="font-size: 0.95rem;">
+              <span style="margin: 0 1rem;">
+                <i class="fas fa-file-alt"></i> <a href="https://docs.google.com/document/d/e/2PACX-1vSP80m6p-VV2YpldVm2T5BDcSoPydmfxVNiwlw9Rp8-ePRurlTyG8czDaq9OHPi4w/pub" target="_blank">Resume</a>
+              </span>
+              <span style="margin: 0 1rem;">
+                <i class="fas fa-history"></i> <a href="https://docs.google.com/document/d/e/2PACX-1vR7ObOhljWHFqaWqQgfkzvPxnRUCrCY4KC5qXl0CoozZES9tUoRdAsghrke_OrN2A/pub" target="_blank">Career History</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Area - Single Column -->
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      
+      <!-- About Section with Full Content -->
+      <div class="card">
+        <h1 class="card-title">About</h1>
+        {{ content }}
+      </div>
+
+      <!-- Let's Work Together Section -->
+      <div class="card">
+        <h1 class="card-title">Let's Work Together</h1>
+        <p>If you're a studio or tech organization wrestling with tools, pipelines, procedural worlds, or rendering performance and need principal‑level ownership on the boundary between art and engine, I'm available for consulting and collaboration.</p>
+        
+        <p><strong>Reach out:</strong></p>
+        <p>
+          <a href="mailto:{{ site.author_email }}" class="btn btn-primary">
+            <i class="fas fa-envelope"></i> Email Me
+          </a>
+          {% if site.author_website_url %}
+          <a href="{{ site.author_website_url }}" class="btn btn-secondary" style="margin-left: 0.5rem;">
+            <i class="fas fa-link"></i> Visit Legacy Portfolio
+          </a>
+          {% endif %}
+        </p>
+        
+        <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
+          <em><strong>Disclaimer:</strong> The postings on this site are my own and do not necessarily represent the postings, strategies, or opinions of Sony, PlayStation, Bluepoint Games, or any of my current or former employers.</em>
+        </p>
+      </div>
+
+      <!-- Projects Section -->
+      {% if site.show_author_project_details == true %}
+      <div id="author_projects" class="card">
+        <h1 class="card-title">Projects</h1>
+        <br />
+        <div class="row">
+          {% for project in site.author_project_details %}
+          {% if project.visibility == true %}
+          <div class="col-md-6" style="margin-bottom: 2rem;">
+            <div class="project-item">
+              <img
+                src="{{site.url}}{{site.baseurl}}/assets/img/{{project.project_thumbnail}}"
+                class="project-img"
+                style="width: 100%; max-width: 300px; height: auto; margin-bottom: 1rem;"
+                alt="{{ project.project_title }}"
+              />
+              <h4 class="experience-title">{{ project.project_title }}</h4>
+              <h6 class="experience-info">{{ project.project_info}}</h6>
+              <p class="experience-desc">{{ project.project_description }}</p>
+              <p>
+                <a class="project-link" href="{{project.project_url}}" target="_blank">
+                  {{ project.project_url}}
+                </a>
+              </p>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Work Experience Section -->
+      {% if site.show_author_work_experiences == true %}
+      <div class="card">
+        <h1 class="card-title">Work Experience</h1>
+        <br />
+        {% for exp in site.author_work_experiences %}
+        {% if exp.visibility == true %}
+        <div class="row" style="margin-bottom: 2rem;">
+          <div class="col-md-2">
+            <img
+              src="{{site.url}}{{site.baseurl}}/assets/img/{{ exp.company_logo }}"
+              class="company-logo"
+              style="width: 100%; max-width: 150px; height: auto;"
+              alt="{{ exp.company_name }}"
+            />
+          </div>
+          <div class="col-md-10">
+            <h4 class="experience-title">{{ exp.designation }}</h4>
+            <h6 class="experience-info">{{ exp.company_name}}</h6>
+            <p class="experience-desc">{{ exp.description }}</p>
+            <p><a href="{{exp.company_url}}" target="_blank">{{ exp.company_url}}</a></p>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Education Section -->
+      {% if site.show_author_education_details == true %}
+      <div class="card">
+        <h1 class="card-title">Education</h1>
+        <br />
+        {% for detail in site.author_education_details %}
+        {% if detail.visibility == true %}
+        <div class="row">
+          <div class="col-md-2">
+            <img
+              src="{{site.url}}{{site.baseurl}}/assets/img/{{ detail.college_logo}}"
+              class="company-logo"
+              style="width: 100%; max-width: 150px; height: auto;"
+              alt="{{ detail.college_name }}"
+            />
+          </div>
+          <div class="col-md-10">
+            <h4 class="experience-title">{{detail.college_degree }}</h4>
+            <h6 class="experience-info">{{detail.college_name}}</h6>
+            <p class="experience-desc">{{detail.description}}</p>
+            <p><a href="{{detail.college_url}}" target="_blank">{{ detail.college_url}}</a></p>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>

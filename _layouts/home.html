@@ -11,6 +11,27 @@ layout: full-width
 </script>
     <!-- hero section-->
     {%- include hero.html -%}
+    
+    <!-- About Section -->
+    <div class="col-lg-8 offset-md-2" style="margin-top: 60px; margin-bottom: 60px;">
+      <div style="text-align: center; padding: 40px 20px; background: var(--card-background-color); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <h2 style="color: #ffc966; margin-bottom: 25px; font-weight: 700;">Welcome to CO3DEX</h2>
+        <p style="font-size: 1.2rem; line-height: 1.8; color: var(--main-text-color); margin-bottom: 20px;">
+          I'm a <strong>polymath technical art leader</strong> with 30+ years in AAA game development, bridging art, tools, engine, and product. Currently a Principal Technical Artist at <strong>Bluepoint Games (Sony SIE)</strong>, I build the tools, pipelines, and systems that help teams ship large, beautiful games.
+        </p>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--medium-text-color);">
+          <strong>CO3DEX (Codex, Code-X, C-O3DE-X)</strong> is my personal knowledge repository—a collection of technical art tutorials, tools, workflows, and explorations across <strong>3D graphics, game engines, real-time rendering, procedural generation, and creative technology</strong>. Whether you're working with <strong>O3DE, Unreal, Unity, Blender, Maya, or custom engines</strong>, you'll find practical knowledge from decades of hands-on experience shipping games and building tools that artists actually enjoy using.
+        </p>
+        <div style="margin-top: 30px;">
+          <a href="{{site.url}}{{site.baseurl}}/about" style="text-decoration: none;">
+            <button class="btn btn-md" style="background-color: #f69801; color: white; font-weight: 600; padding: 12px 30px; border: none; border-radius: 5px; cursor: pointer;">
+              Learn More About Me
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+    
     <div class="col-lg-8 offset-md-2">
       {%- include recent_articles.html -%}
     </div>

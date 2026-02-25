@@ -1,22 +1,40 @@
-<!-- Getform form https://getform.io -->
+<!-- Forminit contact form https://forminit.com -->
+<!-- Add forminit_form_id in _config.yml after creating a form at app.forminit.com -->
 
-<!-- Add the getform-endpoint in config.yml -->
-<form action="https://getform.io/f/{{site.getform_endpoint}}" enctype="multipart/form-data" method="POST"  target="_blank">
+<form id="contact-form">
     <div class="form-group">
-            <label for="contact_form_name">Your Name :</label>
-            <input type="text" class="form-control" name="name" id="contact_form_name" placeholder="Enter Your Name">
-           </div>
-           <div class="form-group">
-             <label for="contact_form_email">Your Email :</label>
-            <input type="email" class="form-control" name="email" id="contact_form_email" placeholder="Enter Your Email">
-           </div>
-           <div class="form-group">
-             <label for="contact_form_message"> Your Message :</label>
-            <textarea name="message" class="form-control" id="contact_form_message" placeholder="Enter Your Message"></textarea>
-           </div>
-           <div class="form-group">
-               <label for="contact-form-file"> Attachments :</label>
-            <input type="file" name="file" class="form-control" id="contact-form-file" placeholder="Attach files"/>
-           </div>
-            <button type="submit" value="Send" class="btn btn-lg btn-dark">Submit</button>
+        <label for="firstName">First Name:</label>
+        <input type="text" class="form-control" name="fi-sender-firstName" id="firstName" placeholder="Enter Your First Name" required>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" class="form-control" name="fi-sender-lastName" id="lastName" placeholder="Enter Your Last Name" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Your Email:</label>
+        <input type="email" class="form-control" name="fi-sender-email" id="email" placeholder="Enter Your Email" required>
+    </div>
+    <div class="form-group">
+        <label for="subject">Subject:</label>
+        <select class="form-control" name="fi-select-subject" id="subject" required>
+            <option value="">Select a subject</option>
+            <option value="general">General Inquiry</option>
+            <option value="collaboration">Collaboration</option>
+            <option value="technical">Technical Question</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="message">Your Message:</label>
+        <textarea name="fi-text-message" class="form-control" id="message" rows="5" placeholder="Enter Your Message" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="attachment">Attachments (optional):</label>
+        <input type="file" name="fi-file-attachment" class="form-control" id="attachment">
+    </div>
+    <button type="submit" class="btn btn-lg btn-dark">Send Message</button>
 </form>
+
+<p id="form-status" style="margin-top: 1rem;"></p>
+
+{%- include forminit-script.html -%}

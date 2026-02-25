@@ -4,9 +4,11 @@
     background-color: var(--main-background-color) !important;
     background-image: url('/assets/img/{{site.hero_cover_img}}');
     text-align: center;
-    background-attachment: fixed;
+    background-attachment: scroll;
     background-size: cover;
-    background-position: center;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100%;
 }
 .jumbotron-btns {
   display: block;
@@ -14,14 +16,22 @@
 }
 
 .jumbotron-heading, .lead {
-  color: #fff;
+  color: #ffc966;
+  font-weight: 700;
+  text-shadow: -1px -1px 0 rgba(0,0,0,0.95),
+               1px -1px 0 rgba(0,0,0,0.95),
+               -1px 1px 0 rgba(0,0,0,0.95),
+               1px 1px 0 rgba(0,0,0,0.95),
+               0 0 30px rgba(0,0,0,0.95),
+               3px 3px 15px rgba(0,0,0,0.9),
+               6px 6px 25px rgba(0,0,0,0.8);
 }
 </style>
 
 <!-- home hero section -->
 <div class="jumbotron">
   <img class="author-profile-img" src="{{site.url}}{{site.baseurl}}/assets/img/{{site.author_logo}}" />
-  <p class="jumbotron-heading">Howdy, I am {{site.author}} !</p>
+  <p class="jumbotron-heading">Jonathan Kimball Galloway (aka the HogJonny)</p>
 
   <p class="lead" id="typewriteText"></p>
   <span>

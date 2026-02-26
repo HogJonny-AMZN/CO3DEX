@@ -1,3 +1,9 @@
+# Exclude website assets from LFS (GitHub Pages doesn't support LFS)
+assets/** !filter !diff !merge
+_site/** !filter !diff !merge
+build/** !filter !diff !merge
+
+# Track large media files with LFS (for non-website content)
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.jpeg filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text

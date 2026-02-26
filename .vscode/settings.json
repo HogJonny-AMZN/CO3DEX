@@ -1,0 +1,102 @@
+{
+    // Terminal settings
+    "terminal.integrated.env.windows": {
+        "PATH": "${env:PATH};C:\\Program Files (x86)\\GnuWin32\\bin"
+    },
+    
+    // Jekyll & Markdown settings
+    "files.associations": {
+        "*.md": "markdown",
+        "*.html": "liquid"
+    },
+    
+    // Exclude build artifacts from search/file explorer
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/.jekyll-cache": true,
+        "**/_site": true,
+        "**/build": true,
+        "**/.sass-cache": true,
+        "**/vendor/bundle": true,
+        "**/.bundle": true
+    },
+    
+    "search.exclude": {
+        "**/.git": true,
+        "**/.jekyll-cache": true,
+        "**/_site": true,
+        "**/build": true,
+        "**/vendor/bundle": true,
+        "**/bower_components": true,
+        "**/node_modules": true
+    },
+    
+    // Markdown settings
+    "markdown.preview.breaks": true,
+    "markdown.preview.linkify": true,
+    
+    // YAML settings for Jekyll config
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced"
+    },
+    
+    // Liquid template settings
+    "[liquid]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
+    },
+    
+    // SCSS settings
+    "[scss]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
+    },
+    
+    // Front Matter CMS
+    "frontMatter.taxonomy.contentTypes": [
+        {
+            "name": "default",
+            "pageBundle": false,
+            "fields": [
+                {
+                    "title": "Title",
+                    "name": "title",
+                    "type": "string"
+                },
+                {
+                    "title": "Layout",
+                    "name": "layout",
+                    "type": "string"
+                },
+                {
+                    "title": "Date",
+                    "name": "date",
+                    "type": "datetime"
+                },
+                {
+                    "title": "Categories",
+                    "name": "categories",
+                    "type": "tags"
+                },
+                {
+                    "title": "Tags",
+                    "name": "tags",
+                    "type": "tags"
+                }
+            ]
+        }
+    ],
+    
+    // Spell checker for markdown
+    "cSpell.enableFiletypes": [
+        "markdown",
+        "liquid"
+    ],
+    
+    // Auto-save
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000
+}

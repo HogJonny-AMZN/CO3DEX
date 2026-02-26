@@ -1,10 +1,10 @@
 ---
-name: HogJonny
+name: Jonny Galloway
 username: hogjonny
-bio: "Hi I a Jonny Galloway (aka HogJonny), a Sr. Design Technologist at AWS, working on the Open 3D Engine."
-site: http://jonathankimballgalloway.me.com
+bio: "Principal Technical Artist at Bluepoint Games (Sony/PlayStation) | 30+ years AAA development | Real-time rendering, Python tools, procedural worlds"
+site: https://jonathankimballgalloway.me/
 avatar: hogjonny.png
-email: hogjonnyamzn@gmail.com
+email: AMA_HogJonny@co3dex.com
 social:
     - title: "github"
       url: "https://github.com/HogJonny-AMZN"

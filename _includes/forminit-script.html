@@ -1,0 +1,65 @@
+<!-- Forminit SDK Script -->
+<script src="https://forminit.com/sdk/v1/forminit.js"></script>
+
+<script>
+  // Initialize Forminit
+  const forminit = new Forminit();
+  const FORM_ID = '{{ site.forminit_form_id | default: "YOUR_FORM_ID_HERE" }}';
+
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+
+  if (form && status) {
+    form.addEventListener('submit', async function(event) {
+      event.preventDefault();
+      
+      // Check if form ID is configured
+      if (FORM_ID === 'YOUR_FORM_ID_HERE' || !FORM_ID) {
+        status.textContent = 'Error: Form ID not configured. Please add forminit_form_id to _config.yml';
+        status.className = 'alert alert-danger';
+        return;
+      }
+      
+      // Show loading state
+      status.textContent = 'Sending your message...';
+      status.className = 'alert alert-info';
+      
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+
+      try {
+        const formData = new FormData(form);
+        const { data, error } = await forminit.submit(FORM_ID, formData);
+
+        if (error) {
+          status.textContent = 'Error: ' + error.message;
+          status.className = 'alert alert-danger';
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+          return;
+        }
+
+        // Success
+        status.textContent = 'Thank you! Your message has been sent successfully. I\'ll get back to you soon!';
+        status.className = 'alert alert-success';
+        form.reset();
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+        
+        // Optional: Auto-hide success message after 5 seconds
+        setTimeout(function() {
+          status.textContent = '';
+          status.className = '';
+        }, 5000);
+        
+      } catch (err) {
+        status.textContent = 'An unexpected error occurred. Please try again later.';
+        status.className = 'alert alert-danger';
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+    });
+  }
+</script>

@@ -1,0 +1,28 @@
+{
+    "recommendations": [
+        // Jekyll & Markdown
+        "yzhang.markdown-all-in-one",
+        "bierner.markdown-preview-github-styles",
+        "davidanson.vscode-markdownlint",
+        
+        // Liquid templating (Jekyll templates)
+        "sissel.shopify-liquid",
+        
+        // YAML (Jekyll config)
+        "redhat.vscode-yaml",
+        
+        // Front Matter & Jekyll CMS
+        "eliostruyf.vscode-front-matter",
+        
+        // CSS/SCSS
+        "syler.sass-indented",
+        "mrmlnc.vscode-scss",
+        
+        // Git
+        "eamodio.gitlens",
+        
+        // General utilities
+        "editorconfig.editorconfig",
+        "gruntfuggly.todo-tree"
+    ]
+}

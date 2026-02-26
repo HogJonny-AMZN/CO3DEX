@@ -1,11 +1,21 @@
 picture_path: Starhwak
 preview:
-  filename: tumblr_mdef9mEgtE1rl2gg7o1_1280
-  original: tumblr_mdef9mEgtE1rl2gg7o1_1280.jpg
+  filename: a_starhawk_p33_cover
+  original: a_starhawk_p33_cover.jpg
   sizes:
-  - tumblr_mdef9mEgtE1rl2gg7o1_1280.jpg
-  thumbnail: tumblr_mdef9mEgtE1rl2gg7o1_1280.jpg
+  - a_starhawk_p33_cover.jpg
+  thumbnail: a_starhawk_p33_cover.jpg
 pictures:
+- filename: a_starhawk_p33_cover
+  original: a_starhawk_p33_cover.jpg
+  sizes:
+  - a_starhawk_p33_cover.jpg
+  thumbnail: a_starhawk_p33_cover.jpg
+- filename: b_starhawk_gallery_thumbnail
+  original: b_starhawk_gallery_thumbnail.jpg
+  sizes:
+  - b_starhawk_gallery_thumbnail.jpg
+  thumbnail: b_starhawk_gallery_thumbnail.jpg
 - filename: tumblr_mdef9mEgtE1rl2gg7o1_1280
   original: tumblr_mdef9mEgtE1rl2gg7o1_1280.jpg
   sizes:

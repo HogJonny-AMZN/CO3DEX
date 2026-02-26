@@ -1,0 +1,72 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Jekyll: Install Dependencies",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/install.ps1",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "focus": true
+            },
+            "group": "build"
+        },
+        {
+            "label": "Jekyll: Serve (Dev Server)",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/serve.ps1",
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "jekyll",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^.*Regenerating.*$",
+                    "endsPattern": "^.*Server running.*$|^.*done in.*seconds.*$"
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": false
+            },
+            "group": "build"
+        },
+        {
+            "label": "Jekyll: Build",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/build.ps1",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "focus": true
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Jekyll: Clean",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/clean.ps1",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "focus": true
+            },
+            "group": "build"
+        }
+    ]
+}

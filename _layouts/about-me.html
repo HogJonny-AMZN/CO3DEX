@@ -91,6 +91,11 @@ layout: default
       {% endif %} {% if site.author_website_url %}
       <h6><a href="{{ site.author_website_url }}"><i class="fas fa-link" class="social-link"></i> {{ site.author_website_url }}</a></h6>
       {% endif %}
+      
+      <hr style="margin: 1rem 0; border-color: rgba(255,255,255,0.1);" />
+      <h6 style="font-size: 0.8rem; color: #999; text-transform: uppercase; margin-bottom: 0.5rem;">Professional Documents</h6>
+      <h6><a href="https://docs.google.com/document/d/e/2PACX-1vSP80m6p-VV2YpldVm2T5BDcSoPydmfxVNiwlw9Rp8-ePRurlTyG8czDaq9OHPi4w/pub" target="_blank"><i class="fas fa-file-alt" class="social-link"></i> Resume</a></h6>
+      <h6><a href="https://docs.google.com/document/d/e/2PACX-1vR7ObOhljWHFqaWqQgfkzvPxnRUCrCY4KC5qXl0CoozZES9tUoRdAsghrke_OrN2A/pub" target="_blank"><i class="fas fa-history" class="social-link"></i> Career History</a></h6>
     </div>
 
     <div class="card">
@@ -108,12 +113,33 @@ layout: default
     {% endif %}
   </div>
   <div class="col-lg-8">
-    {% if site.author_bio %}
     <div class="card">
       <h1 class="card-title">About</h1>
-      <p>{{ site.author_bio }}</p>
+      {{ content }}
     </div>
-    {% endif %} {% if site.show_author_project_details == true %}
+
+    <div class="card">
+      <h1 class="card-title">Let's Work Together</h1>
+      <p>If you're a studio or tech organization wrestling with tools, pipelines, procedural worlds, or rendering performance and need principal‑level ownership on the boundary between art and engine, I'm available for consulting and collaboration.</p>
+      
+      <p><strong>Reach out:</strong></p>
+      <p>
+        <a href="mailto:{{ site.author_email }}" class="btn btn-primary">
+          <i class="fas fa-envelope"></i> Email Me
+        </a>
+        {% if site.author_website_url %}
+        <a href="{{ site.author_website_url }}" class="btn btn-secondary">
+          <i class="fas fa-link"></i> Visit Legacy Portfolio
+        </a>
+        {% endif %}
+      </p>
+      
+      <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
+        <em><strong>Disclaimer:</strong> The postings on this site are my own and do not necessarily represent the postings, strategies, or opinions of Sony, PlayStation, Bluepoint Games, or any of my current or former employers.</em>
+      </p>
+    </div>
+
+    {% if site.show_author_project_details == true %}
     <div id="author_projects" class="card">
       <h1 class="card-title">Projects</h1>
       <br />
@@ -194,3 +220,4 @@ layout: default
   </div>
 </div>
 </div>
+

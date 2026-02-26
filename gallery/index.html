@@ -4,35 +4,116 @@ title: Gallery
 permalink: /gallery/
 ---
 
+<style>
+.gallery-card {
+  margin-bottom: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+}
 
-    <div class="col-lg-8 offset-md-2">
+.gallery-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
 
-      <div class="row">
-    {% assign count = 0 %}
-    {% assign align = "left" %}
-    {% for gallery in site.data.galleries.overview %}
-    {% if count == 0 %}<div class="row">{% endif %}
-      <div class="card">
-        <div class="card-title"> {{gallery.title}}</div>
-        <div class="row">
+.gallery-card-image {
+  position: relative;
+  overflow: hidden;
+  background: #f5f5f5;
+}
 
-        <a href="{{ site.url }}{{ site.baseurl }}/gallery/{{ gallery.directory }}.html">
-          <img class="img-thumbnail" alt="{{ gallery.title }}" src="{{ site.url }}{{ site.baseurl }}/assets/img/gallery/{% if gallery.picture_path %}{{ gallery.picture_path }}{% else %}{{ gallery.directory }}{% endif %}/{{ gallery.preview.thumbnail }}" />
+.gallery-card-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-card:hover .gallery-card-image img {
+  transform: scale(1.05);
+}
+
+.gallery-image-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.gallery-card-body {
+  padding: 20px;
+}
+
+.gallery-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.gallery-card-description {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.gallery-view-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.gallery-view-btn:hover {
+  background: #0056b3;
+  color: white;
+  text-decoration: none;
+}
+
+.gallery-view-btn i {
+  margin-left: 5px;
+}
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      {% for gallery in site.data.galleries.overview %}
+      <div class="gallery-card">
+        <a href="{{ site.url }}{{ site.baseurl }}/gallery/{{ gallery.directory }}.html" class="gallery-card-link">
+          <div class="gallery-card-image">
+            <img alt="{{ gallery.title }}" src="{{ site.url }}{{ site.baseurl }}/assets/img/gallery/{% if gallery.picture_path %}{{ gallery.picture_path }}{% else %}{{ gallery.directory }}{% endif %}/{{ gallery.preview.thumbnail }}" />
+            {% if gallery.image_count %}
+            <span class="gallery-image-overlay">
+              <i class="fa fa-images"></i> {{ gallery.image_count }} images
+            </span>
+            {% endif %}
+          </div>
         </a>
+        <div class="gallery-card-body">
+          <h2 class="gallery-card-title">{{ gallery.title }}</h2>
+          {% if gallery.description %}
+          <p class="gallery-card-description">{{ gallery.description }}</p>
+          {% endif %}
+          <a href="{{ site.url }}{{ site.baseurl }}/gallery/{{ gallery.directory }}.html" class="gallery-view-btn">
+            View Gallery <i class="fa fa-arrow-right"></i>
+          </a>
         </div>
       </div>
-    {% if count == 1 %}</div>{% endif %}
-    {% assign count = count | plus: 1 %}
-    {% assign align = "right" %}
-    {% if count >= 2 %}
-    {% assign align = "left" %}
-    {% assign count = 0 %}
-    {% endif %}
-    {% endfor %}
-
-    {% if count != 1 %}
+      {% endfor %}
     </div>
-    {% endif %}
-
-    </div>
+  </div>
 </div>

@@ -1,13 +1,4 @@
 -
-  title: Mountains
-  directory: mountains
-  preview:
-    filename: 1.jpg
-    original: 1-thumbnail.jpg
-    sizes:
-    - 1-thumbnail.jpg
-    thumbnail: 1-thumbnail.jpg
--
   title: Starhwak
   directory: Starhwak
   preview:
@@ -16,3 +7,4 @@
     sizes:
     - tumblr_mdef9mEgtE1rl2gg7o1_1280.jpg
     thumbnail: tumblr_mdef9mEgtE1rl2gg7o1_1280.jpg
+-

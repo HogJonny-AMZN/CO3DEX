@@ -1,16 +1,40 @@
  <!-- Single Gallery -->
   <div class="col-lg-12">
-    <div id="imageGallery{% if include.id_number %}-{{ include.id_number }}{% endif %}">
+    <div id="imageGallery{% if include.id_number %}-{{ include.id_number }}{% endif %}" class="gallery-grid">
       <div id="gallery-sizer{% if include.id_number %}-{{ include.id_number }}{% endif %}"></div>
       {% for picture in include.gallery.pictures %}
         <a href="{{ site.url }}{{ site.baseurl }}/assets/img/gallery/{{ include.gallery.picture_path }}/{{ picture.original }}"
-        data-responsive="{% for size in picture.sizes %} {{ site.url}}{{ site.baseurl }}/assets/gallery/{{ include.gallery.picture_path }}/{{ size }}{% endfor %}" class="image"
+        data-responsive="{% for size in picture.sizes %} {{ site.url}}{{ site.baseurl }}/assets/gallery/{{ include.gallery.picture_path }}/{{ size }}{% endfor %}" class="image gallery-item"
         {% if picture.title %} data-sub-html="<div class='lg-toolbar caption'><h4>{{ picture.title | escape }}</h4>{% if picture.caption %}<p>{{ picture.caption | escape }}</p>{% endif %}</div>"{% endif %}>
-          <img alt="{{ picture.title }}" class="img-thumbnail" src="{{ site.url }}{{ site.baseurl }}/assets/img/gallery/{{ include.gallery.picture_path }}/{{ picture.thumbnail }}" />
+          <img alt="{{ picture.title }}" class="img-thumbnail gallery-thumbnail" src="{{ site.url }}{{ site.baseurl }}/assets/img/gallery/{{ include.gallery.picture_path }}/{{ picture.thumbnail }}" />
         </a>
       {% endfor %}
       </div>
   </div>
+  <style>
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 20px 0;
+    }
+    .gallery-item {
+      display: block;
+      overflow: hidden;
+      border-radius: 4px;
+      transition: transform 0.2s ease;
+    }
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .gallery-thumbnail {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
 <script type="text/javascript">
     $(document).ready(function() {
         $("#imageGallery").lightGallery({

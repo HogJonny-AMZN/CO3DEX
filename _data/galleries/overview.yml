@@ -7,3 +7,12 @@
     sizes:
     - 1-thumbnail.jpg
     thumbnail: 1-thumbnail.jpg
+-
+  title: Starhwak
+  directory: Starhwak
+  preview:
+    filename: tumblr_mdef9mEgtE1rl2gg7o1_1280.jpg
+    original: tumblr_mdef9mEgtE1rl2gg7o1_1280.jpg
+    sizes:
+    - tumblr_mdef9mEgtE1rl2gg7o1_1280.jpg
+    thumbnail: tumblr_mdef9mEgtE1rl2gg7o1_1280.jpg

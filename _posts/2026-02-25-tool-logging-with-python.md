@@ -2898,11 +2898,11 @@ Often when I joined new teams, I found a different landscape. Logging existed, b
 
 **More challenging than the technical work was the cultural resistance.**
 
-I heard pushback that probably sounds familiar to anyone who's tried to bring new practices to an established team:
+I have heard all kinds of pushback, some of this probably sounds familiar to anyone who's tried to bring new practices to an established team:
 
 _"If the code works, you don't need logging."_
 
-Until it doesn't. Until a Maya version changes Python versions, or an API call changes, or a package dependency breaks. Then you're waiting for the bomb to go off before you can start triage. Something will break eventually for on ereason or another ... Defensive logging means you have the data _when_ things break (not if - when).
+Until it doesn't. Until a Maya version changes Python versions, or an API call changes, or a package dependency breaks, or someone deprecated a dependancy but miss this code. Then you're waiting for the bomb to go off before you can start triage. Something will break eventually for one reason or another ... Defensive logging means you have the data _when_ things break (not if - when).
 
 _"Logging makes the module code harder to read."_
 
@@ -2923,6 +2923,8 @@ Maybe the real question is: **to make better games faster, don't we need better 
 I've encountered a lot of other situations and types of resitance, here are some: not upgrading to use pathlib, not updating to f-strings for more readable code, not using virtual environments, not using type hints, not writing tests, not branching/versioning python code bases, not using code reviews, not following actual PEP8 standards (like clear variable names), etc. The pattern is the same - resistance to change, comfort with the status quo, and a lack of vision for what better practices can do for everyone.
 
 The fact that other studios have the same problems doesn't mean we should accept them. It means the entire industry needs to level up.
+
+By all means I am not trying disparge anyone, any studio, or codebase - I know how hard it is to build tools in this environment when you have to move fast, and I know how much of the work is invisible, or frustratingly at times is seen as a second class citizen.  Sometimes you just gotta do what you need to, and if it ain't broken don't fix it. I'm just trying to strongman and share what I've learned about what works, and why it matters.  Longe term velocity and maintainability are the real wins here, and logging is a critical part of that.
 
 **Here's what those objections really mean: "This is new to me. I'm uncomfortable."**
 

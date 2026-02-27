@@ -1,0 +1,48 @@
+<!-- Breadcrumb Schema for SEO -->
+{% if page.layout == 'post' or page.layout == 'page' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.url }}"
+    },
+    {% if page.layout == 'post' %}
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "{{ site.url }}/blog"
+    },
+    {% if page.categories %}
+    {% for category in page.categories limit:1 %}
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ category | capitalize }}",
+      "item": "{{ site.url }}/categories/{{ category }}"
+    },
+    {% endfor %}
+    {% endif %}
+    {
+      "@type": "ListItem",
+      "position": {% if page.categories %}4{% else %}3{% endif %},
+      "name": "{{ page.title }}",
+      "item": "{{ site.url }}{{ page.url }}"
+    }
+    {% else %}
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ page.title }}",
+      "item": "{{ site.url }}{{ page.url }}"
+    }
+    {% endif %}
+  ]
+}
+</script>
+{% endif %}

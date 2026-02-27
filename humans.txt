@@ -1,0 +1,17 @@
+/* TEAM */
+Author: Jonny Galloway (HogJonny)
+Site: https://jonathankimballgalloway.me/
+Twitter: @hogjonny
+LinkedIn: https://www.linkedin.com/in/hogjonny
+Location: Austin, TX
+
+/* SITE */
+Standards: HTML5, CSS3, JavaScript
+Components: Jekyll, Bootstrap, jQuery
+Software: VS Code, Git
+Language: English
+
+/* THANKS */
+Jekyll Theme: devlopr by sujaykundu777
+Icons: Font Awesome
+Fonts: Google Fonts

@@ -1,0 +1,14 @@
+# robots.txt for CO3DEX
+# https://www.co3dex.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Disallow admin and build directories
+Disallow: /admin/
+Disallow: /build/
+Disallow: /scripts/
+Disallow: /assets/bower_components/
+
+# Sitemap location
+Sitemap: https://www.co3dex.com/sitemap.xml

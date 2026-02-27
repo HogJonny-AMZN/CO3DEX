@@ -1,55 +1,109 @@
 <head>
   <meta charset="utf-8" />
-  <title>
-    {% if {page.title %}{{ page.title }} - {{site.title}}{% else %}{{ site.title }} - {{
-    site.subtitle }}{% endif %}
-  </title>
-  <meta http-equip="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>
+    {% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }} - {{ site.subtitle }}{% endif %}
+  </title>
+  
+  <!-- Meta Description -->
   {% if page.summary %}
-    <meta name="description" content="{{ page.summary | escape }}- {% if {page.title %}{{ page.title }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="description" content="{{ page.summary | strip_html | strip_newlines | truncate: 160 }}">
+  {% elsif page.excerpt %}
+  <meta name="description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}">
+  {% else %}
+  <meta name="description" content="{{ site.description | strip_html | strip_newlines | truncate: 160 }}">
   {% endif %}
-   <meta name="keywords" content="{% if page.title %}{{ page.title }}, {{ site.title }}, {% for categ in page.categories %}{{ categ }}{% if forloop.last == false %}, {% endif %}{% endfor %}{% else %}{{ site.title }}, {% for category in site.categories %}{% capture categories_slug %}{{ category | first }}{% endcapture %}{% for categ in categories_slug %}{{ categ }}{% endfor %}{% if forloop.last == false %}, {% endif %}{% endfor %}{% endif %},{{ page.keywords | escape }}"/>
-
-  <link
-    rel="alternate"
-    type="application/rss+xml"
-    title="RSS"
-    href="/feed.xml"
-  />
+  
+  <!-- Keywords -->
+  <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{% endif %}{% if page.categories %}, {% for category in page.categories %}{{ category }}{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}{% if page.tags %}, {% for tag in page.tags %}{{ tag }}{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}"/>
+  
+  <!-- Author -->
+  <meta name="author" content="{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}" />
+  
+  <!-- Humans.txt -->
+  <link rel="author" type="text/plain" href="{{ site.url }}/humans.txt" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" />
+  
+  <!-- Performance Optimization: DNS Prefetch & Preconnect -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://cdn.mathjax.org">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://code.jquery.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }} RSS Feed" href="{{ site.url }}{{ site.baseurl }}/feed.xml" />
+  
+  <!-- Open Graph Meta Tags -->
   <meta content="{{ site.share.fb_appid }}" property="fb:app_id" />
   <meta content="{{ site.title }}" property="og:site_name" />
+  <meta content="{{ site.locale }}" property="og:locale" />
+  
   {% if page.noindex %}
-  <meta name="robots" content="noindex" />
-  {% endif %} {% if page.title %}
+  <meta name="robots" content="noindex, nofollow" />
+  {% else %}
+  <meta name="robots" content="index, follow" />
+  {% endif %}
+  
+  {% if page.title %}
   <meta content="{{ page.title }}" property="og:title" />
   <meta content="article" property="og:type" />
   {% else %}
   <meta content="{{ site.title }}" property="og:title" />
   <meta content="website" property="og:type" />
-  {% endif %} {% if page.summary %}
-  <meta content="{{ page.summary }}" property="og:description" />
+  {% endif %}
+  
+  {% if page.summary %}
+  <meta content="{{ page.summary | strip_html | strip_newlines | truncate: 200 }}" property="og:description" />
+  {% elsif page.excerpt %}
+  <meta content="{{ page.excerpt | strip_html | strip_newlines | truncate: 200 }}" property="og:description" />
   {% else %}
   <meta content="{{ site.description }}" property="og:description" />
-  {% endif %} {% if page.url %}
+  {% endif %}
+  
+  {% if page.url %}
   <meta content="{{ site.url }}{{ page.url }}" property="og:url" />
-  {% endif %} {% if page.date %}
-  <meta
-    content="{{ page.date | date_to_xmlschema }}"
-    property="article:published_time"
-  />
+  {% endif %}
+  
+  {% if page.date %}
+  <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time" />
   <meta content="{{ site.url }}/about/" property="article:author" />
-  {% endif %} {% if page.thumbnail %}
+  {% if page.modified_date %}
+  <meta content="{{ page.modified_date | date_to_xmlschema }}" property="article:modified_time" />
+  {% endif %}
+  {% endif %}
+  
+  {% if page.thumbnail %}
   <meta content="{{ site.url }}{{ page.thumbnail }}" property="og:image" />
-  {% endif %} {% if page.categories %} {% for category in page.categories
-  limit:1 %}
+  <meta content="{{ page.title }}" property="og:image:alt" />
+  {% elsif site.defaults_image %}
+  <meta content="{{ site.url }}{{ site.defaults_image }}" property="og:image" />
+  <meta content="{{ site.title }}" property="og:image:alt" />
+  {% endif %}
+  
+  {% if page.categories %}
+  {% for category in page.categories limit:1 %}
   <meta content="{{ category }}" property="article:section" />
-  {% endfor %} {% endif %} {% if page.tags %} {% for tag in page.tags %}
+  {% endfor %}
+  {% endif %}
+  
+  {% if page.tags %}
+  {% for tag in page.tags %}
   <meta content="{{ tag }}" property="article:tag" />
-  {% endfor %} {% endif %}
+  {% endfor %}
+  {% endif %}
 
   <!-- Twitter Cards -->
+  {% if page.thumbnail %}
+  <meta name="twitter:card" content="summary_large_image" />
+  {% else %}
   <meta name="twitter:card" content="summary" />
+  {% endif %}
   <meta name="twitter:site" content="@{{ site.share.twitter_username }}" />
   <meta name="twitter:creator" content="@{{ site.share.twitter_username }}" />
 
@@ -61,16 +115,73 @@
 
   {% if page.url %}
   <meta name="twitter:url" content="{{ site.url }}{{ page.url }}" />
-  {% endif %} {% if page.summary %}
-  <meta name="twitter:description" content="{{ page.summary }}" />
+  {% endif %}
+  
+  {% if page.summary %}
+  <meta name="twitter:description" content="{{ page.summary | strip_html | strip_newlines | truncate: 200 }}" />
+  {% elsif page.excerpt %}
+  <meta name="twitter:description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 200 }}" />
   {% else %}
   <meta name="twitter:description" content="{{ site.description }}" />
-  {% endif %} {% if page.header-img %}
-  <meta
-    name="twitter:image:src"
-    content="{{ site.url }}{{ page.thumbnail }}"
-  />
   {% endif %}
+  
+  {% if page.thumbnail %}
+  <meta name="twitter:image" content="{{ site.url }}{{ page.thumbnail }}" />
+  <meta name="twitter:image:alt" content="{{ page.title }}" />
+  {% elsif site.defaults_image %}
+  <meta name="twitter:image" content="{{ site.url }}{{ site.defaults_image }}" />
+  <meta name="twitter:image:alt" content="{{ site.title }}" />
+  {% endif %}
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "{% if page.layout == 'post' %}BlogPosting{% else %}WebPage{% endif %}",
+    "headline": "{{ page.title | default: site.title | escape }}",
+    "description": "{{ page.summary | default: page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 200 | escape }}",
+    "url": "{{ site.url }}{{ page.url }}",
+    {% if page.thumbnail %}
+    "image": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}{{ page.thumbnail }}",
+      "width": 1200,
+      "height": 630
+    },
+    {% endif %}
+    {% if page.date %}
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    {% if page.modified_date %}
+    "dateModified": "{{ page.modified_date | date_to_xmlschema }}",
+    {% else %}
+    "dateModified": "{{ page.date | date_to_xmlschema }}",
+    {% endif %}
+    {% endif %}
+    "author": {
+      "@type": "Person",
+      "name": "{{ page.author | default: site.author }}",
+      "url": "{{ site.url }}/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ site.title }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ site.url }}{{ site.author_logo | prepend: '/assets/img/' }}"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ site.url }}{{ page.url }}"
+    }
+    {% if page.keywords %}
+    ,"keywords": "{{ page.keywords }}"
+    {% endif %}
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  {%- include breadcrumb_schema.html -%}
 
   <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/assets/css/main.css" />
   <!-- <link rel="stylesheet" href="{{site.url}}{{site.baseurl}}/assets/css/custom-style.css" /> -->

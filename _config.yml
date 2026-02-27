@@ -3,8 +3,13 @@ subtitle: A Technical Art Codex - Tools, Engines, Rendering & Procedural Worlds
 description: >- # this means to ignore newlines until "baseurl:"
   CO3DEX is a technical art codex by Jonny Galloway - covering real-time rendering, game engines, Python tools, procedural generation, and the intersection of art and technology in AAA game development.
 
-url: "" # the base hostname & protocol for your site, e.g. https://example.github.io
+url: "https://www.co3dex.com" # the base hostname & protocol for your site, e.g. https://example.github.io
 baseurl: "" # the subpath of your site, e.g. /blog
+
+# SEO Settings
+lang: en_US
+locale: en_US
+timezone: America/Chicago
 
 # Navigation
 urls:
@@ -78,6 +83,14 @@ facebook_username: hogjonny
 linkedin_username: hogjonny
 instagram_username: hogjonny
 #flickr_username: hogjonny
+
+# Social sharing and SEO
+share:
+  twitter_username: hogjonny
+  fb_appid: 
+
+# SEO and Social Media defaults
+defaults_image: /assets/img/profile.png
 
 #for comments ( we got Disqus and Hyvor Commenting, uncomment the one you want to use )
 
@@ -162,6 +175,28 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-admin
+
+# Sitemap settings
+sitemap:
+  exclude:
+    - "/admin/"
+    - "/build/"
+  include:
+    - "/index.html"
+  
+# SEO Tag settings (used by jekyll-seo-tag plugin)
+twitter:
+  username: hogjonny
+  card: summary_large_image
+  
+social:
+  name: Jonny Galloway
+  links:
+    - https://twitter.com/hogjonny
+    - https://github.com/HogJonny-AMZN
+    - https://www.linkedin.com/in/hogjonny
+    - https://www.facebook.com/hogjonny
+    - https://www.instagram.com/hogjonny
 
 # Jekyll Admin Config
 jekyll_admin:

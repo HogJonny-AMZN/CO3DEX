@@ -1,7 +1,7 @@
 -
   title: Starhwak
   directory: Starhwak
-  description: "Starhawk was a 2012 PS3 exclusive third-person shooter set in a sci-fi Wild 'space western' frontier. I was responsible for all vehicle modeling, texturing, and technical art. This gallery showcases high-poly renders of the vehicles including the iconic Hawk transforming mech, dropships, and ground vehicles."
+  description: "Starhawk (2012 PS3 exclusive) - Served as Lead Environment Artist, defining the industrial oil-rig-inspired visual language and architectural aesthetic. Developed comprehensive modeling style guides and technical standards for world-building at scale. Architected dynamic construction/destruction systems for real-time battlefield transformation. Engineered a procedural terrain toolkit encompassing terrain generation, texture blending, and automated decorative placement—creating all in-game landscapes. Pioneered a custom pre-PBR material authoring pipeline with swappable material sets via package signature/contract referencing system, optimized for strict memory budgets. Implemented advanced shaders including improved gravity-based wind bending for vegetation and canopy systems. This gallery showcases vehicle high-poly renders including the iconic Hawk transforming mech, dropships, and ground vehicles."
   image_count: 43
   preview:
     filename: a_starhawk_p33_cover.jpg

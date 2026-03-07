@@ -252,19 +252,6 @@
    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   {% endif %}
 
-  <!-- for Mermaid diagram support -->
-  {% if page.usemermaid %}
-   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-   <script>
-      // Initialize Mermaid with simple config
-      mermaid.initialize({ 
-        startOnLoad: true,
-        theme: 'default',
-        securityLevel: 'loose'
-      });
-   </script>
-  {% endif %}
-
   <!-- Github Button -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script

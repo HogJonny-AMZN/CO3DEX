@@ -9,7 +9,6 @@ thumbnail: /assets/img/posts/2026-03-07-threading-antipatterns.png
 keywords: python,threading,async,antipatterns,qt,qprocess,game-development,subprocess,concurrency,performance,pyside
 permalink: /blog/threading-antipatterns-qt-async/
 usemathjax: false
-usemermaid: true
 ---
 
 # Welcome to the Co3deX
@@ -132,35 +131,34 @@ Let me show you why this code achieved **exactly zero performance benefit** whil
 
 Here's what actually happened when a user clicked "Run":
 
-<div class="mermaid">
-sequenceDiagram
-    participant User
-    participant MainThread
-    participant WorkerThread
-    participant HoudiniProcess
-    participant SubstanceProcess
-    
-    User->>MainThread: Click "Run" button
-    Note over MainThread: Create Worker thread (+10ms overhead)
-    MainThread->>WorkerThread: Start worker
-    WorkerThread->>HoudiniProcess: subprocess.Popen()
-    Note over WorkerThread,HoudiniProcess: Worker thread BLOCKS<br/>reading stdout (2-5 min)
-    Note over HoudiniProcess: External C++ process<br/>runs sequentially<br/>(separate OS process)
-    WorkerThread->>WorkerThread: process.wait() BLOCKS
-    HoudiniProcess-->>WorkerThread: Process completes
-    Note over WorkerThread: Emit houdini_finished signal
-    WorkerThread->>MainThread: Signal (cross-thread marshal +5ms)
-    Note over MainThread: Create new Worker thread
-    MainThread->>WorkerThread: Start worker
-    WorkerThread->>SubstanceProcess: subprocess.Popen()
-    Note over WorkerThread,SubstanceProcess: Worker thread BLOCKS<br/>reading stdout (1-3 min)
-    WorkerThread->>WorkerThread: process.wait() BLOCKS
-    SubstanceProcess-->>WorkerThread: Process completes
-    Note over WorkerThread,MainThread: Repeat for Maya...
-    Note over User,MainThread: Total time: 3-8 minutes<br/>Total parallelism: ZERO
-</div>
+```
+User clicks "Run" button
+  ↓
+MainThread: Create Worker thread (+10ms overhead)
+  ↓
+WorkerThread: subprocess.Popen(Houdini)
+  ↓
+WorkerThread BLOCKS reading stdout (2-5 minutes)
+  • HoudiniProcess runs externally (separate OS process) 
+  • No parallelism: thread just waits
+  ↓
+WorkerThread: process.wait() BLOCKS until complete
+  ↓
+WorkerThread → MainThread: Emit signal (cross-thread marshal +5ms)
+  ↓
+MainThread: Create NEW Worker thread
+  ↓
+WorkerThread: subprocess.Popen(Substance)
+  ↓
+WorkerThread BLOCKS reading stdout (1-3 minutes)
+  ↓
+WorkerThread: process.wait() BLOCKS
+  ↓
+Repeat for Maya...
 
-> **Note:** If the diagram doesn't render in your RSS reader, [view this post on the website](/blog/threading-antipatterns-qt-async/) for the interactive diagram.
+Total time: 3-8 minutes
+Total parallelism achieved: ZERO
+```
 
 **Total parallelism achieved: ZERO**
 
@@ -432,46 +430,35 @@ Let me break down each phase in detail.
 
 ### The Typical Developer Journey
 
-<div class="mermaid">
-flowchart TD
-    A[Phase 1: Initial Problem] --> A1[Developer builds tool<br/>with blocking subprocess]
-    A1 --> A2[UI freezes during<br/>3-8 minute pipeline]
-    A2 --> A3[Users complain:<br/>Is it hung?]
-    
-    A3 --> B[Phase 2: Research]
-    B --> B1[Google: Python<br/>non-blocking subprocess]
-    B1 --> B2[Finds threading/<br/>async articles]
-    B2 --> B3[Thinks: Threading<br/>makes things faster!]
-    
-    B3 --> C[Phase 3: Implementation]
-    C --> C1[Adds QThreadPool,<br/>Worker class, signals]
-    C1 --> C2[Wraps subprocess<br/>call in thread]
-    C2 --> C3[Tests with small<br/>dataset 30 seconds]
-    C3 --> C4[UI responsive!<br/>Success!]
-    
-    C4 --> D[Phase 4: Shipping]
-    D --> D1[Code review passes<br/>threading is best practice]
-    D1 --> D2[Ships to production<br/>works fine]
-    D2 --> D3[Developer moves<br/>to next project]
-    
-    D3 --> E[Phase 5: Maintenance Nightmare]
-    E --> E1[6 months later<br/>new dev inherits code]
-    E1 --> E2[Sees thread-safety<br/>warnings in logs]
-    E2 --> E3[Sees signal marshalling<br/>delays]
-    E3 --> E4[Sees race conditions<br/>on globals]
-    E4 --> E5[Sees 150 lines of<br/>threading complexity]
-    E5 --> E6{Why is this threaded?<br/>What's the benefit?}
-    E6 --> E7[Answer: None.<br/>It never had a benefit]
-    
-    style A fill:#ff6b6b
-    style B fill:#ffd93d
-    style C fill:#6bcf7f
-    style D fill:#4d96ff
-    style E fill:#ff6b6b
-    style E7 fill:#ff0000,color:#fff
-</div>
+**Phase 1: Initial Problem**
+- Developer builds tool with blocking subprocess
+- UI freezes during 3-8 minute pipeline
+- Users complain: "Is it hung?"
 
-> **Note:** If the diagram doesn't render, [view this post on the website](/blog/threading-antipatterns-qt-async/) for the interactive flowchart.
+**Phase 2: Research**
+- Googles "Python non-blocking subprocess"
+- Finds threading/async articles
+- Thinks: "Threading makes things faster!"
+
+**Phase 3: Implementation**
+- Adds QThreadPool, Worker class, signals
+- Wraps subprocess call in thread
+- Tests with small dataset (30 seconds)
+- UI responsive! Success!
+
+**Phase 4: Shipping**
+- Code review passes ("threading is best practice")
+- Ships to production, works fine
+- Developer moves to next project
+
+**Phase 5: Maintenance Nightmare** (6 months later)
+- New dev inherits code
+- Sees thread-safety warnings in logs
+- Sees signal marshalling delays
+- Sees race conditions on globals
+- Sees 150 lines of threading complexity
+- **Question:** Why is this threaded? What's the benefit?
+- **Answer:** None. It never had a benefit.
 
 ### What Was Missed in the Analysis
 
@@ -1185,43 +1172,23 @@ def import_file(self, file_path):
 
 Here's a decision tree I wish I'd had when starting this refactor:
 
-<div class="mermaid">
-flowchart TD
-    Start{Running external<br/>processes/subprocesses?}
-    Start -->|YES| ExtProcess[Use process-specific<br/>async tools, NOT threading]
-    
-    ExtProcess --> Qt{Qt application?}
-    Qt -->|YES| QtSol["✅ QProcess<br/>(event loop integrated)"]
-    Qt -->|NO| Async{Asyncio application?}
-    Async -->|YES| AsyncSol["✅ asyncio.create_subprocess_exec"]
-    Async -->|NO| SimpleSol["✅ subprocess.run<br/>(blocking is fine)"]
-    
-    Start -->|NO| Python[Working with<br/>Python code directly]
-    Python --> Independent{Multiple INDEPENDENT<br/>operations?}
-    
-    Independent -->|YES| Consider[Consider threading/async]
-    Consider --> CPUBound{Are they<br/>CPU-bound?}
-    CPUBound -->|YES| ProcPool["✅ ProcessPoolExecutor<br/>(bypasses GIL)"]
-    CPUBound -->|NO| IOBound["✅ ThreadPoolExecutor<br/>or asyncio<br/>(I/O-bound)"]
-    
-    Independent -->|NO| NoThread["❌ DON'T use threading"]
-    NoThread --> UIFrozen{UI frozen during<br/>operation?}
-    UIFrozen -->|User needs<br/>interaction| QThread["✅ QThread with signals"]
-    UIFrozen -->|User just waits| Modal["✅ Modal QProgressDialog"]
-    UIFrozen -->|NO| Direct["✅ Run directly<br/>no complexity needed"]
-    
-    style QtSol fill:#6bcf7f
-    style AsyncSol fill:#6bcf7f
-    style SimpleSol fill:#6bcf7f
-    style ProcPool fill:#6bcf7f
-    style IOBound fill:#6bcf7f
-    style QThread fill:#6bcf7f
-    style Modal fill:#6bcf7f
-    style Direct fill:#6bcf7f
-    style NoThread fill:#ff6b6b
-</div>
+**Running external processes/subprocesses?**
 
-> **Note:** If the diagram doesn't render, [view this post on the website](/blog/threading-antipatterns-qt-async/) for the interactive decision tree.
+→ **YES:** Use process-specific async tools, NOT threading
+  - Qt application? → ✅ **QProcess** (event loop integrated)
+  - Asyncio application? → ✅ **asyncio.create_subprocess_exec**
+  - Otherwise? → ✅ **subprocess.run** (blocking is fine)
+
+→ **NO:** Working with Python code directly
+  - Multiple INDEPENDENT operations?
+    - **YES:** Consider threading/async
+      - CPU-bound? → ✅ **ProcessPoolExecutor** (bypasses GIL)
+      - I/O-bound? → ✅ **ThreadPoolExecutor or asyncio**
+    - **NO:** ❌ **DON'T use threading**
+      - UI frozen during operation?
+        - User needs interaction? → ✅ **QThread with signals**
+        - User just waits? → ✅ **Modal QProgressDialog**
+        - No UI issues? → ✅ **Run directly (no complexity needed)**
 
 **Key question:** Can the work run in parallel? If not, don't add concurrency.
 
@@ -1801,44 +1768,39 @@ class BP_HighToGameReadyTool(BP_BaseToolWindow):
 
 Here's how the signal-based pipeline orchestration works:
 
-<div class="mermaid">
-sequenceDiagram
-    participant User
-    participant MainThread
-    participant QtEventLoop
-    participant HoudiniProcess
-    participant SubstanceProcess
-    
-    User->>MainThread: Click "Run"
-    MainThread->>QtEventLoop: QProcess.start(Houdini)
-    Note over MainThread,User: Returns immediately<br/>UI stays responsive
-    
-    loop Process running (2-5 min)
-        HoudiniProcess->>QtEventLoop: stdout data available
-        QtEventLoop->>MainThread: readyReadStandardOutput signal
-        MainThread->>User: Update console widget
-        User->>MainThread: Can click Cancel button
-    end
-    
-    HoudiniProcess->>QtEventLoop: Process exits (exit code 0)
-    QtEventLoop->>MainThread: finished(0, NormalExit) signal
-    MainThread->>MainThread: Emit houdini_finished signal
-    MainThread->>MainThread: houdini_post() slot receives signal
-    MainThread->>QtEventLoop: QProcess.start(Substance)
-    Note over MainThread: Continue to next stage
-    
-    loop Process running (1-3 min)
-        SubstanceProcess->>QtEventLoop: stdout data available
-        QtEventLoop->>MainThread: readyReadStandardOutput signal
-        MainThread->>User: Update console widget
-    end
-    
-    SubstanceProcess->>QtEventLoop: Process exits
-    QtEventLoop->>MainThread: finished signal
-    Note over MainThread: Chain continues to Maya...
-</div>
-
-> **Note:** This diagram uses Mermaid syntax. If it doesn't render in your RSS reader, [view this post on the website](/blog/threading-antipatterns-qt-async/) for the interactive diagram.
+```
+User clicks "Run"
+  ↓
+MainThread → QtEventLoop: QProcess.start(Houdini)
+  • Returns IMMEDIATELY - UI stays responsive
+  ↓
+While Houdini runs (2-5 minutes):
+  ├─ HoudiniProcess → QtEventLoop: stdout data available
+  ├─ QtEventLoop → MainThread: readyReadStandardOutput signal
+  ├─ MainThread → User: Update console widget
+  └─ User CAN click Cancel button (UI responsive!)
+  ↓
+HoudiniProcess exits (exit code 0)
+  ↓
+QtEventLoop → MainThread: finished(0, NormalExit) signal
+  ↓
+MainThread: Emit houdini_finished signal
+  ↓
+MainThread: houdini_post() slot receives signal
+  ↓
+MainThread → QtEventLoop: QProcess.start(Substance)
+  ↓
+While Substance runs (1-3 minutes):
+  ├─ SubstanceProcess → QtEventLoop: stdout data available
+  ├─ QtEventLoop → MainThread: readyReadStandardOutput signal
+  └─ MainThread → User: Update console widget
+  ↓
+SubstanceProcess exits
+  ↓
+QtEventLoop → MainThread: finished signal
+  ↓
+Chain continues to Maya...
+```
 
 **Benefits of this architecture:**
 - UI never blocks - event loop keeps processing user input

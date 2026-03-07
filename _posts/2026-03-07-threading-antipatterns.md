@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Don't Thread What You Can't Parallelize: Qt Async Done Right"
-summary: "Removing 150 lines of threading code made my game dev tool simpler and more maintainable. Learn when NOT to use async, discover why QProcess beats threading for subprocess management."
+summary: "Learn when NOT to use threading or async, discover why QProcess beats threading for subprocess management in Qt/PySide6 GUI tools. Complete guide with benchmarks, decision frameworks, and real-world DCC pipeline refactoring."
 author: hogjonny
 date: "2026-03-07 00:00:00 -0600"
 category: python

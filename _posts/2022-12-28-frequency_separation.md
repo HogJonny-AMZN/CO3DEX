@@ -1,12 +1,13 @@
 ---
 layout: post
-title:  "Image Frequency Separation, for Macro Color and Detail Mapping"
-summary: "Understanding Frequency Separation"
+title: "Image Frequency Separation for Texture Detail Mapping"
+summary: "Learn frequency separation techniques for creating high-pass detail textures. Essential workflow for terrain artists, macro color mapping, and PBR material creation in game development."
 author: hogjonny
 date: '2022-12-29 15:52:00 -0600'
+modified_date: "2026-03-06 10:00:00 -0600"
 category: techart
 thumbnail: /assets/img/posts/2022-12-28-frequency_separation-assets/Photoshop_r2L3xh6UTS.gif
-keywords: highpass,frequency,seperation,photoshop,terrain
+keywords: frequency-separation,highpass,texture-mapping,photoshop,terrain,pbr,game-art,detail-textures,color-grading,technical-art
 permalink: /blog/Understanding_Frequency_Separation/
 usemathjax: true
 ---

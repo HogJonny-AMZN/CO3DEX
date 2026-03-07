@@ -1,12 +1,13 @@
 ---
 layout: post
-title:  "PySide2 Help, Scaffolding Code, and Documentation with ChatGPT"
-summary: "ChatGPT+Python+PySide2"
+title: "Building PySide2 UIs with ChatGPT Code Generation"
+summary: "Leverage ChatGPT to accelerate Python GUI development. Learn how to scaffold PySide2 code, generate documentation, and build production-ready tools faster with AI assistance."
 author: hogjonny
 date: '2022-12-20 17:55:00 -0600'
+modified_date: "2026-03-06 10:00:00 -0600"
 category: techart
 thumbnail: /assets/img/posts/2022-11-28-welcome-assets/3a17db46d14fe4b643a70263904ef7a878ac3558.png
-keywords: chatgpt,python,pyside2,generativeAI
+keywords: chatgpt,python,pyside2,qt,gui-development,ai-assisted-coding,code-generation,tool-development,generative-ai,technical-art-tools
 permalink: /blog/ChatGPT_Python_PySide2/
 usemathjax: true
 ---

@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Tool Logging with Python"
-summary: "Lessons learned from transforming a fragile prototype into a maintainable production tool through defensive logging strategies"
+title: "Python Logging Best Practices for Game Development Tools"
+summary: "Transform fragile prototypes into maintainable production tools with defensive logging strategies. Complete guide to Python logging, debugging, and error handling for DCC tools."
 author: hogjonny
 date: "2026-02-25 12:00:00 -0600"
+modified_date: "2026-03-06 10:00:00 -0600"
 category: python
 thumbnail: /assets/img/generic_post_banner.png
-keywords: python,logging,tools,debugging,qt,pyside,architecture
+keywords: python,logging,tools,debugging,game-development,qt,pyside,error-handling,production-tools,dcc-tools
 permalink: /blog/tool-logging-with-python/
 usemathjax: false
 ---

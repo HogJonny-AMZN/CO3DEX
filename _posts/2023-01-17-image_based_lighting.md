@@ -1,12 +1,13 @@
 ---
 layout: post
 title: "Working with Image Based Lighting (IBL) in O3DE"
-summary: "How to set up Global Lighting with an HDRi EXR"
+summary: "Master Image-Based Lighting in Open 3D Engine. Complete guide to setting up HDR environments, global illumination, and realistic skyboxes using EXR files for AAA-quality rendering."
 author: hogjonny
 date: "2023-01-17 12:15:36 -0600"
+modified_date: "2026-03-06 10:00:00 -0600"
 category: techart
 thumbnail: /assets/img/posts/2023-01-17-image_based_lighting-assets/o3de-ibl-post-title.png
-keywords: techart,IBL,image-based-lighting,O3DE,global-lighting,skylight,skybox,exr,hdri
+keywords: ibl,image-based-lighting,o3de,rendering,hdri,global-illumination,skylight,skybox,exr,pbr,real-time-rendering
 permalink: /blog/image-based-lighting-1/
 usemathjax: true
 ---

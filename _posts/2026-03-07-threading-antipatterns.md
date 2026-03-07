@@ -131,31 +131,35 @@ Let me show you why this code achieved **exactly zero performance benefit** whil
 
 Here's what actually happened when a user clicked "Run":
 
+```mermaid
+sequenceDiagram
+    participant User
+    participant MainThread
+    participant WorkerThread
+    participant HoudiniProcess
+    participant SubstanceProcess
+    
+    User->>MainThread: Click "Run" button
+    Note over MainThread: Create Worker thread (+10ms overhead)
+    MainThread->>WorkerThread: Start worker
+    WorkerThread->>HoudiniProcess: subprocess.Popen()
+    Note over WorkerThread,HoudiniProcess: Worker thread BLOCKS<br/>reading stdout (2-5 min)
+    Note over HoudiniProcess: External C++ process<br/>runs sequentially<br/>(separate OS process)
+    WorkerThread->>WorkerThread: process.wait() BLOCKS
+    HoudiniProcess-->>WorkerThread: Process completes
+    Note over WorkerThread: Emit houdini_finished signal
+    WorkerThread->>MainThread: Signal (cross-thread marshal +5ms)
+    Note over MainThread: Create new Worker thread
+    MainThread->>WorkerThread: Start worker
+    WorkerThread->>SubstanceProcess: subprocess.Popen()
+    Note over WorkerThread,SubstanceProcess: Worker thread BLOCKS<br/>reading stdout (1-3 min)
+    WorkerThread->>WorkerThread: process.wait() BLOCKS
+    SubstanceProcess-->>WorkerThread: Process completes
+    Note over WorkerThread,MainThread: Repeat for Maya...
+    Note over User,MainThread: Total time: 3-8 minutes<br/>Total parallelism: ZERO
 ```
-User clicks "Run" button
-  ↓
-Main thread creates Worker thread (overhead: ~10ms)
-  ↓
-Worker thread spawns Houdini subprocess
-  ↓
-Worker thread BLOCKS reading stdout (subprocess takes 2-5 minutes)
-  ↓
-Subprocess processes files SEQUENTIALLY (external C++ process, not Python)
-  ↓
-Worker thread BLOCKS on process.wait()
-  ↓
-Worker thread emits signal: houdini_finished
-  ↓
-Main thread receives signal, marshals across thread boundary (overhead: ~5ms)
-  ↓
-Main thread spawns Substance subprocess in new worker thread
-  ↓
-Worker thread BLOCKS waiting for Substance (subprocess takes 1-3 minutes)
-  ↓
-Repeat for Maya subprocess
-  ↓
-Finally complete after 3-8 minutes
-```
+
+> **Note:** If the diagram doesn't render in your RSS reader, [view this post on the website](/blog/threading-antipatterns-qt-async/) for the interactive diagram.
 
 **Total parallelism achieved: ZERO**
 
@@ -427,42 +431,46 @@ Let me break down each phase in detail.
 
 ### The Typical Developer Journey
 
-**Phase 1: Initial Problem**
+```mermaid
+flowchart TD
+    A[Phase 1: Initial Problem] --> A1[Developer builds tool<br/>with blocking subprocess]
+    A1 --> A2[UI freezes during<br/>3-8 minute pipeline]
+    A2 --> A3[Users complain:<br/>Is it hung?]
+    
+    A3 --> B[Phase 2: Research]
+    B --> B1[Google: Python<br/>non-blocking subprocess]
+    B1 --> B2[Finds threading/<br/>async articles]
+    B2 --> B3[Thinks: Threading<br/>makes things faster!]
+    
+    B3 --> C[Phase 3: Implementation]
+    C --> C1[Adds QThreadPool,<br/>Worker class, signals]
+    C1 --> C2[Wraps subprocess<br/>call in thread]
+    C2 --> C3[Tests with small<br/>dataset 30 seconds]
+    C3 --> C4[UI responsive!<br/>Success!]
+    
+    C4 --> D[Phase 4: Shipping]
+    D --> D1[Code review passes<br/>threading is best practice]
+    D1 --> D2[Ships to production<br/>works fine]
+    D2 --> D3[Developer moves<br/>to next project]
+    
+    D3 --> E[Phase 5: Maintenance Nightmare]
+    E --> E1[6 months later<br/>new dev inherits code]
+    E1 --> E2[Sees thread-safety<br/>warnings in logs]
+    E2 --> E3[Sees signal marshalling<br/>delays]
+    E3 --> E4[Sees race conditions<br/>on globals]
+    E4 --> E5[Sees 150 lines of<br/>threading complexity]
+    E5 --> E6{Why is this threaded?<br/>What's the benefit?}
+    E6 --> E7[Answer: None.<br/>It never had a benefit]
+    
+    style A fill:#ff6b6b
+    style B fill:#ffd93d
+    style C fill:#6bcf7f
+    style D fill:#4d96ff
+    style E fill:#ff6b6b
+    style E7 fill:#ff0000,color:#fff
+```
 
-- Developer builds tool with blocking subprocess calls
-- UI freezes during the 3-8 minute pipeline
-- Users complain: "Is it hung? How do I know it's working?"
-
-**Phase 2: Research**
-
-- Google: "Python non-blocking subprocess"
-- Finds articles about threading and async
-- Sees code examples: "Run subprocess in thread!"
-- Thinking: "Threading makes things faster, right?"
-
-**Phase 3: Implementation**
-
-- Adds QThreadPool, Worker class, signal connections
-- Wraps subprocess call in thread
-- Tests with small dataset (30 seconds)
-- UI remains responsive! Success!
-
-**Phase 4: Shipping**
-
-- Code passes review (threading is "best practice")
-- Ships to production
-- Works fine (UI is responsive)
-- Developer moves on to next project
-
-**Phase 5: Maintenance Nightmare**
-
-- 6 months later, new dev inherits code
-- Sees thread-safety warnings in logs
-- Sees signal marshalling delays
-- Sees race conditions on globals
-- Sees 150 lines of threading complexity
-- Asks: "Why is this threaded? What's the benefit?"
-- Answer: None. It never had a benefit.
+> **Note:** If the diagram doesn't render, [view this post on the website](/blog/threading-antipatterns-qt-async/) for the interactive flowchart.
 
 ### What Was Missed in the Analysis
 
@@ -1176,26 +1184,43 @@ def import_file(self, file_path):
 
 Here's a decision tree I wish I'd had when starting this refactor:
 
+```mermaid
+flowchart TD
+    Start{Running external<br/>processes/subprocesses?}
+    Start -->|YES| ExtProcess[Use process-specific<br/>async tools, NOT threading]
+    
+    ExtProcess --> Qt{Qt application?}
+    Qt -->|YES| QtSol["✅ QProcess<br/>(event loop integrated)"]
+    Qt -->|NO| Async{Asyncio application?}
+    Async -->|YES| AsyncSol["✅ asyncio.create_subprocess_exec"]
+    Async -->|NO| SimpleSol["✅ subprocess.run<br/>(blocking is fine)"]
+    
+    Start -->|NO| Python[Working with<br/>Python code directly]
+    Python --> Independent{Multiple INDEPENDENT<br/>operations?}
+    
+    Independent -->|YES| Consider[Consider threading/async]
+    Consider --> CPUBound{Are they<br/>CPU-bound?}
+    CPUBound -->|YES| ProcPool["✅ ProcessPoolExecutor<br/>(bypasses GIL)"]
+    CPUBound -->|NO| IOBound["✅ ThreadPoolExecutor<br/>or asyncio<br/>(I/O-bound)"]
+    
+    Independent -->|NO| NoThread["❌ DON'T use threading"]
+    NoThread --> UIFrozen{UI frozen during<br/>operation?}
+    UIFrozen -->|User needs<br/>interaction| QThread["✅ QThread with signals"]
+    UIFrozen -->|User just waits| Modal["✅ Modal QProgressDialog"]
+    UIFrozen -->|NO| Direct["✅ Run directly<br/>no complexity needed"]
+    
+    style QtSol fill:#6bcf7f
+    style AsyncSol fill:#6bcf7f
+    style SimpleSol fill:#6bcf7f
+    style ProcPool fill:#6bcf7f
+    style IOBound fill:#6bcf7f
+    style QThread fill:#6bcf7f
+    style Modal fill:#6bcf7f
+    style Direct fill:#6bcf7f
+    style NoThread fill:#ff6b6b
 ```
-Are you running external processes/subprocesses?
-├─ YES → Use process-specific async tools, NOT threading
-│   ├─ Qt application? → QProcess (event loop integrated)
-│   ├─ Asyncio application? → asyncio.create_subprocess_exec
-│   └─ Simple script? → subprocess.run (blocking is fine)
-│
-└─ NO → Working with Python code directly
-    └─ Do you have multiple INDEPENDENT operations?
-        ├─ YES → Consider threading/async
-│           └─ Are they CPU-bound?
-│               ├─ YES → ProcessPoolExecutor (bypasses GIL)
-│               └─ NO (I/O-bound) → ThreadPoolExecutor or asyncio
-│
-        └─ NO → DON'T use threading
-            └─ Is the UI frozen during operation?
-                ├─ YES, user needs interaction → QThread with signals
-                ├─ YES, user just waits → Modal QProgressDialog
-                └─ NO → Run directly, no complexity needed
-```
+
+> **Note:** If the diagram doesn't render, [view this post on the website](/blog/threading-antipatterns-qt-async/) for the interactive decision tree.
 
 **Key question:** Can the work run in parallel? If not, don't add concurrency.
 

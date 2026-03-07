@@ -5,7 +5,7 @@ summary: "Build simpler, maintainable Qt/PySide6 tools through better concurrenc
 author: hogjonny
 date: "2026-03-07 00:00:00 -0600"
 category: python
-thumbnail: /assets/img/generic_post_banner.png
+thumbnail: /assets/img/posts/2026-03-07-threading-antipatterns.png
 keywords: python,threading,async,antipatterns,qt,qprocess,game-development,subprocess,concurrency,performance,pyside
 permalink: /blog/threading-antipatterns-qt-async/
 usemathjax: false

@@ -9,6 +9,7 @@ thumbnail: /assets/img/generic_post_banner.png
 keywords: python,threading,async,antipatterns,qt,qprocess,game-development,subprocess,concurrency,performance,pyside
 permalink: /blog/threading-antipatterns-qt-async/
 usemathjax: false
+usemermaid: true
 ---
 
 # Welcome to the Co3deX

@@ -132,7 +132,7 @@ Let me show you why this code achieved **exactly zero performance benefit** whil
 
 Here's what actually happened when a user clicked "Run":
 
-```mermaid
+<div class="mermaid">
 sequenceDiagram
     participant User
     participant MainThread
@@ -158,7 +158,7 @@ sequenceDiagram
     SubstanceProcess-->>WorkerThread: Process completes
     Note over WorkerThread,MainThread: Repeat for Maya...
     Note over User,MainThread: Total time: 3-8 minutes<br/>Total parallelism: ZERO
-```
+</div>
 
 > **Note:** If the diagram doesn't render in your RSS reader, [view this post on the website](/blog/threading-antipatterns-qt-async/) for the interactive diagram.
 
@@ -432,7 +432,7 @@ Let me break down each phase in detail.
 
 ### The Typical Developer Journey
 
-```mermaid
+<div class="mermaid">
 flowchart TD
     A[Phase 1: Initial Problem] --> A1[Developer builds tool<br/>with blocking subprocess]
     A1 --> A2[UI freezes during<br/>3-8 minute pipeline]
@@ -469,7 +469,7 @@ flowchart TD
     style D fill:#4d96ff
     style E fill:#ff6b6b
     style E7 fill:#ff0000,color:#fff
-```
+</div>
 
 > **Note:** If the diagram doesn't render, [view this post on the website](/blog/threading-antipatterns-qt-async/) for the interactive flowchart.
 
@@ -1185,7 +1185,7 @@ def import_file(self, file_path):
 
 Here's a decision tree I wish I'd had when starting this refactor:
 
-```mermaid
+<div class="mermaid">
 flowchart TD
     Start{Running external<br/>processes/subprocesses?}
     Start -->|YES| ExtProcess[Use process-specific<br/>async tools, NOT threading]
@@ -1219,7 +1219,7 @@ flowchart TD
     style Modal fill:#6bcf7f
     style Direct fill:#6bcf7f
     style NoThread fill:#ff6b6b
-```
+</div>
 
 > **Note:** If the diagram doesn't render, [view this post on the website](/blog/threading-antipatterns-qt-async/) for the interactive decision tree.
 
@@ -1801,7 +1801,7 @@ class BP_HighToGameReadyTool(BP_BaseToolWindow):
 
 Here's how the signal-based pipeline orchestration works:
 
-```mermaid
+<div class="mermaid">
 sequenceDiagram
     participant User
     participant MainThread
@@ -1836,7 +1836,7 @@ sequenceDiagram
     SubstanceProcess->>QtEventLoop: Process exits
     QtEventLoop->>MainThread: finished signal
     Note over MainThread: Chain continues to Maya...
-```
+</div>
 
 > **Note:** This diagram uses Mermaid syntax. If it doesn't render in your RSS reader, [view this post on the website](/blog/threading-antipatterns-qt-async/) for the interactive diagram.
 

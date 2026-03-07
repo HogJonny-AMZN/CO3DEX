@@ -256,38 +256,11 @@
   {% if page.usemermaid %}
    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
    <script>
-      // Configure Mermaid
+      // Initialize Mermaid with simple config
       mermaid.initialize({ 
-        startOnLoad: false,
+        startOnLoad: true,
         theme: 'default',
-        securityLevel: 'loose',
-        flowchart: {
-          useMaxWidth: true,
-          htmlLabels: true,
-          curve: 'basis'
-        }
-      });
-      
-      // Convert Kramdown's <code class="language-mermaid"> to Mermaid-compatible format
-      window.addEventListener('load', function() {
-        // Find all mermaid code blocks
-        const mermaidBlocks = document.querySelectorAll('pre > code.language-mermaid');
-        
-        mermaidBlocks.forEach(function(code, index) {
-          // Get the parent <pre> element
-          const pre = code.parentElement;
-          
-          // Create new div for mermaid
-          const mermaidDiv = document.createElement('div');
-          mermaidDiv.className = 'mermaid';
-          mermaidDiv.textContent = code.textContent;
-          
-          // Replace the <pre><code> with <div class="mermaid">
-          pre.parentNode.replaceChild(mermaidDiv, pre);
-        });
-        
-        // Render all mermaid diagrams
-        mermaid.run();
+        securityLevel: 'loose'
       });
    </script>
   {% endif %}

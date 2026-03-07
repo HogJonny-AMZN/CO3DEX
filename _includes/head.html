@@ -254,8 +254,9 @@
 
   <!-- for Mermaid diagram support -->
   {% if page.usemermaid %}
-   <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+   <script>
+      // Configure Mermaid
       mermaid.initialize({ 
         startOnLoad: false,
         theme: 'default',
@@ -268,14 +269,24 @@
       });
       
       // Convert Kramdown's <code class="language-mermaid"> to Mermaid-compatible format
-      document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('code.language-mermaid').forEach(function(code) {
+      window.addEventListener('load', function() {
+        // Find all mermaid code blocks
+        const mermaidBlocks = document.querySelectorAll('pre > code.language-mermaid');
+        
+        mermaidBlocks.forEach(function(code, index) {
+          // Get the parent <pre> element
           const pre = code.parentElement;
+          
+          // Create new div for mermaid
           const mermaidDiv = document.createElement('div');
           mermaidDiv.className = 'mermaid';
           mermaidDiv.textContent = code.textContent;
-          pre.replaceWith(mermaidDiv);
+          
+          // Replace the <pre><code> with <div class="mermaid">
+          pre.parentNode.replaceChild(mermaidDiv, pre);
         });
+        
+        // Render all mermaid diagrams
         mermaid.run();
       });
    </script>

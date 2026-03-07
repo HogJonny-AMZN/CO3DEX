@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Don't Thread What You Can't Parallelize: Qt Async Done Right"
-summary: "Learn when NOT to use threading or async, discover why QProcess beats threading for subprocess management in Qt/PySide6 GUI tools. Complete guide with benchmarks, decision frameworks, and real-world DCC pipeline refactoring."
+summary: "Build simpler, maintainable Qt/PySide6 tools through better concurrency decisions — learn when NOT to use threading, why QProcess beats threading for subprocesses, complete with benchmarks and real-world DCC pipeline refactoring."
 author: hogjonny
 date: "2026-03-07 00:00:00 -0600"
 category: python

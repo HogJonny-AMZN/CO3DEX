@@ -257,7 +257,7 @@
    <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
       mermaid.initialize({ 
-        startOnLoad: true,
+        startOnLoad: false,
         theme: 'default',
         securityLevel: 'loose',
         flowchart: {
@@ -265,6 +265,18 @@
           htmlLabels: true,
           curve: 'basis'
         }
+      });
+      
+      // Convert Kramdown's <code class="language-mermaid"> to Mermaid-compatible format
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('code.language-mermaid').forEach(function(code) {
+          const pre = code.parentElement;
+          const mermaidDiv = document.createElement('div');
+          mermaidDiv.className = 'mermaid';
+          mermaidDiv.textContent = code.textContent;
+          pre.replaceWith(mermaidDiv);
+        });
+        mermaid.run();
       });
    </script>
   {% endif %}

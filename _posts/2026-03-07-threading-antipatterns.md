@@ -140,7 +140,7 @@ MainThread: Create Worker thread (+10ms overhead)
 WorkerThread: subprocess.Popen(Houdini)
   ↓
 WorkerThread BLOCKS reading stdout (2-5 minutes)
-  • HoudiniProcess runs externally (separate OS process) 
+  • HoudiniProcess runs externally (separate OS process)
   • No parallelism: thread just waits
   ↓
 WorkerThread: process.wait() BLOCKS until complete
@@ -843,31 +843,26 @@ Added: 200 lines of cleaner, more maintainable QProcess code
 Threading approach had these bugs that QProcess solved:
 
 1. **Thread-unsafe global state**
-   
    - Multiple threads accessing `_P4_WORKING_CHANGELIST_NUMBER`
    - Race condition on Perforce changelist creation
    - **Fixed:** Single main thread, no races
 
 2. **Signal marshalling delays**
-   
    - Cross-thread signals sometimes delayed by 50-100ms
    - Progress updates appeared "laggy"
    - **Fixed:** Same-thread signals are instant
 
 3. **UI freezes during transition**
-   
    - Brief freeze when thread started/stopped
    - User confusion: "Did it hang?"
    - **Fixed:** QProcess.start() returns immediately
 
 4. **Incomplete output buffering**
-   
    - Thread sometimes missed last few lines of output
    - Buffer flush timing issue
    - **Fixed:** QProcess streams output reliably
 
 5. **Zombie processes**
-   
    - If thread crashed, subprocess could be orphaned
    - Required manual cleanup
    - **Fixed:** QProcess manages process lifecycle
@@ -1010,7 +1005,7 @@ def process_assets(self):
 
 def _run_all_steps(self):
     self._run_houdini()    # BLOCKS waiting for Houdini
-    self._run_substance()  # BLOCKS waiting for Substance  
+    self._run_substance()  # BLOCKS waiting for Substance
     self._run_maya()       # BLOCKS waiting for Maya
     # Thread just waits - provides nothing
 ```
@@ -1029,7 +1024,7 @@ def process_assets(self):
     progress.setValue(1)
     subprocess.run([substance_exe, args])  # UI freezes here for 1-3 min
 
-    progress.setValue(2) 
+    progress.setValue(2)
     subprocess.run([maya_exe, args])  # UI freezes here for 1-2 min
 
     progress.setValue(3)
@@ -1362,7 +1357,7 @@ Be honest about the real problem:
 
 **If user can't do anything else during the operation:**
 
-- Use a **modal QProgressDialog** 
+- Use a **modal QProgressDialog**
 - Show clear progress indication
 - Allow cancellation if appropriate
 - Don't pretend it's non-blocking with threading
@@ -1831,9 +1826,9 @@ Chain continues to Maya...
 - Clear flow - each stage explicitly triggers the next via signals
 - Easy cancellation - just terminate() active QProcess
 - Qt handles all I/O threading internally
-  
+
   ```
-  
+
   ```
 
 ### Side-by-Side Comparison
@@ -2001,7 +1996,7 @@ But the foundation is now solid. No more threading anti-patterns. No more needle
 ### The Golden Rule
 
 > **"Don't add concurrency to make slow code fast. Add concurrency when you have fast code that can run in parallel."**
-> 
+>
 > — Rob Pike
 
 **Corollary for UI tools:**

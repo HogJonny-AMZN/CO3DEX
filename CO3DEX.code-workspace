@@ -2,12 +2,16 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../BATS"
 		}
 	],
 	"settings": {
 		"chat.tools.terminal.autoApprove": {
 			"git commit": true,
 			"git push": true
-		}
+		},
+		"makefile.configureOnOpen": false
 	}
 }

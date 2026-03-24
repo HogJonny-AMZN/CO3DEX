@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "When Parallelization IS the Answer: Building BATS"
-summary: "After simplifying sequential work with QProcess, I wanted to think bigger: batch processing as infrastructure. Here's how I built BATS, a tool-agnostic gRPC orchestration system that any DCC tool can use, turning 7 hours of sequential work into 1 hour of distributed processing."
+summary: "How I built and orchestrated DCC swarm"
 author: hogjonny
 date: "2026-03-23 00:00:00 -0600"
 category: python
@@ -16,6 +16,8 @@ usemathjax: false
 Hello and welcome to the CO3DEX, a blog of my Journeys in Real-time 3D Graphics and Technical Art. My name is Jonny Galloway. I am a polymath technical art leader who bridges art, tools, engine, and product. I work as a Principal Technical Artist and tools/engine specialist with 30+ years in AAA game development, working across content, design, production, and technology.
 
 ## When Parallelization IS the Answer: Building BATS 🦇
+
+After simplifying sequential work with QProcess in my last post, I wanted to think bigger: batch processing as infrastructure. Here's how I built BATS, a tool-agnostic gRPC orchestration system that any DCC tool can use, turning 7 hours of sequential work into 1 hour of distributed processing.
 
 ---
 

@@ -1,9 +1,10 @@
 ---
 layout: post
 title: "When Parallelization IS the Answer: Building BATS"
-summary: "How I built and orchestrated DCC swarm"
+summary: "How I built BATS: a distributed gRPC orchestration system with persistent Maya/Houdini worker pools that turned 6.7 hours of sequential DCC processing into 10 minutes with a 50-worker swarm."
 author: hogjonny
 date: "2026-03-23 00:00:00 -0600"
+modified_date: "2026-04-08 00:00:00 -0600"
 category: python
 thumbnail: /assets/img/posts/2026-03-21-distributed-orchestration-bats.png
 keywords: python,distributed-systems,grpc,orchestration,dcc,maya,houdini,concurrency,performance,architecture,game-development

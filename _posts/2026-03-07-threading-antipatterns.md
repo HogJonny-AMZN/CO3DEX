@@ -4,6 +4,7 @@ title: "Don't Thread What You Can't Parallelize: Qt Async Done Right"
 summary: "Build simpler, maintainable Qt/PySide6 tools through better concurrency decisions — learn when NOT to use threading, why QProcess beats threading for subprocesses, complete with benchmarks and real-world DCC pipeline refactoring."
 author: hogjonny
 date: "2026-03-07 00:00:00 -0600"
+modified_date: "2026-04-08 00:00:00 -0600"
 category: python
 thumbnail: /assets/img/posts/2026-03-07-threading-antipatterns.png
 keywords: python,threading,async,antipatterns,qt,qprocess,game-development,subprocess,concurrency,performance,pyside

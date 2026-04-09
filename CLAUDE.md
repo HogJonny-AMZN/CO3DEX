@@ -94,6 +94,7 @@ The `site.categories.<slug>` tag must exactly match the `category:` slug used in
 | Slug | File |
 | ---- | ---- |
 | `info` | `categories/info.md` |
+| `life` | `categories/life.md` |
 | `python` | `categories/python.md` |
 | `techart` | `categories/techart.md` |
 

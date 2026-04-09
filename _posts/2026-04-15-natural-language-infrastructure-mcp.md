@@ -57,29 +57,31 @@ But there was friction.
 1. Artist: "I need 5 hero sword variants with different blade lengths"
 2. TA (me): Opens VS Code
 3. TA: Writes Python script:
-```python
-import grpc
-from job_orchestrator.protos import job_pb2, orchestrator_pb2_grpc
 
-channel = grpc.insecure_channel('localhost:50051')
-stub = orchestrator_pb2_grpc.ExternalJobAPIStub(channel)
+   ```python
+   import grpc
+   from job_orchestrator.protos import job_pb2, orchestrator_pb2_grpc
 
-for i, length in enumerate([1.2, 1.5, 1.8, 2.0, 2.3]):
-    request = job_pb2.JobRequest(
-        dcc_type="maya",
-        execution_mode=job_pb2.ExecutionMode.HEADLESS,
-        module_path="job_orchestrator.jobs.examples.maya.generate_hero_sword",
-        parameters={
-            "asset_name": f"hero_sword_variant_{i+1}",
-            "blade_length": str(length),
-            "output_dir": "D:/Assets/Weapons",
-            "export_fbx": "True"
-        },
-        priority=5
-    )
-    response = stub.SubmitJob(request)
-    print(f"Submitted: {response.job_id}")
-```
+   channel = grpc.insecure_channel('localhost:50051')
+   stub = orchestrator_pb2_grpc.ExternalJobAPIStub(channel)
+
+   for i, length in enumerate([1.2, 1.5, 1.8, 2.0, 2.3]):
+       request = job_pb2.JobRequest(
+           dcc_type="maya",
+           execution_mode=job_pb2.ExecutionMode.HEADLESS,
+           module_path="job_orchestrator.jobs.examples.maya.generate_hero_sword",
+           parameters={
+               "asset_name": f"hero_sword_variant_{i+1}",
+               "blade_length": str(length),
+               "output_dir": "D:/Assets/Weapons",
+               "export_fbx": "True"
+           },
+           priority=5
+       )
+       response = stub.SubmitJob(request)
+       print(f"Submitted: {response.job_id}")
+   ```
+
 4. TA: Runs script
 5. TA: Opens system tray monitor to check status
 6. TA: 10 minutes later, tells artist the assets are ready
@@ -494,10 +496,10 @@ async def submit_job(
 Tools return structured errors instead of raising exceptions:
 
 ```python
-@mcp.tool()
-def bats_get_job_status(job_id: str) -> dict:
+@mcp.tool(name="bats_submit_job")
+async def submit_job(dcc_type: str, ...) -> dict:
     try:
-        stub = get_orchestrator_stub()
+        client = await _get_client()
         # ... gRPC call ...
     except grpc.RpcError as e:
         return {
@@ -512,7 +514,7 @@ def bats_get_job_status(job_id: str) -> dict:
         }
 ```
 
-AI can handle errors and suggest fixes ("Try calling bats_start_orchestrator()").
+Claude picks up the `suggestion` field and turns it into "try running `bats_start_orchestrator()` first" — users never see raw error codes.
 
 **4. Environment Configuration**
 

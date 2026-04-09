@@ -54,6 +54,10 @@ usemathjax: false
 ---
 ```
 
+### Post date (REQUIRED — must not be in the future)
+
+Jekyll **silently skips** posts whose `date:` is in the future — no error, the post simply won't appear after build. Always set `date:` to today or earlier before publishing.
+
 ### Category pages (REQUIRED for every new category)
 
 Jekyll does **not** auto-generate category pages — `_config.yml` has `jekyll-archives` disabled. Every unique `category:` value in any post **must** have a matching file in `categories/` or clicking the category link returns a 404.

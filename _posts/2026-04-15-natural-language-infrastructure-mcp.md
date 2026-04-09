@@ -3,7 +3,7 @@ layout: post
 title: "Natural Language Infrastructure: Making BATS AI-Callable"
 summary: "After building a distributed DCC orchestration system, I made it controllable through natural language. Here's how Model Context Protocol (MCP) integration turned BATS into infrastructure that Claude Desktop, Cursor, and VS Code Copilot can operate."
 author: hogjonny
-date: "2026-04-15 00:00:00 -0600"
+date: "2026-04-08 00:00:00 -0600"
 modified_date: "2026-04-08 00:00:00 -0600"
 category: python
 thumbnail: /assets/img/posts/2026-04-15-natural-language-infrastructure-mcp.png

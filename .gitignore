@@ -1,5 +1,6 @@
-# WIP drafts and local docs — never publish to repo
-.docs/
+# Local docs — track wip subfolder, ignore everything else
+.docs/*
+!.docs/wip/
 
 *.gem
 

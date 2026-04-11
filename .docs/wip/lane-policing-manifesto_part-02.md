@@ -6,11 +6,13 @@ That did not happen.
 
 The more I wrote, the more the pieces refused to fit in one container. So this is now a four‑part series. I'd rather be honest about that than cram it and deliver something half-baked. In this part I'm looking at the structural forces behind lane‑policing: how specialists and multipassionates see work differently, where engineering bias comes from, and why the pattern doesn't stay inside any one discipline. The environment question... fake safety, stewardship, what kind of leadership actually works... that's Part 3.
 
+The thing that connects all of it: whose discomfort gets treated as signal, and whose gets filed away as noise.
+
 ## Specialists, multipassionates, and how they see work
 
-Most studios are still built around specialists: people who go deep in a narrow domain and build rare, hard‑won expertise there. Clearly defined roles, more internal authority inside that slice, mandate to optimize for depth and precision. That focus is genuinely valuable when you're pushing a discipline to its limits... rendering, low‑level engine work, network code, animation, UX... but the same focus can make knock‑on effects in other parts of the system invisible.
+Every studio I've worked in has been built around specialists: people who go deep in a narrow domain and build rare, hard‑won expertise there. Clearly defined roles, more internal authority inside that slice, mandate to optimize for depth and precision. That focus is genuinely valuable when you're pushing a discipline to its limits... rendering, low‑level engine work, network code, animation, UX... but the same focus can make knock‑on effects in other parts of the system invisible.
 
-Multipassionates and multipotentialites are wired differently. Broad, overlapping interests. Learn new domains quickly. Drawn to intersections where ideas from multiple fields collide. The research on generalists consistently surfaces the same traits: idea synthesis, rapid learning, adaptability, and an ability to switch between very different modes of thinking. In complex, unpredictable environments (modern games and tools are exactly that), broader pattern‑recognition tends to matter more than ultra‑narrow depth.
+I've known a lot of multipassionates and multipotentialites too. Broad, overlapping interests. Learn new domains quickly. Drawn to intersections where ideas from multiple fields collide. The [research on generalists and multipotentialites](https://www.ted.com/talks/emilie_wapnick_why_some_of_us_don_t_have_one_true_calling) consistently surfaces the same traits: idea synthesis, rapid learning, adaptability, and an ability to switch between very different modes of thinking. In complex, unpredictable environments (modern games and tools are exactly that), [broader pattern‑recognition tends to matter more than ultra‑narrow depth](https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/making-collaboration-across-functions-a-reality).
 
 I've lived this. I can see both sides because I've been on both sides, and the tension is real. Specialists push a single pillar to world‑class levels. Multipassionates spot the weird failure modes between pillars. The problem isn't the mix. It's when the org only knows how to reward one type, and the other starts to look like a problem to be managed.
 
@@ -19,6 +21,8 @@ I've lived this. I can see both sides because I've been on both sides, and the t
 "Engineering bias" is a specific pattern I want to name carefully. Not "engineers are bad." Not "code doesn't matter." I mean technical perspectives get treated as inherently more objective and authoritative than design, art, production, or player perspectives, even on questions where those other perspectives have better information.
 
 You see it in rooms where the default authority lives with engineering, by habit, not because the problem demands it. An engineer's intuition about UX beats a designer's research. Someone just knows better than the user study data. A clever tools architecture beats an artist's lived reality of iteration pain. A performance concern gets treated as "hard physics," while a content‑throughput concern is filed under "nice to have, if we have time." A rendering engineer says normalizing vectors in a shader is expensive, but the artist's eye clearly sees what is wrong. And looks bad.
+
+I've lived this one directly. Years ago, we were building a demo for GDC and I wrote some shaders for paper rendering (with translucency), IBL, vertex shader animation and such, a whole visual world built around a large number of lights. The rendering engineer kept optimizing the shaders. The visual results kept taking a hit. One pass, the normals weren't normalized — you could see it immediately. At another point the translucency that had looked genuinely beautiful went flat and weird. We argued about it, more then once. Close to the GDC deadline I stopped expending energy on arguing and let him submit what he insisted was correct. Then in the packaged build, I quietly changed three key shaders back to what actually looked good. Never told anybody. All the praise for that demo was about how great it looked. He either didn't notice, didn't care, or let the feedback speak for itself. I still don't know which.
 
 Under the hood, it's not one bias. It's a stack: confirmation bias, but for technical data. Status‑quo bias, but for the current engine and pipeline. Pro‑innovation bias, but for new tech over messy human workflows. Identity and status bias, where "the engineer in the room" is coded as more rational by default.
 
@@ -30,7 +34,7 @@ Engineering bias plus lane‑policing makes that basically illegal.
 
 Critique flowing out of engineering into art, design, production? Totally normal. "Just being realistic." Critique flowing back in from those same disciplines? Suddenly it's overreaching. "You don't understand how hard this is." "Let the engineers worry about that." One-way street.
 
-That's the collision point with psychological safety.
+That's the collision point with [psychological safety](https://web.mit.edu/curhan/www/docs/Articles/15341_Readings/Group_Performance/Edmondson%20Psychological%20safety.pdf) \[[Edmondson, 1999](https://journals.sagepub.com/doi/10.2307/2666999)\].
 
 If engineers have implicit veto power, everyone else learns fast that challenging technical direction, scope, or tool choices is not safe. Especially if your title doesn't say "engineer." You start self‑censoring anything that smells technical, even when the risk you're seeing is fundamentally about players, creators, visuals, or production reality.
 
@@ -54,7 +58,7 @@ I've seen it in QA. At Rockstar, some of the sharpest creative ideas and calls c
 
 Production sees what doesn't show up in Jira tickets: patterns in schedule, scope, human bandwidth, the quiet warning signs that a team is running on fumes. Community and support see how decisions actually land, long after the feature is "done" and everyone has moved on. Marketing sometimes spots a fantasy or angle the core team is too close to see. I've had a marketing conversation reframe a whole product direction in twenty minutes. None of that happens if those voices get lane‑policed out of the room before the train hits the wall.
 
-The moment any silo starts believing only their discipline gets to define reality, you're back to lane‑policing in a different jersey. Psychological safety means discomfort is treated as data no matter where it comes from. The teams that win let the best signals through, not just the ones from the "right" lane.
+The moment any silo starts believing only their discipline gets to define reality, you're back to lane‑policing in a different jersey. [Psychological safety](https://pmc.ncbi.nlm.nih.gov/articles/PMC9819141/) means discomfort is treated as data no matter where it comes from. The teams that win let the best signals through, not just the ones from the "right" lane.
 
 So that's the structural layer: specialists and multipassionates see work differently, engineering bias tilts the playing field, and the same pattern shows up anywhere a discipline decides its lens sees and knows best. Knowing that doesn't fix anything on its own. The harder question is what the environment has to look like for cross-disciplinary signal to actually survive contact with the org.
 
@@ -62,3 +66,24 @@ That's where Part 3 goes. There's a version of "psychological safety" that is ju
 
 \----
 Part 3: (link)
+
+---
+
+## Resources and further reading
+
+Links embedded in this post point to free, open-access sources wherever possible. The HBR articles below are behind a subscription paywall — I'm listing them here because they're worth reading if you have access, or can find them through a library.
+
+**Free:**
+
+- Emilie Wapnick — [Why some of us don't have one true calling](https://www.ted.com/talks/emilie_wapnick_why_some_of_us_don_t_have_one_true_calling) (TED talk, ~12 min)
+- Amy Edmondson — [Psychological Safety and Learning Behavior in Work Teams](https://web.mit.edu/curhan/www/docs/Articles/15341_Readings/Group_Performance/Edmondson%20Psychological%20safety.pdf) (MIT-hosted PDF, 1999 original paper)
+- Edmondson 1999 — [journal record](https://journals.sagepub.com/doi/10.2307/2666999) (Sage, abstract free)
+- McKinsey — [Making collaboration across functions a reality](https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/making-collaboration-across-functions-a-reality)
+- PMC — [Psychological Safety and Management Team Effectiveness](https://pmc.ncbi.nlm.nih.gov/articles/PMC9819141/) (open-access, peer-reviewed)
+
+**Further reading (HBR — subscription required):**
+
+- [Why Cross-Functional Collaboration Stalls, and How to Fix It](https://hbr.org/2024/06/why-cross-functional-collaboration-stalls-and-how-to-fix-it) (2024)
+- [What Is Psychological Safety?](https://hbr.org/2023/02/what-is-psychological-safety) (2023)
+- [Research: To Excel, Diverse Teams Need Psychological Safety](https://hbr.org/2022/03/research-to-excel-diverse-teams-need-psychological-safety) (2022)
+- [75% of Cross-Functional Teams Are Dysfunctional](https://hbr.org/2015/06/75-of-cross-functional-teams-are-dysfunctional) (2015)

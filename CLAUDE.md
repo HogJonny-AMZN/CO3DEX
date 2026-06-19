@@ -46,6 +46,7 @@ title: "Post Title"
 summary: "Short summary"
 author: hogjonny
 date: "YYYY-MM-DD 00:00:00 -0600"
+modified_date: "YYYY-MM-DD 00:00:00 -0600"
 category: <category-slug>
 thumbnail: /assets/img/posts/YYYY-MM-DD-slug.png
 keywords: comma,separated,keywords
@@ -94,9 +95,13 @@ The `site.categories.<slug>` tag must exactly match the `category:` slug used in
 | Slug | File |
 | ---- | ---- |
 | `info` | `categories/info.md` |
+| `jekyll` | `categories/jekyll.md` |
 | `life` | `categories/life.md` |
+| `guides` | `categories/guides.md` |
 | `python` | `categories/python.md` |
 | `techart` | `categories/techart.md` |
+
+`categories/all.md` and `categories/sample_category.md` exist as structural/demo files — not real post categories.
 
 Update this table when adding a new category.
 
@@ -106,12 +111,22 @@ Update this table when adding a new category.
 - `_includes/blog_post_article.html` — renders post content, category links, share buttons
 - `_includes/blog_sidebar.html` — sidebar with recent posts, categories, author info
 - `_includes/head.html` — SEO tags via `jekyll-seo-tag`; reads `thumbnail`, `keywords`, and `description` from post front matter
-- `_layouts/home.html` — paginated blog index (uses `jekyll-paginate`, 4 posts/page)
+- `_layouts/home.html` — paginated blog index (uses `jekyll-paginate`, 8 posts/page)
 
 ### Authors
 
 Author pages live in `_authors/<slug>.md` and are rendered via `_layouts/author.html`. Posts reference authors by the `author:` field matching the author's filename slug.
 
+### Draft workflow
+
+`.docs/wip/` holds Markdown drafts in progress before they become posts in `_posts/`. Files here are tracked in git but not built by Jekyll. Move a draft to `_posts/YYYY-MM-DD-slug.md` when ready to publish.
+
+`_posts_archive/` and `_archive/` hold retired content — do not publish from these without review.
+
+### Windows scripts
+
+`scripts/` contains PowerShell equivalents of the Makefile targets (`serve.ps1`, `build.ps1`, `clean.ps1`, `install.ps1`). Use these on Windows if `make` is unavailable.
+
 ### Deployment
 
-The `DEPLOY_STRATEGY` file controls CI/CD target (`none`, `gh-pages`, or `firebase`). The site currently builds to `./build/`. Docker Compose files exist for containerized dev/prod if needed.
+The `DEPLOY_STRATEGY` file controls CI/CD target (`none`, `gh-pages`, or `firebase`). Currently set to `none`. The site builds to `./build/`. Docker Compose files exist for containerized dev/prod if needed.

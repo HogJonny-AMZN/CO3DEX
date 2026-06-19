@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Desire and Expectation: The Prison We Build"
-summary: "On ambition, burnout, and the cage we build from wanting. A mantra formed in AAA game development, tested across thirty years of climbing and losing."
+summary: "Desire and expectation are the walls of the prison we build. A mantra from AAA game development, on burnout, ambition, and knowing which one you're running on."
 author: hogjonny
 date: "2026-06-19 00:00:00 -0600"
 modified_date: "2026-06-19 00:00:00 -0600"

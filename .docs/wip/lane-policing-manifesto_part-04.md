@@ -12,7 +12,7 @@ When I say I’m pro‑Diversity, I mean who’s in the room and what perspectiv
 
 Equity is how the bar gets applied. It means everyone has the same opportunity to meet the bar and raise it: the same access to information, mentorship, feedback, and stretch work, and the same expectations when it comes to standards. It is not lowering the bar for optics. It is making sure the path to the bar isn’t quietly blocked for some people and greased for others.
 
-Inclusion is whose voice really counts once they’re in the room. It’s whether people can speak from their lane and across lanes without being punished, dismissed, or tokenized. It’s whether discomfort from marginalized folks gets treated as real data about the system, not as “being difficult,” and whether people who aren’t in the dominant group ever get to shape the actual decisions, not just the branding.
+Inclusion is whose voice really counts once they’re in the room. It’s whether people can speak with candor from their lane and across lanes without being punished, dismissed, or tokenized. It’s whether discomfort from marginalized folks gets treated as real data about the system, not as “being difficult,” and whether people who aren’t in the dominant group ever get to shape the actual decisions, not just the branding.
 
 For me, DEI and lane‑breaking are the same fight at different scales. Diversity without trust across disciplines gives you a curated cast. Equity without consistent standards gives you scapegoats. Inclusion without the freedom to speak across lanes just ensures the uncomfortable voices stay out of your way. Real equity and inclusion require cultivation, not just slogans and hiring targets.
 
@@ -55,6 +55,8 @@ I've seen it work at scale. At Lightbox, we needed four times the worlds, each f
 In a strange way, the industry blowing itself up and shrinking back down might be sending us back to where I started: a few people in a room, physical or virtual, trying to build something they actually believe in, with everyone trusted to see and say what is real.
 
 That is the loop I want to close in this next epoch. Take everything I learned in big studios and pour it back into small teams that actually want people to bring their whole lane‑breaking selves to the work.
+
+If those teams get it right — build the real safety, trust the polymaths, let critique cross lanes — they don't stay small forever. The studios that come out the other side of this restructuring might be built on better foundations than the ones we just lost.
 
 In the age of AI, more people can act like polymaths: curious enough to autodidact faster, cross a few more lanes, wear more hats. I’m not speaking theoretically: I’m on a Sony PSS-AI R&D team and I collaborate with AI every day. AI is an excellent tutor: enough shader math to have a real conversation with rendering, enough Python to automate a boring part of your art pipeline. The old excuse of "that’s not my lane" gets thinner every year.
 

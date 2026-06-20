@@ -1,6 +1,6 @@
 # Lane-Breaking: Fake Safety, Real Safety, and the Courage to Steward
 
-In Part 2 (link), we looked at the structural pattern: how specialist systems create bias, and how it doesn't stay inside any one discipline. Any silo can start believing its lens is the only real one. The problem is the architecture, not the people. This part is about the environment those people work in: what fake safety actually looks like, how stewardship and invention require different kinds of leadership, and what building a real culture of psychological safety actually takes... not just putting it on a slide.
+In [Part 2](https://blog.atxgamemakers.com/lane-breaking-part-2/), we looked at the structural pattern: how specialist systems create bias, and how it doesn't stay inside any one discipline. Any silo can start believing its lens is the only real one. The problem is the architecture, not the people. This part is a little disjointed, but it is about the environment those people work in: what fake safety actually looks like, how stewardship and invention require different kinds of leadership, and what building a real culture of psychological safety actually takes... not just putting it on a slide.
 
 Fear with better marketing is still fear. That's the thread through all of it.
 
@@ -10,17 +10,21 @@ There is another flavor of this that shows up in big‑tech and big‑brand envi
 
 On paper, the story is all about being a "world‑class workplace," hitting diversity goals, and building an inclusive culture. The slide decks look great. There are hiring targets, internal campaigns, lots of messaging. And to be clear: [fixing representation matters](https://scholarworks.boisestate.edu/cgi/viewcontent.cgi?article=1106&context=pubadmin_facpubs), and diversity and inclusion are a feature, not a bug. Some of the strongest people I've worked with only got in because someone finally took goals like these seriously. That part is real. The problem isn't diversity or representation; it's when we stop insisting on [merit and standards](https://scholarworks.boisestate.edu/cgi/viewcontent.cgi?article=1106&context=pubadmin_facpubs) as well, quietly waive the bar for optics, and then let "diversity" take the blame when those shortcuts blow up.
 
-I've seen it happen. A highly specialized role with a well-understood bar (portfolio review, design calibration, technical calibration, peer assessment) suddenly gets an exception because a candidate ticks an important box for a leader or hiring manager. A portfolio doesn't matter this time. The design review will slow down hiring. We can skip the technical screening. The justification is framed as progress: "we need more people like this." When it doesn't work out, the post-mortem isn't "we broke our own process." It's a quiet eye-roll about "hiring for diversity" from that same leader. No accountability for the decision; everyone else loses in multiple ways. For underrepresented folks who did clear the bar, this is poison: it makes them wonder whether every side-eye is about their work or about someone else's shortcut. The individual is set up to fail, the team's trust in the bar erodes, and people who genuinely did clear it start wondering who's silently questioning their legitimacy.
+I've seen it happen. A highly specialized role with a well-understood bar (portfolio review, design calibration, technical calibration, peer assessment) suddenly gets an exception because a candidate ticks an important box for a leader or hiring manager. A portfolio doesn't matter this time. The design review will slow down hiring. We can skip the technical screening. The justification is framed as progress: "we need more people like this." When it doesn't work out, the post-mortem isn't "we broke our own process." It's a quiet eye-roll about "hiring for diversity" from that same leader. No accountability for the decision; everyone else loses in multiple ways.
+
+For underrepresented folks who did clear the bar, this is poison: it makes them wonder whether every side-eye is about their work or about someone else's shortcut. The individual is set up to fail, the team's trust in the standards erodes, and people who genuinely did clear it start wondering who's silently questioning their legitimacy.
 
 That's the failure mode I'm talking about. Not "merit versus diversity" as a fake binary, but leadership using identity to justify inconsistent standards, then letting existing personnel take on the tarnish and marginalized groups carry the reputational damage instead of owning the call.
 
 The problem is the shellac.
 
-Your artifacts and assessments are required, and you expect to take hits and roll with punches. In big tech sometimes it feels like you're in the octagon. Your own docs are expected to be brutally combed over, commented on, and objectively reviewed for accuracy and value. But with certain peers, you're expected to walk on eggshells, deliver meaningful feedback indirectly, behind closed doors and through middle‑people. That is not safety. That's coddling dressed up as care.
+As a professional your artifacts and assessments are required, and you expect to take hits and roll with punches along the way. In big tech sometimes it feels like you're in the octagon. Your own docs are expected to be brutally combed over, commented on, and objectively reviewed for accuracy and value. But with certain peers, you're expected to walk on eggshells, deliver meaningful feedback indirectly, behind closed doors and through middle‑people. That is not safety. That's coddling dressed up as care.
 
 Teams or individuals can ship obviously weak work and, in a more public forum, it gets coated in a glossy layer of praise: "So proud of this team," "Incredible effort," "Amazing outcome," "Great work." The real conversation happens in private: here is what broke, here is who isn't delivering, here is where the bar actually is. This isn't about any one person's merit; it's about how organizational incentives decide which truths get spoken out loud and which get buried.
 
 I grew up and cut my teeth in cultures where excellence was the North Star. The lane was "best game we can make," full stop. We could say hard things out loud. People bristled, arguments happened, but the assumption was that we were adults and the work mattered. Thick skin was part of the job, not because cruelty was the goal, but because honesty was.
+
+It is a bit cringe by today's standards, but a leader who has also made some of the most highly rated games in the universe once pseudo-apologised to me "Jonny, if we are not at each other's throats once in a while, one of us isn't pushing hard enough." That stuck, it was meaningful and actionable feedback. It is not tone deaf at all, quite the opposite.
 
 In the softer, brand‑driven version, a different pattern appears:
 
@@ -29,20 +33,22 @@ In the softer, brand‑driven version, a different pattern appears:
 
 That is not psychological safety. That is fear with better marketing.
 
+The goal is to build a studio culture and player community that lasts forever. Although we can't carry on with toxic grind and crunch culture, and we have to look that in the face… "Optimize for the player experience, and the hits will follow." is a better driving force but this itself is a relentless search and requires truth seeking.
+
 [Real psychological safety](https://psychsafety.com/about-psychological-safety/) is permission for [candor](https://www.library.hbs.edu/working-knowledge/four-steps-to-build-the-psychological-safety-that-high-performing-teams-need-today). It is the ability to say the uncomfortable thing in the room where it matters, push for the highest standards, and not be punished for it. What you see instead is a kind of organizational "[ruinous empathy](https://www.radicalcandor.com/blog/criticism-ruinous-empathy)": leaders are so afraid of bruising anyone or scratching the brand that they stop giving clear, direct feedback.
 
 You cannot optimize for a flawless public culture story and quietly de‑optimize for truth, merit, and excellence without paying for it. The price is [trust](https://claudiageratz.com/blog/why-psychological-safety-matters).
 
-People are not stupid. They know when output is weak. When messaging is flimsy. They know when someone is struggling. When the official story is "everything is amazing" and the unofficial story is "we're in trouble, but don't say it out loud," you train everyone to play along.
+People are not stupid. They know when output is weak. When messaging is flimsy. They know when someone is struggling. When the official story is, "everything is amazing," and the unofficial story is, "we're in trouble, but don't say it out loud," you train everyone to play along.
 
 You create a culture where:
 
-- Saying the hard thing in public is risky.  
+- Saying the honest but hard thing in public is risky.  
 - Saying nothing and nodding along is safe.
 
 Call it what you want, but it is not inclusive and it is not safe. It is just another form of lane‑policing: "Your job is to support the narrative, not to say what you actually see."
 
-The places that feel harsh on the surface... where someone will look you in the eye and say "this isn't good enough yet"... are often the ones that are truly safe. The kindness is not in the sugarcoating. It is in being willing to tell the truth while still having each other's backs. Delivering objective feedback and criticism is a skill; how it's delivered matters. But perfect is the enemy of good: people need psychological safety to use their voice and offer real feedback before you can help them hone it. That, too, is a form of stewardship.
+The places that feel harsh on the surface... where someone will look you in the eye and say "this isn't good enough yet"... are often the ones that are truly safe. The kindness is not in the sugarcoating. It is in being willing to tell the truth while still having each other's backs. Delivering objective feedback and criticism is a skill; how it's delivered matters. But perfect is the enemy of good: people need psychological safety to use their voice and offer real feedback before you can help them hone it. That, too, is a form of stewardship, here is another …
 
 ## Stewardship vs invention
 
@@ -86,5 +92,6 @@ That's stewardship at the level that actually matters. Not about being perfect, 
 
 The same restructuring breaking the industry is cracking open the old molds. Which sounds more hopeful than I probably mean it. Part 4 is about what comes next: polymaths, small sharp teams, and what late-career actually looks like when you decide to lean into the chaos instead of waiting it out.
 
-\----
-Part 4: (link)
+---
+
+*Jonathan Galloway is a polymath technical art leader who bridges art, tools, engine, and AI to help teams ship large, beautiful games with fewer headaches. A 30+ year AAA veteran with deep roots at Sony PlayStation, he specializes in technical art, real‑time rendering, Python tooling, and procedural worlds. Equal parts artist, engineer, and systems thinker, he turns messy pipelines into creative playgrounds where technology actually serves the people using it.*

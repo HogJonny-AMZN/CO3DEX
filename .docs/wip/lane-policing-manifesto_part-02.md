@@ -1,6 +1,6 @@
 # Lane-Breaking: When One Lens Dominates
 
-In Part 1 (link), I promised to pull the camera back and cover the bigger forces: fake safety vs real safety, engineering bias, stewardship, invention, all of it. One part. Neat and tidy.
+In [Part 1](https://blog.atxgamemakers.com/lane-breaking-part-1/), I promised to pull the camera back and cover the bigger forces: fake safety vs real safety, engineering bias, stewardship, invention, all of it. One part. Neat and tidy.
 
 That did not happen.
 
@@ -16,13 +16,13 @@ I've known a lot of multipassionates and multipotentialites too. Broad, overlapp
 
 I've lived this. I can see both sides because I've been on both sides, and the tension is real. Specialists push a single pillar to world‑class levels. Multipassionates spot the weird failure modes between pillars. The problem isn't the mix. It's when the org only knows how to reward one type, and the other starts to look like a problem to be managed.
 
-## Engineering bias: when one lens dominates
+## What I mean by engineering bias
 
 "Engineering bias" is a specific pattern I want to name carefully. Not "engineers are bad." Not "code doesn't matter." I mean technical perspectives get treated as inherently more objective and authoritative than design, art, production, or player perspectives, even on questions where those other perspectives have better information.
 
 You see it in rooms where the default authority lives with engineering, by habit, not because the problem demands it. An engineer's intuition about UX beats a designer's research. Someone just knows better than the user study data. A clever tools architecture beats an artist's lived reality of iteration pain. A performance concern gets treated as "hard physics," while a content‑throughput concern is filed under "nice to have, if we have time." A rendering engineer says normalizing vectors in a shader is expensive, but the artist's eye clearly sees what is wrong. And looks bad.
 
-I've lived this one directly. Years ago, we were building a demo for GDC and I wrote some shaders for paper rendering (with translucency), IBL, vertex shader animation and such, a whole visual world built around a large number of lights. The rendering engineer kept optimizing the shaders. The visual results kept taking a hit. One pass, the normals weren't normalized — you could see it immediately. At another point the translucency that had looked genuinely beautiful went flat and weird. We argued about it, more then once. Close to the GDC deadline I stopped expending energy on arguing and let him submit what he insisted was correct. Then in the packaged build, I quietly changed three key shaders back to what actually looked good. Never told anybody. All the praise for that demo was about how great it looked. He either didn't notice, didn't care, or let the feedback speak for itself. I still don't know which.
+I've lived this one directly. Years ago, we were building a demo for GDC and I wrote some shaders for paper rendering (with translucency), IBL, vertex shader animation and such, a whole visual world built around a large number of lights. The rendering engineer kept optimizing the shaders. The visual results kept taking a hit. One pass, the normals weren't normalized — you could see it immediately. At another point the translucency that had looked genuinely beautiful went flat and weird. We argued about it, more than once. Close to the GDC deadline I stopped expending energy on arguing and let him submit what he insisted was correct. Then in the packaged build, I quietly changed three key shaders back to what actually looked good. Never told anybody. All the praise for that demo was about how great it looked. He either didn't notice, didn't care, or let the feedback speak for itself. I still don't know which.
 
 Under the hood, it's not one bias. It's a stack: confirmation bias, but for technical data. Status‑quo bias, but for the current engine and pipeline. Pro‑innovation bias, but for new tech over messy human workflows. Identity and status bias, where "the engineer in the room" is coded as more rational by default.
 
@@ -64,11 +64,6 @@ So that's the structural layer: specialists and multipassionates see work differ
 
 That's where Part 3 goes. There's a version of "psychological safety" that is just theater... slide decks, internal campaigns, public praise that everyone knows doesn't match the private conversation. There's a version of feedback culture that mistakes coddling for care, and ships weak work wrapped in a glossy layer of "amazing effort." And then there's the real thing, which is a lot less comfortable and a lot more useful. Part 3 also gets into something I think about a lot: the difference between stewarding something beloved and inventing something new. Those two kinds of work don't just feel different... they require fundamentally different cultures to succeed. One rewards execution and ego control. The other punishes ego and depends on an environment where people can question even the things the director believes most strongly. Getting that wrong is expensive.
 
-\----
-Part 3: (link)
-
----
-
 ## Resources and further reading
 
 Links embedded in this post point to free, open-access sources wherever possible. The HBR articles below are behind a subscription paywall — I'm listing them here because they're worth reading if you have access, or can find them through a library.
@@ -87,3 +82,7 @@ Links embedded in this post point to free, open-access sources wherever possible
 - [What Is Psychological Safety?](https://hbr.org/2023/02/what-is-psychological-safety) (2023)
 - [Research: To Excel, Diverse Teams Need Psychological Safety](https://hbr.org/2022/03/research-to-excel-diverse-teams-need-psychological-safety) (2022)
 - [75% of Cross-Functional Teams Are Dysfunctional](https://hbr.org/2015/06/75-of-cross-functional-teams-are-dysfunctional) (2015)
+
+---
+
+*Jonathan Galloway is a polymath technical art leader who bridges art, tools, engine, and AI to help teams ship large, beautiful games with fewer headaches. A 30+ year AAA veteran with deep roots at Sony PlayStation, he specializes in technical art, real‑time rendering, Python tooling, and procedural worlds. Equal parts artist, engineer, and systems thinker, he turns messy pipelines into creative playgrounds where technology actually serves the people using it.*

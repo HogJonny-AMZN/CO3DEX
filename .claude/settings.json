@@ -19,5 +19,10 @@
     "systematic-debugging",
     "using-superpowers",
     "verification-before-completion"
-  ]
+  ],
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:blog.atxgamemakers.com)"
+    ]
+  }
 }

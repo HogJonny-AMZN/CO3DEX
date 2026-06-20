@@ -138,3 +138,7 @@ I don’t want to just complain about the mess. I helped build parts of it. I’
 **None of this is magic.** It’s just deciding, as leaders and teams, that the way we’ve been doing things is giving us exactly the results we’re seeing: burned‑out people, safe ideas, wasted talent, and games that don’t live up to what they could have been. If we want something better, we have to change how we behave when it’s uncomfortable, not just what we print on the slide.
 
 This is the personal layer: what it feels like to be a lane‑breaker in a system that says it wants you and then flinches when you actually show up. In Part 2, I’m going to pull the camera back and talk about the bigger forces that make this worse or better: fake safety vs real safety, engineering bias, and why stewardship and invention need different kinds of courage.
+
+---
+
+*Jonathan Galloway is a polymath technical art leader who bridges art, tools, engine, and AI to help teams ship large, beautiful games with fewer headaches. A 30+ year AAA veteran with deep roots at Sony PlayStation, he specializes in technical art, real‑time rendering, Python tooling, and procedural worlds. Equal parts artist, engineer, and systems thinker, he turns messy pipelines into creative playgrounds where technology actually serves the people using it.*

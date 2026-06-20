@@ -100,6 +100,7 @@ The `site.categories.<slug>` tag must exactly match the `category:` slug used in
 | `guides` | `categories/guides.md` |
 | `python` | `categories/python.md` |
 | `techart` | `categories/techart.md` |
+| `gamedev` | `categories/gamedev.md` |
 
 `categories/all.md` and `categories/sample_category.md` exist as structural/demo files — not real post categories.
 

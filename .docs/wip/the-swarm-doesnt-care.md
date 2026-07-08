@@ -3,8 +3,8 @@ layout: post
 title: "The Swarm Doesn't Care What's Inside the Worker"
 summary: "Everyone's arguing about whether AI replaces the game pipeline. I already built the piece of infrastructure that makes that the wrong question. Here's where BATS goes next."
 author: hogjonny
-date: "2026-07-08 00:00:00 -0600"
-modified_date: "2026-07-08 00:00:00 -0600"
+date: "2099-01-01 00:00:00 -0600"
+modified_date: "2099-01-01 00:00:00 -0600"
 category: python
 thumbnail: /assets/img/posts/the-swarm-doesnt-care.png
 keywords: python,ai,mcp,orchestration,agents,dcc,pipeline,game-development,distributed-systems,bats

@@ -6,7 +6,7 @@ author: hogjonny
 date: "2026-07-10 00:00:00 -0600"
 modified_date: "2026-07-10 00:00:00 -0600"
 category: python
-thumbnail: /assets/img/posts/the-swarm-doesnt-care.png
+thumbnail: /assets/img/posts/the-swarm-doesnt-care.jpg
 keywords: python,ai,mcp,orchestration,agents,dcc,pipeline,game-development,distributed-systems,bats
 permalink: /blog/swarm-doesnt-care/
 usemathjax: false
@@ -36,7 +36,7 @@ Guess which of these four posts secretly made the AI-worker idea possible. I'll 
 
 [Part 4](/blog/natural-language-infrastructure-mcp/) put a conversational layer on top of it. Twenty MCP tools, so I can tell Claude "submit 10 Maya jobs for these hero swords" instead of opening VS Code and writing boilerplate gRPC calls every time an artist needs a batch of assets. The infrastructure didn't get smarter. It got a language interface.
 
-Here's the answer: none of them, on purpose. Four parts, and at no point did I set out to build "an AI pipeline." I set out to fix specific, boring problems: I couldn't see what a tool was doing, threading was adding complexity for zero benefit, sequential batches were slow, and submitting work required me personally sitting at a keyboard. Each fix was in service of the last one.
+None of them, on purpose, that's the answer. Four parts, and at no point did I set out to build "an AI pipeline." I set out to fix specific, boring problems: I couldn't see what a tool was doing, threading was adding complexity for zero benefit, sequential batches were slow, and submitting work required me personally sitting at a keyboard. Each fix was in service of the last one.
 
 None of it happened because a room signed off on a plan, either. Scoping something down to a single asset at a time is a reasonable starting point. Wanting to explore every angle before committing resources is a reasonable instinct too. But taken far enough, both turn into reasons nothing moves. Consensus is data, it tells you what a room currently believes, and sometimes that's genuinely useful. But consensus-seeking dressed up as diligence is just a slower way to say no. So I built this on my own time, with my own resources, pointed at a problem I could see clearly, and let the results make the argument faster than a room still negotiating scope ever would have. Ask forgiveness, not permission, isn't a slogan for me. It's what happens when you'd rather ship something real than wait for consensus that may not arrive.
 

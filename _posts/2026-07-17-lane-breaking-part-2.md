@@ -102,4 +102,15 @@ Links embedded in this post point to free, open-access sources wherever possible
 
 ---
 
+## The Lane-Breaking series
+
+This started as one post and grew into four. Here's the whole set:
+
+1. [Part 1: A Manifesto on Psychological Safety and Cross-Disciplinary Work](/blog/lane-breaking-part-1/)
+2. **Part 2: When One Lens Dominates** *(you're reading this)*
+3. [Part 3: Fake Safety, Real Safety, and the Courage to Steward](/blog/lane-breaking-part-3/)
+4. [Part 4: Polymaths in a Specialist World](/blog/lane-breaking-part-4/)
+
+---
+
 *Jonathan Galloway is a polymath technical art leader who bridges art, tools, engine, and AI to help teams ship large, beautiful games with fewer headaches. A 30+ year AAA veteran with deep roots at Sony PlayStation, he specializes in technical art, real‑time rendering, Python tooling, and procedural worlds. Equal parts artist, engineer, and systems thinker, he turns messy pipelines into creative playgrounds where technology actually serves the people using it.*

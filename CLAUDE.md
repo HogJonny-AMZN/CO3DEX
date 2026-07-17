@@ -120,7 +120,12 @@ Author pages live in `_authors/<slug>.md` and are rendered via `_layouts/author.
 
 ### Draft workflow
 
-`.docs/wip/` holds Markdown drafts in progress before they become posts in `_posts/`. Files here are tracked in git but not built by Jekyll. Move a draft to `_posts/YYYY-MM-DD-slug.md` when ready to publish.
+There are **two** distinct draft holding areas — they are not interchangeable:
+
+- `.docs/wip/` — free-form Markdown drafts and concept memos. Tracked in git, ignored by Jekyll entirely (outside its source tree). Use for early writing that isn't post-shaped yet.
+- `_drafts/` — Jekyll's **native** drafts directory. Files here are fully post-shaped (complete front matter, `permalink`, etc.) but are **not built or previewed** by `jekyll serve`/`build` because neither the Makefile nor `scripts/serve.ps1` passes `--drafts`. To preview them, run `bundle exec jekyll serve --livereload --drafts`. Use for finished posts staged ahead of their publish date (e.g. the lane-breaking series).
+
+Publishing either way means moving the file to `_posts/YYYY-MM-DD-slug.md` and setting `date:` to today or earlier (see the future-date rule above).
 
 `_posts_archive/` and `_archive/` hold retired content — do not publish from these without review.
 

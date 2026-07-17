@@ -6,7 +6,7 @@
 
 AAA content pipelines aren't fragile legacy systems waiting to be discarded. They're production frameworks earned through years of iteration across tools, engines, platforms, and shipped games.[^1] Character and environment work passes through many people, many stages, and many months, because shippable quality comes from repeatability, validation, and predictable handoffs, not from how fast you can generate something.[^1]
 
-This memo argues against treating AI as a wholesale replacement for the traditional 3D pipeline. A better strategy is to treat AI as a bounded capability layer that plugs into existing workflows through an orchestration system that already understands jobs, stages, dependencies, validation, and handoff rules.[^2][^3]
+This memo argues against treating AI as a wholesale replacement for the traditional 3D pipeline. Here's what I think is actually right: treat AI as a bounded capability layer that plugs into existing workflows through an orchestration system that already understands jobs, stages, dependencies, validation, and handoff rules. That's not a hedge or a middle-ground compromise. It's the position I'd bet a team's roadmap on.[^2][^3]
 
 In this model, the production spine stays authoritative: DCC tools, exporters, importers, build systems, validators, and engine-facing asset checks still decide whether work is shippable. AI contributes first-pass assets, generated scripts, planning help, analysis, optimization suggestions, and automation of repetitive technical work, but every one of those outputs stays provisional until it clears the same quality gates as anything else in the pipeline.[^5][^6][^1][^7]
 
@@ -45,6 +45,8 @@ The thesis, stated plainly:
 > Any AI mechanism that can be operationalized in Python can be surfaced as a bounded pipeline task inside a distributed orchestration framework, where existing DCCs, validation steps, and engine ingestion remain authoritative.
 
 That reframes "AI adoption" as a pipeline architecture problem instead of a disruptive replacement story. The work becomes defining job contracts, worker interfaces, routing logic, validation gates, and human review boundaries so AI can participate safely in production.[^3][^11]
+
+I'm not presenting this as one option among several equally valid ones. I think it's the correct model, and I think the "will AI replace the pipeline" framing that dominates the current conversation is a distraction from the actual engineering question underneath it.
 
 ## Operating model
 
@@ -269,6 +271,8 @@ FAQ is good for handling objections and detailed questions, but it's a weak form
 The most credible future for AI in AAA production isn't a clean break from the traditional pipeline. It's a gradual evolution: distributed orchestration, bounded AI capabilities, validation gates, and human oversight combining to make the existing pipeline more adaptive, more parallel, and more efficient, without giving up the trust shipping teams depend on.[^2][^1][^3]
 
 That future belongs to teams that stop asking whether AI can replace the pipeline and start asking where the pipeline can safely and profitably dispatch AI work under explicit contracts.[^1][^3]
+
+That's the call I'm making. Not a hedge, not a survey of options: the pipeline stays in charge, AI earns its way in one bounded task at a time, and the teams who commit to that now will be the ones setting the terms later instead of catching up to someone else's.
 
 ## Sources
 

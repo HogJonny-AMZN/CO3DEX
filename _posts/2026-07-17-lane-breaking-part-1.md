@@ -10,6 +10,7 @@ thumbnail: /assets/img/posts/2026-07-15-lane-breaking-part-1.png
 keywords: lane-breaking,lane-policing,psychological-safety,game-development,polymath,cross-disciplinary,studio-culture,game-dev-culture,manifesto,T-shaped
 permalink: /blog/lane-breaking-part-1/
 canonical_url: https://blog.atxgamemakers.com/lane-breaking-part-1/
+sitemap: false
 usemathjax: false
 ---
 

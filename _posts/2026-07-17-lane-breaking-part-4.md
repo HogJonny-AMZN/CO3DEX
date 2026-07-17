@@ -10,6 +10,7 @@ thumbnail: /assets/img/posts/2026-07-15-lane-breaking-part-4.png
 keywords: lane-breaking,polymath,DEI,cultivation,psychological-safety,small-teams,critical-thinking,AI,game-development,late-career,studio-culture,O3DE,ACES
 permalink: /blog/lane-breaking-part-4/
 canonical_url: https://blog.atxgamemakers.com/lane-breaking-4/
+sitemap: false
 usemathjax: false
 ---
 

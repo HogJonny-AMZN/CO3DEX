@@ -10,6 +10,7 @@ thumbnail: /assets/img/posts/2026-07-15-lane-breaking-part-3.png
 keywords: lane-breaking,psychological-safety,fake-safety,stewardship,invention,ruinous-empathy,studio-culture,game-development,leadership,new-ip,remakes
 permalink: /blog/lane-breaking-part-3/
 canonical_url: https://blog.atxgamemakers.com/lane-breaking-3/
+sitemap: false
 usemathjax: false
 ---
 

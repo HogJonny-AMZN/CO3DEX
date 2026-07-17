@@ -10,6 +10,7 @@ thumbnail: /assets/img/posts/2026-07-15-lane-breaking-part-2.png
 keywords: lane-breaking,engineering-bias,specialists,generalists,multipassionates,psychological-safety,game-development,studio-culture,cross-disciplinary
 permalink: /blog/lane-breaking-part-2/
 canonical_url: https://blog.atxgamemakers.com/lane-breaking-part-2/
+sitemap: false
 usemathjax: false
 ---
 

@@ -1,22 +1,23 @@
 ---
 layout: post
-title: "Lane-Breaking: Fake Safety, Real Safety, and the Courage to Steward"
+title: "Lane-Breaking, Part 3: Fake Safety, Real Safety, and the Courage to Steward"
 summary: "Fake safety is fear with better marketing. On psychological safety theater, the difference between stewarding something beloved and building something new."
 author: hogjonny
-date: "2026-07-15 00:00:00 -0600"
-modified_date: "2026-07-15 00:00:00 -0600"
+date: "2026-07-17 00:48:00 -0500"
+modified_date: "2026-07-17 00:48:00 -0500"
 category: gamedev
 thumbnail: /assets/img/posts/2026-07-15-lane-breaking-part-3.png
 keywords: lane-breaking,psychological-safety,fake-safety,stewardship,invention,ruinous-empathy,studio-culture,game-development,leadership,new-ip,remakes
 permalink: /blog/lane-breaking-part-3/
+canonical_url: https://blog.atxgamemakers.com/lane-breaking-3/
 usemathjax: false
 ---
 
-*This article was originally published on the [ATX Game Makers blog](https://blog.atxgamemakers.com/lane-breaking-3/). [ATX Game Makers](https://atxgamemakers.com) is an Austin-based non-profit community organization dedicated to increasing diversity and inclusion in the video game industry. Visit their site, sign up for the newsletter, join the Discord, and if you have stories from the industry worth sharing, consider contributing a post.*
+*This article was originally published on the [ATX Game Makers blog](https://blog.atxgamemakers.com/lane-breaking-3/). [ATX Game Makers](https://www.atxgamemakers.com/) is an Austin-based non-profit community organization dedicated to increasing diversity and inclusion in the video game industry. Visit [their site](https://www.atxgamemakers.com/), sign up for the newsletter, and [join their Discord](https://discord.gg/NmAVrx4) ... pop into the #general channel to say hi, pitch a post, or share stories from the industry worth telling.*
 
 ---
 
-In [Part 2](https://blog.atxgamemakers.com/lane-breaking-part-2/), we looked at the structural pattern: how specialist systems create bias, and how it doesn't stay inside any one discipline. Any silo can start believing its lens is the only real one. The problem is the architecture, not the people. This part is a little disjointed, but it is about the environment those people work in: what fake safety actually looks like, how stewardship and invention require different kinds of leadership, and what building a real culture of psychological safety actually takes... not just putting it on a slide.
+In [Part 2](/blog/lane-breaking-part-2/), we looked at the structural pattern: how specialist systems create bias, and how it doesn't stay inside any one discipline. Any silo can start believing its lens is the only real one. The problem is the architecture, not the people. This part is a little disjointed, but it is about the environment those people work in: what fake safety actually looks like, how stewardship and invention require different kinds of leadership, and what building a real culture of psychological safety actually takes... not just putting it on a slide.
 
 Fear with better marketing is still fear. That's the thread through all of it.
 
@@ -64,7 +65,7 @@ You create a culture where:
 
 Call it what you want, but it is not inclusive and it is not safe. It is just another form of lane‑policing: "Your job is to support the narrative, not to say what you actually see."
 
-The places that feel harsh on the surface... where someone will look you in the eye and say "this isn't good enough yet"... are often the ones that are truly safe. The kindness is not in the sugarcoating. It is in being willing to tell the truth while still having each other's backs. Delivering objective feedback and criticism is a skill; how it's delivered matters. But perfect is the enemy of good: people need psychological safety to use their voice and offer real feedback before you can help them hone it. That, too, is a form of stewardship, here is another...
+The places that sometimes feel harsh on the surface... where someone will look you in the eye and say "this isn't good enough yet"... are often the ones that are truly safe. The kindness is not in the sugarcoating. It is in being willing to tell the truth while still having each other's backs. Delivering objective feedback and criticism is a skill; how it's delivered matters. But perfect is the enemy of good: people need psychological safety to use their voice and offer real feedback before you can help them hone it. That, too, is a form of stewardship, here is another...
 
 ## Stewardship vs invention
 

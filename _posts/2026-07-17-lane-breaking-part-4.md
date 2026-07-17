@@ -1,26 +1,27 @@
 ---
 layout: post
-title: "Lane-Breaking: Polymaths in a Specialist World"
+title: "Lane-Breaking, Part 4: Polymaths in a Specialist World"
 summary: "DEI, cultivation, polymaths in small sharp teams, and why the things that got you in trouble in big studios are your badge now."
 author: hogjonny
-date: "2026-07-15 00:00:00 -0600"
-modified_date: "2026-07-15 00:00:00 -0600"
+date: "2026-07-17 00:47:00 -0500"
+modified_date: "2026-07-17 00:47:00 -0500"
 category: gamedev
 thumbnail: /assets/img/posts/2026-07-15-lane-breaking-part-4.png
 keywords: lane-breaking,polymath,DEI,cultivation,psychological-safety,small-teams,critical-thinking,AI,game-development,late-career,studio-culture,O3DE,ACES
 permalink: /blog/lane-breaking-part-4/
+canonical_url: https://blog.atxgamemakers.com/lane-breaking-4/
 usemathjax: false
 ---
 
-*This article was originally published on the [ATX Game Makers blog](https://blog.atxgamemakers.com/lane-breaking-part-4/). [ATX Game Makers](https://atxgamemakers.com) is an Austin-based non-profit community organization dedicated to increasing diversity and inclusion in the video game industry. Visit their site, sign up for the newsletter, join the Discord, and if you have stories from the industry worth sharing, consider contributing a post.*
+*This article was originally published on the [ATX Game Makers blog](https://blog.atxgamemakers.com/lane-breaking-4/). [ATX Game Makers](https://www.atxgamemakers.com/) is an Austin-based non-profit community organization dedicated to increasing diversity and inclusion in the video game industry. Visit [their site](https://www.atxgamemakers.com/), sign up for the newsletter, and [join their Discord](https://discord.gg/NmAVrx4) ... pop into the #general channel to say hi, pitch a post, or share stories from the industry worth telling.*
 
 ---
 
-In *Lane‑Breaking*, I told the up‑close story of lane‑policing and psychological safety from inside teams. In *When One Lens Dominates* and *Safety and Stewardship*, I zoomed out to talk about bias, culture, and leadership. This final part is more personal and forward‑looking: how this frames DEI and cultivation. What it means to be a polymath in a specialist world, why small, sharp teams need lane‑breakers, and how critical thinking and AI change the game for the next epoch.
+In *Lane‑Breaking* [Part 1](/blog/lane-breaking-part-1/), I told the up‑close story of lane‑policing and psychological safety from inside teams. In *[When One Lens Dominates](/blog/lane-breaking-part-2/)* and *[Safety and Stewardship](/blog/lane-breaking-part-3/)*, I zoomed out to talk about bias, culture, and leadership. This final part is more personal and forward‑looking: how this frames DEI and cultivation. What it means to be a polymath in a specialist world, why small, sharp teams need lane‑breakers, and how critical thinking and AI change the game for the next epoch.
 
 This is longer than I planned. I'd rather land the plane here than drag everyone through Part 5.
 
-I know parts of this manifesto can read as pessimistic or "too negative." That's not an accident. I'm critical, not cynical: I'm naming failure modes I've seen up close, and that is never going to sound like a recruiting brochure. If a line stings, my ask is simple: treat that discomfort as data, not as a reason to look away. The only reason to bother writing any of this is because I still think it's worth fixing, and if a manifesto about culture never pinches anyone's nerve, it's probably not saying anything that matters.
+I know parts of this manifesto can read as pessimistic or "too negative." That's not an accident. I'm critical, not cynical: I'm naming failure modes I've seen up close, and that is never going to sound like a recruiting brochure. If a line stings, my ask is simple: treat that discomfort as data, not as a reason to look away. The only reason to bother writing any of this is because I think it's worth addressing, and if a manifesto about culture never pinches anyone's nerve, it's probably not saying anything that matters.
 
 ## **DEI in the context of lane‑breaking**
 
@@ -32,9 +33,9 @@ Inclusion is whose voice really counts once they're in the room. It's whether pe
 
 For me, DEI and lane‑breaking are the same fight at different scales. Diversity without trust across disciplines gives you a curated cast. Equity without consistent standards gives you scapegoats. Inclusion without the freedom to speak across lanes just ensures the uncomfortable voices stay out of your way. Real equity and inclusion require cultivation, not just slogans and hiring targets.
 
-## **Cultivation as a deep kindness**
+## **Cultivation as a deeper kind of kindness**
 
-Cultivation is helping something—or someone—grow into what it could be. It is a hard form of kindness: slow, inconvenient, and often uncomfortable for everyone involved. You do not get resilient teams, deep craft, or honest cultures by protecting them from friction. You get them by exposing them, with care, to the right kinds of pressure over time.
+Cultivation is helping something—or someone—grow into what it could be. It is a hard form of kindness: slow, inconvenient, and sometimes uncomfortable for everyone involved. You do not get resilient teams, deep craft, or honest cultures by protecting them from friction. You get them by exposing them, with care, to the right kinds of pressure over time. This kindness is Punk.
 
 This is where "nice" and "kind" quietly part ways. Nice keeps the surface smooth and the room relaxed. Kind is willing to introduce tension in service of the person, the team, or the work. Nice says, "Let's not make this awkward." Kind says, "This will be awkward, and it still needs to be said."
 
@@ -50,7 +51,7 @@ If psychological safety, equity, and honest cultivation are the conditions for r
 
 ## **Polymaths in a specialist world**
 
-Part of why this hits so hard is that I'm not built as a narrow specialist — [that's the full story, and it's in Part 1](https://blog.atxgamemakers.com/lane-breaking-part-1/). What I'll add here: in a world where AI lends you IQ points, compresses learning curves, and cheapens narrow implementation, the ability to see across lanes is only going to matter more, not less.
+Part of why this hits so hard is that I'm not built as a narrow specialist — [that's the full story, and it's in Part 1](/blog/lane-breaking-part-1/). What I'll add here: in a world where AI lends you IQ points, compresses learning curves, and cheapens narrow implementation, the ability to see across lanes is only going to matter more, not less.
 
 To someone who only understands specialists, that still doesn't look like value. It looks like wandering out of your box. Lane‑policing is the system's way of asking you to stop, to play the smaller, simpler character on your business card.
 
@@ -74,7 +75,7 @@ That is the loop I want to close in this next epoch. Take everything I learned i
 
 If those teams get it right — build the real safety, trust the polymaths, let critique cross lanes — they don't stay small forever. The studios that come out the other side of this restructuring might be built on better foundations than the ones we just lost.
 
-In the age of AI, more people can act like polymaths: curious enough to autodidact faster, cross a few more lanes, wear more hats. I'm not speaking theoretically: I'm on a Sony PSS-AI R&D team and I collaborate with AI every day. AI is an excellent tutor: enough shader math to have a real conversation with rendering, enough Python to automate a boring part of your art pipeline. The old excuse of "that's not my lane" gets thinner every year.
+In the age of AI, more people can act like polymaths: curious enough to autodidact faster, cross a few more lanes, wear more hats. I'm not speaking theoretically: I'm on a Sony PSS-AI R&D team and I collaborate with AI every day. AI is an excellent tutor: learn enough shader math to have a real conversation with rendering, enough Python to automate a boring part of your art pipeline. The old excuse of "that's not my lane" gets thinner every year.
 
 But polymaths and small teams only stay dangerous in the good way if they protect one more thing: how they think.
 
@@ -88,7 +89,7 @@ For me, real critical thinking starts with one-ish rule:
 
 It is easy to tear into ideas you already dislike. It is much harder to stress‑test your favorites: the engine you are sure is right, the workflow you "know" is optimal, the story you tell yourself about which disciplines matter most. If you never interrogate those, you are not doing critical thinking. You are doing self‑defense. In a market this volatile, self‑defense is how you end up defending the wrong thing for too long.
 
-On Open 3D Engine, I was certain ACES was the right call. Industry standard, the logic was sound. I couldn't have predicted the backlash, or the arrival of AgX, which reframed the whole conversation. I also assumed engineers grasped the visual impact as well as the math. Wrong on both. Color workflows confuse everyone, including the people implementing them. It took multiple minds across lanes to make the output great.
+On Open 3D Engine, I was certain ACES was the right call. Industry standard, the logic was sound. I couldn't have predicted the backlash, or the arrival of AgX, which reframed the whole conversation. I also assumed engineers grasped the visual impact as well as the math. Wrong on both. Color workflows confuse everyone, including the people implementing them. It takes multiple minds across lanes to make that final output great.
 
 - Curiosity over certainty: lead with "what am I missing?" instead of "how do I defend this?"  
 - Assumptions first: question your own, especially when you are the most senior person in the room.  
@@ -109,9 +110,9 @@ The games industry is going through what feels like an extinction event. The lan
 
 I am late‑career in that storm. I have been doing this for decades. I have seen booms and busts, console cycles, platform shifts, acquisition cycles, and phoenix movements. This one feels different. It is not just a downturn. It is a complete restructure.
 
-I do not want to just survive it. I want to prosper from the chaos.
+I do not want to just survive it. I want to embrace it and prosper from the chaos.
 
-Not by pretending nothing is changing. Not by clinging to old ladders. I want to use everything I have learned (the craft, the cross-lane scars, and the leadership) and aim it at what comes next. All the things that got me in trouble in rigid systems (cross‑lane thinking, asking hard questions, refusing to play smaller than what I actually see), I wear as a badge now.
+Not by pretending nothing is changing. Not by clinging to old ladders. I want to use everything I have learned (the craft, the cross-lane scars, and the leadership) and aim it at what comes next. All the things that got me in trouble in rigid systems (cross‑lane thinking, asking hard questions, refusing to play smaller than what I actually see), I wear as a badge.
 
 AI is not going away. Layoffs will not magically reverse. The industry is going to be leaner, weirder, and more experimental for a while. That environment actually favors the kind of person I have become: cross‑disciplinary, re-skillable, able to see systems end‑to‑end.
 
@@ -131,6 +132,7 @@ I'm not writing any of this as a neutral observer. I'm writing it because I want
 
 ## Resources and further reading
 
+- "They work in the unmapped spaces. Between disciplines. Between what is known and what is only sensed. In the intersections that don't officially exist because no single field has claimed them."; [If you Think in Systems and See Patterns that Others Don't, This Is Your Moment.](https://open.substack.com/pub/judygrupenhoff/p/if-you-think-in-systems-and-see-patterns?utm_source=share&utm_medium=android&r=iknr2)
 - Berkeley Executive Education: [Psychological Safety at Work](https://executive.berkeley.edu/thought-leadership/blog/psychological-safety-work)
 - PMC: [Psychological Safety and Worker Wellbeing](https://pmc.ncbi.nlm.nih.gov/articles/PMC11288325/) (open-access, peer-reviewed)
 - Amy Edmondson: [The Intelligent Failure That Led to the Discovery of Psychological Safety](https://behavioralscientist.org/the-intelligent-failure-that-led-to-the-discovery-of-psychological-safety/) (Behavioral Scientist)

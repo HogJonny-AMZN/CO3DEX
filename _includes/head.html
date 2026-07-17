@@ -25,8 +25,12 @@
   <!-- Humans.txt -->
   <link rel="author" type="text/plain" href="{{ site.url }}/humans.txt" />
   
-  <!-- Canonical URL -->
+  <!-- Canonical URL (respects per-page canonical_url override for syndicated/mirrored posts) -->
+  {% if page.canonical_url %}
+  <link rel="canonical" href="{{ page.canonical_url }}" />
+  {% else %}
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" />
+  {% endif %}
   
   <!-- Performance Optimization: DNS Prefetch & Preconnect -->
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">

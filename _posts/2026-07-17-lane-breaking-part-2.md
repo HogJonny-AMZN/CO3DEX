@@ -1,22 +1,23 @@
 ---
 layout: post
-title: "Lane-Breaking: When One Lens Dominates"
+title: "Lane-Breaking, Part 2: When One Lens Dominates"
 summary: "How specialist systems breed bias and why one discipline's lens can quietly dominate all others — and what it costs your team."
 author: hogjonny
-date: "2026-07-15 00:00:00 -0600"
-modified_date: "2026-07-15 00:00:00 -0600"
+date: "2026-07-17 00:49:00 -0500"
+modified_date: "2026-07-17 00:49:00 -0500"
 category: gamedev
 thumbnail: /assets/img/posts/2026-07-15-lane-breaking-part-2.png
 keywords: lane-breaking,engineering-bias,specialists,generalists,multipassionates,psychological-safety,game-development,studio-culture,cross-disciplinary
 permalink: /blog/lane-breaking-part-2/
+canonical_url: https://blog.atxgamemakers.com/lane-breaking-part-2/
 usemathjax: false
 ---
 
-*This article was originally published on the [ATX Game Makers blog](https://blog.atxgamemakers.com/lane-breaking-part-2/). [ATX Game Makers](https://atxgamemakers.com) is an Austin-based non-profit community organization dedicated to increasing diversity and inclusion in the video game industry. Visit their site, sign up for the newsletter, join the Discord, and if you have stories from the industry worth sharing, consider contributing a post.*
+*This article was originally published on the [ATX Game Makers blog](https://blog.atxgamemakers.com/lane-breaking-part-2/). [ATX Game Makers](https://www.atxgamemakers.com/) is an Austin-based non-profit community organization dedicated to increasing diversity and inclusion in the video game industry. Visit [their site](https://www.atxgamemakers.com/), sign up for the newsletter, and [join their Discord](https://discord.gg/NmAVrx4) ... pop into the #general channel to say hi, pitch a post, or share stories from the industry worth telling.*
 
 ---
 
-In [Part 1](https://blog.atxgamemakers.com/lane-breaking-part-1/), I promised to pull the camera back and cover the bigger forces: fake safety vs real safety, engineering bias, stewardship, invention, all of it. One part. Neat and tidy.
+In [Part 1](/blog/lane-breaking-part-1/), I promised to pull the camera back and cover the bigger forces: fake safety vs real safety, engineering bias, stewardship, invention, all of it. One part. Neat and tidy.
 
 That did not happen.
 

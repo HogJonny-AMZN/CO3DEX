@@ -1,18 +1,19 @@
 ---
 layout: post
-title: "Lane-Breaking: A Manifesto on Psychological Safety and Cross-Disciplinary Work in Game Development"
+title: "Lane-Breaking: A Manifesto on Psychological Safety and Cross-Disciplinary Work in Game Development, Part 1"
 summary: "A manifesto on lane-policing, psychological safety, and what it costs studios when polymaths are told to stay in their box."
 author: hogjonny
-date: "2026-07-15 00:00:00 -0600"
-modified_date: "2026-07-15 00:00:00 -0600"
+date: "2026-07-17 00:50:00 -0500"
+modified_date: "2026-07-17 00:50:00 -0500"
 category: gamedev
 thumbnail: /assets/img/posts/2026-07-15-lane-breaking-part-1.png
 keywords: lane-breaking,lane-policing,psychological-safety,game-development,polymath,cross-disciplinary,studio-culture,game-dev-culture,manifesto,T-shaped
 permalink: /blog/lane-breaking-part-1/
+canonical_url: https://blog.atxgamemakers.com/lane-breaking-part-1/
 usemathjax: false
 ---
 
-*This article was originally published on the [ATX Game Makers blog](https://blog.atxgamemakers.com/lane-breaking-part-1/). [ATX Game Makers](https://atxgamemakers.com) is an Austin-based non-profit community organization dedicated to increasing diversity and inclusion in the video game industry. Visit their site, sign up for the newsletter, join the Discord, and if you have stories from the industry worth sharing, consider contributing a post.*
+*This article was originally published on the [ATX Game Makers blog](https://blog.atxgamemakers.com/lane-breaking-part-1/). [ATX Game Makers](https://www.atxgamemakers.com/) is an Austin-based non-profit community organization dedicated to increasing diversity and inclusion in the video game industry. Visit [their site](https://www.atxgamemakers.com/), sign up for the newsletter, and [join their Discord](https://discord.gg/NmAVrx4) ... pop into the #general channel to say hi, pitch a post, or share stories from the industry worth telling.*
 
 ---
 

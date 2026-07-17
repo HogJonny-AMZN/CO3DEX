@@ -1,4 +1,4 @@
-gtitle: CO3DEX
+title: CO3DEX
 subtitle: A Technical Art Codex - Tools, Engines, Rendering & Procedural Worlds
 description: >- # this means to ignore newlines until "baseurl:"
   CO3DEX is a technical art codex by Jonny Galloway - covering real-time rendering, game engines, Python tools, procedural generation, and the intersection of art and technology in AAA game development.

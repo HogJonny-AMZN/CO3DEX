@@ -136,3 +136,10 @@ Publishing either way means moving the file to `_posts/YYYY-MM-DD-slug.md` and s
 ### Deployment
 
 The `DEPLOY_STRATEGY` file controls CI/CD target (`none`, `gh-pages`, or `firebase`). Currently set to `none`. The site builds to `./build/`. Docker Compose files exist for containerized dev/prod if needed.
+
+## Universal AI Agent Instructions
+
+For universal guidelines across coding assistants (GitHub Copilot, Cursor, Windsurf, OpenAI, Claude, etc.), refer to:
+
+- [AGENTS.md](AGENTS.md) — Master repository-wide guide for all autonomous agents
+- [.github/copilot-instructions.md](.github/copilot-instructions.md) — GitHub Copilot repository instructions

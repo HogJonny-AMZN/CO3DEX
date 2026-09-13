@@ -28,7 +28,7 @@ PRIVATE_REPOS: tuple[str, ...] = (
     "HogJonny-AMZN/Job_Orchestrator",
     "HogJonny-AMZN/devlog-sessions",
 )
-ABSOLUTE_PATH = re.compile(r"(?<![A-Za-z0-9])[A-Za-z]:[\\/](?![\\/])|(?<![\w/])/(?:home|Users)/")
+ABSOLUTE_PATH = re.compile(r"(?<![A-Za-z0-9])[A-Za-z]:(?:\|/(?!/))|(?<![\w/])/(?:home|Users)/")  # a drive, or a home
 PRIVATE_URL = re.compile(r"github\.com/(?:" + "|".join(re.escape(r) for r in PRIVATE_REPOS) + r")", re.IGNORECASE)
 
 

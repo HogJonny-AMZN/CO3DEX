@@ -20,6 +20,12 @@ def test_absolute_paths_are_hits() -> None:
 
 
 # ----------------------------------------------------------------------------------------------------------------------
+def test_doubled_backslash_drive_is_a_hit_and_url_scheme_is_not() -> None:
+    assert [h.kind for h in sp.scan_text("kept as `D:\\Depot\\Thing` in a table")] == ["absolute path"]
+    assert sp.scan_text("see https://www.co3dex.com/ and at 17:08/day") == []
+
+
+# ----------------------------------------------------------------------------------------------------------------------
 def test_private_repo_urls_are_hits() -> None:
     hits = sp.scan_text(
         "https://github.com/HogJonny-AMZN/SpriteJammer/pull/25 and github.com/HogJonny-AMZN/devlog-sessions"

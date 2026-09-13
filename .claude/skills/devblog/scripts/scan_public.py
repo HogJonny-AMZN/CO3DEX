@@ -41,6 +41,7 @@ ABSOLUTE_PATH = re.compile(
     r"|(?<![\w/.])/(?:" + "|".join(POSIX_ROOTS) + r")/"  # /home/..., /tmp/...
 )
 PRIVATE_URL = re.compile(r"github\.com/(?:" + "|".join(re.escape(r) for r in PRIVATE_REPOS) + r")", re.IGNORECASE)
+SECRET_MARKER = "[secret shape, not shown]"
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -61,7 +62,9 @@ def scan_text(text: str) -> list[Hit]:
         (PRIVATE_URL, "private repository URL"),
     ]:
         for m in pattern.finditer(text):
-            hits.append(Hit(text.count("\n", 0, m.start()) + 1, kind, m.group(0).splitlines()[0][:24]))
+            # a secret is never echoed, not even in part: the gate's own output may land in a CI log
+            shown = SECRET_MARKER if kind == "secret" else m.group(0).splitlines()[0][:40]
+            hits.append(Hit(text.count("\n", 0, m.start()) + 1, kind, shown))
     return sorted(hits, key=lambda h: (h.line, h.kind, h.match))
 
 

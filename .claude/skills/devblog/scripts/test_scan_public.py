@@ -51,6 +51,8 @@ def test_emails_and_secrets_are_hits() -> None:
         "mail me@example.com, token ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef012345, AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG"
     )
     assert sorted(h.kind for h in hits) == ["email address", "secret", "secret"]
+    assert all(h.match == sp.SECRET_MARKER for h in hits if h.kind == "secret")
+    assert not any("ghp_" in h.match or "wJalr" in h.match for h in hits)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

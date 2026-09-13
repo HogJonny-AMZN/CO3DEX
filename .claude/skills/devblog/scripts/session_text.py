@@ -39,9 +39,11 @@ SECRET_PATTERNS: tuple[re.Pattern[str], ...] = (
     re.compile(r"\bAKIA[0-9A-Z]{16}\b"),  # AWS access key id
     re.compile(r"\bsk-(?:ant-)?[A-Za-z0-9_-]{20,}\b"),  # Anthropic / OpenAI style
     re.compile(r"\bBearer\s+[A-Za-z0-9._~+/=-]{20,}"),
-    # password=..., secret: ..., AWS_SECRET_ACCESS_KEY=..., api_key="..." : the key word may carry affixes
+    # password=..., secret: ..., AWS_SECRET_ACCESS_KEY=..., api_key="a quoted value with spaces": the key word
+    # may carry affixes, and a quoted value is taken whole
     re.compile(
-        r"(?i)\b[A-Za-z0-9_-]*(?:password|passwd|secret|token|api[_-]?key)[A-Za-z0-9_-]*\s*[=:]\s*['\"]?[^\s'\"]{6,}"
+        r"(?i)\b[A-Za-z0-9_-]*(?:password|passwd|secret|token|api[_-]?key)[A-Za-z0-9_-]*\s*[=:]\s*"
+        r"(?:\"[^\"\n]{6,}\"|'[^'\n]{6,}'|[^\s'\"]{6,})"
     ),
 )
 EMAIL_PATTERN = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
@@ -145,19 +147,26 @@ def render(turns: Iterable[Turn], session_id: str) -> str:
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-def stats(path: Path) -> Stats:
-    """Re-derive the design's figures for one raw log, before redaction."""
+def _measure(path: Path) -> tuple[int, int, int, set[str]]:
+    """Raw bytes, text bytes, secret matches and the set of emails in the records ``iter_turns`` would render."""
     text_bytes = 0
     secrets = 0
     emails: set[str] = set()
     for record in _records(path):
-        if record.get("type") not in ("user", "assistant"):
+        if record.get("type") not in ("user", "assistant") or record.get("isSidechain") or record.get("isMeta"):
             continue
         text = _text_of(record.get("message", {}).get("content"))
         text_bytes += len(text.encode("utf-8"))
         secrets += sum(len(p.findall(text)) for p in SECRET_PATTERNS)
         emails.update(EMAIL_PATTERN.findall(text))
-    return Stats(path.stat().st_size, text_bytes, secrets, len(emails))
+    return path.stat().st_size, text_bytes, secrets, emails
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+def stats(path: Path) -> Stats:
+    """Re-derive the design's figures for one raw log, before redaction, over the same records the render keeps."""
+    raw, text_bytes, secrets, emails = _measure(path)
+    return Stats(raw, text_bytes, secrets, len(emails))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -170,21 +179,16 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.stats:
-        total = Stats(0, 0, 0, 0)
+        raw_total = text_total = secret_total = 0
+        all_emails: set[str] = set()
         for path in args.sessions:
-            s = stats(path)
-            print(
-                f"{path.name}\traw {s.raw_bytes}\ttext {s.text_bytes}\tsecrets {s.secret_matches}\temails {s.distinct_emails}"
-            )
-            total = Stats(
-                total.raw_bytes + s.raw_bytes,
-                total.text_bytes + s.text_bytes,
-                total.secret_matches + s.secret_matches,
-                total.distinct_emails + s.distinct_emails,
-            )
-        print(
-            f"TOTAL\traw {total.raw_bytes}\ttext {total.text_bytes}\tsecrets {total.secret_matches}\temails {total.distinct_emails}"
-        )
+            raw, text_bytes, secrets, emails = _measure(path)
+            print(f"{path.name}\traw {raw}\ttext {text_bytes}\tsecrets {secrets}\temails {len(emails)}")
+            raw_total += raw
+            text_total += text_bytes
+            secret_total += secrets
+            all_emails |= emails
+        print(f"TOTAL\traw {raw_total}\ttext {text_total}\tsecrets {secret_total}\temails {len(all_emails)} distinct")
         return 0
 
     for path in args.sessions:

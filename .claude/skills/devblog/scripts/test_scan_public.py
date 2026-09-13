@@ -54,6 +54,19 @@ def test_emails_and_secrets_are_hits() -> None:
 
 
 # ----------------------------------------------------------------------------------------------------------------------
+def test_private_key_block_spanning_lines_is_one_hit_at_its_first_line() -> None:
+    text = "line one\nline two\n-----BEGIN RSA PRIVATE KEY-----\nMIIEow==\nAAAA\n-----END RSA PRIVATE KEY-----\nafter"
+    hits = sp.scan_text(text)
+    assert [(h.line, h.kind) for h in hits] == [(3, "secret")]
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+def test_quoted_secret_with_spaces_is_one_hit() -> None:
+    hits = sp.scan_text('password="my secret phrase" and then text')
+    assert [h.kind for h in hits] == ["secret"]
+
+
+# ----------------------------------------------------------------------------------------------------------------------
 def test_main_reports_file_and_line_and_fails(tmp_path: Path, capsys) -> None:
     bad = tmp_path / "memo.md"
     bad.write_text("fine\nsee D:\\Depot\\x\n", encoding="utf-8")

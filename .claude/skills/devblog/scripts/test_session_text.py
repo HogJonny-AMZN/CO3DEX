@@ -151,3 +151,21 @@ def test_secret_assignments_with_affixes_are_redacted() -> None:
         st.redact("the token bucket refills, secret sauce, password reset")
         == "the token bucket refills, secret sauce, password reset"
     )
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+def test_quoted_secret_values_with_spaces_redact_whole() -> None:
+    out = st.redact("password=\"my secret phrase\" then api_key: 'another long one' end")
+    assert "secret phrase" not in out and "another long" not in out
+    assert out == f"{st.REDACTED} then {st.REDACTED} end"
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+def test_stats_skip_the_records_the_render_skips_and_total_unions_emails(tmp_path: Path, capsys) -> None:
+    a = _write(tmp_path, [_record("user", "x@y.io"), _record("user", "hidden z@w.io", isSidechain=True)])
+    b = tmp_path / "second.jsonl"
+    b.write_text(_record("assistant", [{"type": "text", "text": "again x@y.io"}]) + "\n", encoding="utf-8")
+    assert st.stats(a).distinct_emails == 1 and st.stats(a).text_bytes == len("x@y.io")
+    assert st.main([str(a), str(b), "--stats"]) == 0
+    last = capsys.readouterr().out.strip().splitlines()[-1]
+    assert last.startswith("TOTAL") and last.endswith("emails 1 distinct")

@@ -5,10 +5,14 @@ Usage::
 
     python scan_public.py <file>...        # exit 1 and print file:line: kind: the match, on any hit
 
-Hits: secret-shaped strings and email addresses (the same patterns ``session_text.py`` redacts), absolute
-paths (a drive letter with either slash, doubled backslashes included; a UNC share; a POSIX path under a root
-folder such as ``/home``, ``/Users``, ``/tmp``, ``/var``, ``/workspace``), and URLs into the private repositories
-named in PRIVATE_REPOS. A URL scheme's ``://`` and a clock time's ``17:08/`` are not paths.
+Hits: secret-shaped strings and email addresses (the same patterns ``session_text.py`` redacts, run over the
+whole text so a private-key block spanning lines is seen whole), absolute paths (a drive letter with either
+slash, doubled backslashes included; a UNC share; a POSIX path under a root folder such as ``/home``,
+``/Users``, ``/tmp``, ``/var``, ``/workspace``), and URLs into the private repositories named in PRIVATE_REPOS.
+A URL scheme's ``://`` and a clock time's ``17:08/`` are not paths.
+
+The gate is for generated files: the memo and the two continuity files. The skill's own sources and tests
+carry fixtures that trip it on purpose and are not scanned by the coordinator.
 Citations must be stable identifiers, a journal file and heading, a commit hash, a benchmark file, so a
 private URL or an absolute path in a memo is a disclosure, not a citation.
 """
@@ -22,7 +26,7 @@ from pathlib import Path
 
 from session_text import EMAIL_PATTERN, SECRET_PATTERNS
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 PRIVATE_REPOS: tuple[str, ...] = (
     "HogJonny-AMZN/SpriteJammer",
@@ -49,15 +53,16 @@ class Hit:
 
 # ----------------------------------------------------------------------------------------------------------------------
 def scan_text(text: str) -> list[Hit]:
-    """Every disclosure in ``text``, in line order."""
+    """Every disclosure in ``text``, in line order; a multi-line match is reported at the line it starts on."""
     hits: list[Hit] = []
-    for number, line in enumerate(text.splitlines(), start=1):
-        for pattern in SECRET_PATTERNS:
-            hits += [Hit(number, "secret", m.group(0)[:24]) for m in pattern.finditer(line)]
-        hits += [Hit(number, "email address", m.group(0)) for m in EMAIL_PATTERN.finditer(line)]
-        hits += [Hit(number, "absolute path", m.group(0)) for m in ABSOLUTE_PATH.finditer(line)]
-        hits += [Hit(number, "private repository URL", m.group(0)) for m in PRIVATE_URL.finditer(line)]
-    return hits
+    for pattern, kind in [(p, "secret") for p in SECRET_PATTERNS] + [
+        (EMAIL_PATTERN, "email address"),
+        (ABSOLUTE_PATH, "absolute path"),
+        (PRIVATE_URL, "private repository URL"),
+    ]:
+        for m in pattern.finditer(text):
+            hits.append(Hit(text.count("\n", 0, m.start()) + 1, kind, m.group(0).splitlines()[0][:24]))
+    return sorted(hits, key=lambda h: (h.line, h.kind, h.match))
 
 
 # ----------------------------------------------------------------------------------------------------------------------

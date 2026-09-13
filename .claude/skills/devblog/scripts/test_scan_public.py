@@ -78,3 +78,12 @@ def test_main_reports_file_and_line_and_fails(tmp_path: Path, capsys) -> None:
     assert sp.main([str(bad), str(good), str(tmp_path / "absent.md")]) == 1
     out = capsys.readouterr().out
     assert "memo.md:2" in out and "absolute path" in out and "absent.md: missing" in out
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+def test_no_hit_is_echoed_and_a_missing_file_fails(tmp_path: Path, capsys) -> None:
+    hits = sp.scan_text("mail me@example.com at /home/someone and github.com/HogJonny-AMZN/SpriteJammer")
+    assert [h.match for h in hits] == [sp.MARKERS[h.kind] for h in hits]
+    assert sp.main([str(tmp_path / "absent.md")]) == 1
+    out = capsys.readouterr().out
+    assert "absent.md: missing" in out and "HALT" in out

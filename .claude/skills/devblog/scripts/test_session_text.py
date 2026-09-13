@@ -169,3 +169,18 @@ def test_stats_skip_the_records_the_render_skips_and_total_unions_emails(tmp_pat
     assert st.main([str(a), str(b), "--stats"]) == 0
     last = capsys.readouterr().out.strip().splitlines()[-1]
     assert last.startswith("TOTAL") and last.endswith("emails 1 distinct")
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+def test_lowercase_bearer_and_short_values_are_redacted() -> None:
+    out = st.redact("Authorization: bearer abcdefghijklmnopqrstuvwxyz0123 and password=x and token: abc")
+    assert "abcdefghij" not in out and "password=x" not in out and "token: abc" not in out
+    assert out.count(st.REDACTED) == 3
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+def test_stats_ignore_harness_only_records(tmp_path: Path) -> None:
+    harness = "<system-reminder>\nnoise with x@y.io and AKIAABCDEFGHIJKLMNOP\n</system-reminder>"
+    path = _write(tmp_path, [_record("user", harness), _record("user", "real")])
+    s = st.stats(path)
+    assert s.text_bytes == len("real") and s.secret_matches == 0 and s.distinct_emails == 0

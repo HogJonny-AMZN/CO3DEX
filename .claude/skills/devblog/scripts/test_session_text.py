@@ -6,7 +6,6 @@ import json
 from pathlib import Path
 
 import pytest
-
 import session_text as st
 
 

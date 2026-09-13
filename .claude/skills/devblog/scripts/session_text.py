@@ -23,16 +23,16 @@ import argparse
 import json
 import re
 import sys
+from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Iterator
 
 __version__ = "1.0.0"
 
 REDACTED = "[redacted]"
 
 SECRET_PATTERNS: tuple[re.Pattern[str], ...] = (
-    re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----.*?-----END [A-Z ]*PRIVATE KEY-----", re.S),
+    re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----.*?-----END [A-Z ]*PRIVATE KEY-----", re.DOTALL),
     re.compile(r"\bgh[pousr]_[A-Za-z0-9]{20,}\b"),  # GitHub tokens
     re.compile(r"\bgithub_pat_[A-Za-z0-9_]{20,}\b"),
     re.compile(r"\bxox[abprs]-[A-Za-z0-9-]{10,}\b"),  # Slack
@@ -42,7 +42,7 @@ SECRET_PATTERNS: tuple[re.Pattern[str], ...] = (
     re.compile(r"(?i)\b(?:password|passwd|secret|token|api[_-]?key)\s*[=:]\s*['\"]?[^\s'\"]{6,}"),
 )
 EMAIL_PATTERN = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
-HARNESS_TAGS = re.compile(r"<(system-reminder|ide_opened_file|ide_selection)>.*?</\1>\s*", re.S)
+HARNESS_TAGS = re.compile(r"<(system-reminder|ide_opened_file|ide_selection)>.*?</\1>\s*", re.DOTALL)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -130,7 +130,12 @@ def _stamp(timestamp: str) -> str:
 # ----------------------------------------------------------------------------------------------------------------------
 def render(turns: Iterable[Turn], session_id: str) -> str:
     """One Markdown document: a title, then one ``##`` heading per turn."""
-    out = [f"# Session {session_id}", "", "*Prompts and replies only; tool output omitted; secrets and emails redacted.*", ""]
+    out = [
+        f"# Session {session_id}",
+        "",
+        "*Prompts and replies only; tool output omitted; secrets and emails redacted.*",
+        "",
+    ]
     for turn in turns:
         out += [f"## {_stamp(turn.timestamp)} · {turn.role}", "", turn.text, ""]
     return "\n".join(out)
@@ -165,9 +170,18 @@ def main(argv: list[str] | None = None) -> int:
         total = Stats(0, 0, 0, 0)
         for path in args.sessions:
             s = stats(path)
-            print(f"{path.name}\traw {s.raw_bytes}\ttext {s.text_bytes}\tsecrets {s.secret_matches}\temails {s.distinct_emails}")
-            total = Stats(total.raw_bytes + s.raw_bytes, total.text_bytes + s.text_bytes, total.secret_matches + s.secret_matches, total.distinct_emails + s.distinct_emails)
-        print(f"TOTAL\traw {total.raw_bytes}\ttext {total.text_bytes}\tsecrets {total.secret_matches}\temails {total.distinct_emails}")
+            print(
+                f"{path.name}\traw {s.raw_bytes}\ttext {s.text_bytes}\tsecrets {s.secret_matches}\temails {s.distinct_emails}"
+            )
+            total = Stats(
+                total.raw_bytes + s.raw_bytes,
+                total.text_bytes + s.text_bytes,
+                total.secret_matches + s.secret_matches,
+                total.distinct_emails + s.distinct_emails,
+            )
+        print(
+            f"TOTAL\traw {total.raw_bytes}\ttext {total.text_bytes}\tsecrets {total.secret_matches}\temails {total.distinct_emails}"
+        )
         return 0
 
     for path in args.sessions:

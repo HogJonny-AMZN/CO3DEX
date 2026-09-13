@@ -21,7 +21,9 @@ def test_absolute_paths_are_hits() -> None:
 
 # ----------------------------------------------------------------------------------------------------------------------
 def test_private_repo_urls_are_hits() -> None:
-    hits = sp.scan_text("https://github.com/HogJonny-AMZN/SpriteJammer/pull/25 and github.com/HogJonny-AMZN/devlog-sessions")
+    hits = sp.scan_text(
+        "https://github.com/HogJonny-AMZN/SpriteJammer/pull/25 and github.com/HogJonny-AMZN/devlog-sessions"
+    )
     assert [h.kind for h in hits] == ["private repository URL"] * 2
 
 

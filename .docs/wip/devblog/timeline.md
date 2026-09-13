@@ -7,7 +7,7 @@ One dated line per milestone, each with its source, extended by every devblog ru
 - 2026-09-06 (session 1) — Twelve ADRs drafted; the causal chain (10k agents → GPU Swarm → no swappable core) written down as the central bet — journal/2026-09-06-project-kickoff.md
 - 2026-09-06 — `docs/handoffs/CURRENT.md` established after two VS Code reload session losses — journal/2026-09-06-impostors-and-handoffs.md
 - 2026-09-06 (session 2) — External adversarial architecture review commissioned and absorbed; ADR-012 found factually wrong; `Contested by:` header convention introduced — journal/2026-09-06-external-review-response.md
-- 2026-09-06 (session 3) — S0 measures the horde tick at 19.6 ms uniform / 1.97 ms with Behavior LOD + Numba, refuting four independent estimates — benchmarks/2026-09-06-s0-cpu-horde-baseline.md
+- 2026-09-06 (session 3) — S0 measures the horde tick at 19.6 ms uniform / 1.97 ms with Behavior LOD + Numba, refuting three independent estimates — benchmarks/2026-09-06-s0-cpu-horde-baseline.md
 - 2026-09-06 — ADR-018 (CPU-resident swarm) supersedes ADR-003; ADR-008 no longer conditional — ADR-README.md
 - 2026-09-06 — Definition of Done and the autonomy protocol recorded; journal changed to continuous per-session cadence — journal/2026-09-06-session-03.md
 - 2026-09-06 — S7 impostor bake measures 25 MB, and a fill-rate metric is caught rewarding a distorted asset — benchmarks/2026-09-06-s7-impostor-bake.md

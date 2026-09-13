@@ -18,7 +18,10 @@ this is raw material, and its job is to be true, to be in the owner's voice, and
 
 The draft, and nothing else in the file: no front matter, no title block beyond a single `#` title, no notes.
 Footnote every claim to its ledger entry with `[^n]`, and put the footnotes at the end as
-`[^n]: ledger #k — <source as the ledger gives it>`. Section headings are allowed and should read like the
+`[^n]: ledger #k — <source as the ledger gives it>`. **Footnotes are breadcrumbs for the owner, not links.**
+The sources are in a private repository, so a footnote is plain text (a journal file and heading, a commit
+hash, a benchmark file, a session id and time) that the owner can follow on their own machine; never a
+Markdown link, never a URL. The owner drops or rewrites them when the post publishes. Section headings are allowed and should read like the
 owner's: a sentence, not a label.
 
 Length: the coordinator gives a target range and a hard ceiling. Dense is allowed; padding is not.

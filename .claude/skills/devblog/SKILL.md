@@ -29,6 +29,7 @@ with every decision and its reason, is `docs/design/devblog.md` in the SpriteJam
 /devblog --since YYYY-MM-DD   an explicit period start
 /devblog --no-pr              commit on the branch, open no pull request
 /devblog --dry                run the passes and write the memo only; touch neither continuity file nor git
+/devblog --brief "..."        a one-off brief for this post, on top of the open notes in next.md
 ```
 
 ## Models per pass
@@ -53,8 +54,11 @@ Today's date is `DATE` (`YYYY-MM-DD`). All paths below are relative to this repo
 
 ### 1 · Read continuity
 
-Read `.docs/wip/devblog/ledger.md` and `.docs/wip/devblog/timeline.md`. On `first`, or when either is missing,
-treat both as empty; they are created in step 5. Otherwise the period starts the day after the last entry's
+Read `.docs/wip/devblog/ledger.md`, `.docs/wip/devblog/timeline.md` and `.docs/wip/devblog/next.md`. On `first`,
+or when a file is missing, treat it as empty; the first two are created in step 5. **`next.md` is the owner's
+queue**: dated notes, in their words, on what coming posts should be ("more technical", "the horde swarm
+story"). Its open notes, plus `--brief` if given, are the brief for passes 1 and 2. The owner edits it by hand;
+the coordinator only marks notes used. Otherwise the period starts the day after the last entry's
 `Period:` end, or at `--since`. The period ends today.
 
 ### 2 · Gather the source set into `RUN_DIR/sources/`
@@ -111,6 +115,8 @@ rounds' scores and ask the owner to revise. In the cloud, commit and open the pu
 
 ```text
 # Devblog memo — DATE
+Footnotes are breadcrumbs into a private repository (a journal file and heading, a commit, a benchmark, a
+session and time), for the owner to follow on their own machine; none is a link. Drop them when publishing.
 Period FROM to TO · N sources (J journal files, S sessions, C commits) · score T/50 after R round(s) · K tokens
 (a cloud run with no session export: "Drafted from the journal alone; the session export was older than this
 run.")
@@ -127,6 +133,7 @@ Unless `--dry`: append to `ledger.md` (create with a `# Devblog ledger` header o
 ```text
 ## DATE — <the chosen angle's one line>
 Period: FROM to TO · Memo: .docs/wip/devblog-DATE.md · Post: (none yet)
+Brief: <the next.md notes and --brief this memo answered, quoted; "none" if none>
 Covered: <the ground the draft covers, as short claims, from the beats>
 Terms explained: <glossary words the draft explained, from pass 4's table and the draft>
 Claims: <every number and dated assertion in the draft, each with its ledger source>
@@ -134,7 +141,9 @@ Links: <earlier posts the draft linked, by permalink; "none" on first>
 ```
 
 and extend `timeline.md` (create with `# SpriteJammer timeline` on `first`) with pass 1's *Timeline entries*,
-merged into date order, no duplicates. The owner edits `Post:` when a post publishes.
+merged into date order, no duplicates. The owner edits `Post:` when a post publishes. In `next.md`, each open
+note the memo answered gets ` — used by devblog-DATE` appended; the note stays, so the record shows what was
+asked and when it was answered. Notes the memo did not answer stay open.
 
 ### 6 · Scan, then git
 
@@ -144,7 +153,7 @@ never a hit). **Any hit halts the run before anything is added**: print the hits
 
 1. `git switch -c claude/devblog-DATE main` (the branch is created from `main`; the untracked memo and
    continuity files come along).
-2. `git add` exactly the three files. Nothing under `_posts/`, `_drafts/` or `_authors/` is ever staged.
+2. `git add` exactly the three files, plus `next.md` when a note was marked used. Nothing under `_posts/`, `_drafts/` or `_authors/` is ever staged.
 3. Commit with a message file (`git commit -F <file>`, never a pipe): title `devblog: memo DATE — <angle>`, body
    the period, sources and score. **Commit as the owner's identity with no AI attribution** — no
    `Co-Authored-By`, no "Generated with".
@@ -164,4 +173,5 @@ The memo's *Cost* section is the design's one open measurement. Report it in you
 - Every pass is a fresh subagent on its assigned model.
 - `stop-slop` scores; it never rewrites. Gate 30/50; three rounds; then halt.
 - The memo touches nothing in `_posts/`, `_drafts/` or `_authors/`.
+- Footnotes and citations are breadcrumbs, never links: the sources are private.
 - No AI attribution anywhere.

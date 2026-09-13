@@ -7,8 +7,9 @@ story, not facts.
 
 - The source ledger from pass 1, including its three candidate angles.
 - `AUDIENCE.md`.
-- The owner's brief for this post, if the coordinator gives one. **A brief is binding**: choose among angles
-  that keep it; do not choose a different story.
+- The owner's brief for this post, if the coordinator gives one, and the open notes from `next.md`, the
+  owner's standing direction for coming posts. **Both are binding**: choose among angles that keep them; do
+  not choose a different story. Say in the output which note the chosen angle answers.
 - Three skills, which you invoke with the Skill tool, one at a time, on your chosen angle and beats:
   `made-to-stick` (is it simple, concrete, credible), `storybrand-messaging` (is the reader the hero and the
   writer the guide), `contagious` (does it carry practical value the reader can use tomorrow). Each returns a

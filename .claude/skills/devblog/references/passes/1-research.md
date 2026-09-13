@@ -8,6 +8,9 @@ prose for the post.
 
 - `AUDIENCE.md` — who the post is for; read first.
 - `ledger.md` and `timeline.md` — what earlier posts already covered. Empty on the first run.
+- `next.md` — **the owner's direction for coming posts**, dated notes in their own words ("more technical
+  next time", "the horde swarm story, to counterbalance the first post"). Every candidate angle must honour
+  the open notes; quote the note each angle answers. The coordinator marks a note used once a memo takes it.
 - The source set: journal files for the period, `CURRENT.md`, `BOARD.md`, the ADR index, the benchmark index,
   `failure-modes.md`, the commit log, and the session transcripts rendered as Markdown (never a raw `.jsonl`).
   Two renders exist per session: `<id>.md` (owner and assistant) and `<id>.owner.md` (the owner's prompts only).

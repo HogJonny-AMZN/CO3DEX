@@ -18,7 +18,11 @@
     "subagent-driven-development",
     "systematic-debugging",
     "using-superpowers",
-    "verification-before-completion"
+    "verification-before-completion",
+    "blog-style",
+    "blog-persona",
+    "blog-factcheck",
+    "stop-slop"
   ],
   "permissions": {
     "allow": [

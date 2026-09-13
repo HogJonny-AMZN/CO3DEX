@@ -1,4 +1,4 @@
-"""Tests for scan_public.py — the pre-commit scan of every file the devblog generates."""
+"""Tests for scan_public.py: the pre-commit scan of every file the devblog generates."""
 
 from __future__ import annotations
 
@@ -21,8 +21,20 @@ def test_absolute_paths_are_hits() -> None:
 
 # ----------------------------------------------------------------------------------------------------------------------
 def test_doubled_backslash_drive_is_a_hit_and_url_scheme_is_not() -> None:
-    assert [h.kind for h in sp.scan_text("kept as `D:\\Depot\\Thing` in a table")] == ["absolute path"]
-    assert sp.scan_text("see https://www.co3dex.com/ and at 17:08/day") == []
+    escaped = (
+        "kept as `D:" + "\\\\" + "Depot" + "\\\\" + "Thing` in a table"
+    )  # D:\\Depot\\Thing, as Markdown escapes it
+    assert [h.kind for h in sp.scan_text(escaped)] == ["absolute path"]
+    assert sp.scan_text("see https://www.co3dex.com/ and at 17:08/day and 12:30/14:00") == []
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+def test_other_roots_and_unc_shares_are_hits() -> None:
+    text = (
+        "wrote /tmp/x, /var/log/y, /workspace/repo/z, /mnt/d/w and " + "\\\\" + "server" + "\\" + "share" + "\\" + "f"
+    )
+    assert [h.kind for h in sp.scan_text(text)] == ["absolute path"] * 5
+    assert sp.scan_text("a relative docs/journal/file.md and src/x/y.py and 1/2") == []
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -35,8 +47,10 @@ def test_private_repo_urls_are_hits() -> None:
 
 # ----------------------------------------------------------------------------------------------------------------------
 def test_emails_and_secrets_are_hits() -> None:
-    hits = sp.scan_text("mail me@example.com, token ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef012345")
-    assert sorted(h.kind for h in hits) == ["email address", "secret"]
+    hits = sp.scan_text(
+        "mail me@example.com, token ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef012345, AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG"
+    )
+    assert sorted(h.kind for h in hits) == ["email address", "secret", "secret"]
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -46,6 +60,6 @@ def test_main_reports_file_and_line_and_fails(tmp_path: Path, capsys) -> None:
     good = tmp_path / "ok.md"
     good.write_text("fine\n", encoding="utf-8")
     assert sp.main([str(good)]) == 0
-    assert sp.main([str(bad), str(good)]) == 1
+    assert sp.main([str(bad), str(good), str(tmp_path / "absent.md")]) == 1
     out = capsys.readouterr().out
-    assert "memo.md:2" in out and "absolute path" in out
+    assert "memo.md:2" in out and "absolute path" in out and "absent.md: missing" in out

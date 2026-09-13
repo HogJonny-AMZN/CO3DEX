@@ -3,11 +3,13 @@
 
 Usage::
 
-    python scan_public.py <file>...        # exit 1 and print file:line: kind — the match, on any hit
+    python scan_public.py <file>...        # exit 1 and print file:line: kind: the match, on any hit
 
-Hits: secret-shaped strings and email addresses (the same patterns ``session_text.py`` redacts), absolute paths
-(Windows drives, ``/home/``, ``/Users/``), and URLs into the private repositories named in PRIVATE_REPOS.
-Citations must be stable identifiers — a journal file and heading, a commit hash, a benchmark file — so a
+Hits: secret-shaped strings and email addresses (the same patterns ``session_text.py`` redacts), absolute
+paths (a drive letter with either slash, doubled backslashes included; a UNC share; a POSIX path under a root
+folder such as ``/home``, ``/Users``, ``/tmp``, ``/var``, ``/workspace``), and URLs into the private repositories
+named in PRIVATE_REPOS. A URL scheme's ``://`` and a clock time's ``17:08/`` are not paths.
+Citations must be stable identifiers, a journal file and heading, a commit hash, a benchmark file, so a
 private URL or an absolute path in a memo is a disclosure, not a citation.
 """
 
@@ -20,7 +22,7 @@ from pathlib import Path
 
 from session_text import EMAIL_PATTERN, SECRET_PATTERNS
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 PRIVATE_REPOS: tuple[str, ...] = (
     "HogJonny-AMZN/SpriteJammer",
@@ -28,7 +30,12 @@ PRIVATE_REPOS: tuple[str, ...] = (
     "HogJonny-AMZN/Job_Orchestrator",
     "HogJonny-AMZN/devlog-sessions",
 )
-ABSOLUTE_PATH = re.compile(r"(?<![A-Za-z0-9])[A-Za-z]:(?:\|/(?!/))|(?<![\w/])/(?:home|Users)/")  # a drive, or a home
+POSIX_ROOTS = ("home", "Users", "tmp", "var", "workspace", "workspaces", "mnt", "opt", "srv", "root", "etc", "usr")
+ABSOLUTE_PATH = re.compile(
+    r"(?<![A-Za-z0-9])[A-Za-z]:(?:\\+|/(?!/))"  # D:\, D:\\ (escaped), D:/  but not the :// of a URL scheme
+    r"|(?<![\w/.])\\\\+[A-Za-z0-9_.-]+\\"  # \\server\share
+    r"|(?<![\w/.])/(?:" + "|".join(POSIX_ROOTS) + r")/"  # /home/..., /tmp/...
+)
 PRIVATE_URL = re.compile(r"github\.com/(?:" + "|".join(re.escape(r) for r in PRIVATE_REPOS) + r")", re.IGNORECASE)
 
 
@@ -60,6 +67,9 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     total = 0
     for path in args.files:
+        if not path.exists():
+            print(f"{path}: missing (skipped)")
+            continue
         for hit in scan_text(path.read_text(encoding="utf-8", errors="replace")):
             print(f"{path}:{hit.line}: {hit.kind}: {hit.match}")
             total += 1

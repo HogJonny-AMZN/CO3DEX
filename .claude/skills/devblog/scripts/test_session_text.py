@@ -138,3 +138,16 @@ def test_role_filter_keeps_one_side(tmp_path: Path) -> None:
     assert [t.role for t in st.iter_turns(path, "owner")] == ["owner"]
     assert [t.role for t in st.iter_turns(path, "assistant")] == ["assistant"]
     assert [t.role for t in st.iter_turns(path)] == ["owner", "assistant"]
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+def test_secret_assignments_with_affixes_are_redacted() -> None:
+    out = st.redact(
+        "AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG and my_api_key: abcdef123456 and token_value=xyz789012"
+    )
+    assert "wJalrXUtnFEMI" not in out and "abcdef123456" not in out and "xyz789012" not in out
+    assert out.count(st.REDACTED) == 3
+    assert (
+        st.redact("the token bucket refills, secret sauce, password reset")
+        == "the token bucket refills, secret sauce, password reset"
+    )

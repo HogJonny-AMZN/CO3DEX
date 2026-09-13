@@ -138,8 +138,9 @@ merged into date order, no duplicates. The owner edits `Post:` when a post publi
 
 ### 6 · Scan, then git
 
-Run `python .claude/skills/devblog/scripts/scan_public.py` on the memo, `ledger.md` and `timeline.md`. **Any
-hit halts the run before anything is added**: print the hits and stop. Then, unless `--dry`:
+Run `python .claude/skills/devblog/scripts/scan_public.py` on the memo, `ledger.md` and `timeline.md` (on
+`--dry` the memo alone, since the continuity files were not written; a missing file is reported and skipped,
+never a hit). **Any hit halts the run before anything is added**: print the hits and stop. Then, unless `--dry`:
 
 1. `git switch -c claude/devblog-DATE main` (the branch is created from `main`; the untracked memo and
    continuity files come along).

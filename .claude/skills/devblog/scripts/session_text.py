@@ -39,7 +39,10 @@ SECRET_PATTERNS: tuple[re.Pattern[str], ...] = (
     re.compile(r"\bAKIA[0-9A-Z]{16}\b"),  # AWS access key id
     re.compile(r"\bsk-(?:ant-)?[A-Za-z0-9_-]{20,}\b"),  # Anthropic / OpenAI style
     re.compile(r"\bBearer\s+[A-Za-z0-9._~+/=-]{20,}"),
-    re.compile(r"(?i)\b(?:password|passwd|secret|token|api[_-]?key)\s*[=:]\s*['\"]?[^\s'\"]{6,}"),
+    # password=..., secret: ..., AWS_SECRET_ACCESS_KEY=..., api_key="..." : the key word may carry affixes
+    re.compile(
+        r"(?i)\b[A-Za-z0-9_-]*(?:password|passwd|secret|token|api[_-]?key)[A-Za-z0-9_-]*\s*[=:]\s*['\"]?[^\s'\"]{6,}"
+    ),
 )
 EMAIL_PATTERN = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
 HARNESS_TAGS = re.compile(r"<(system-reminder|ide_opened_file|ide_selection)>.*?</\1>\s*", re.DOTALL)

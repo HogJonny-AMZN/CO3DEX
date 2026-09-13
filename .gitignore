@@ -16,3 +16,6 @@ _site/
 .bundle
 .bundle/
 vendor/
+# Python caches from the devblog skill tests
+__pycache__/
+.pytest_cache/

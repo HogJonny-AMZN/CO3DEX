@@ -22,7 +22,8 @@
     "blog-style",
     "blog-persona",
     "blog-factcheck",
-    "stop-slop"
+    "stop-slop",
+    "devblog"
   ],
   "permissions": {
     "allow": [

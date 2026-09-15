@@ -3,7 +3,7 @@
 
 Usage::
 
-    python scan_public.py <file>...        # exit 1 and print file:line: kind: the match, on any hit
+    python scan_public.py <file>...        # exit 1 and print file:line: kind: safe marker (never raw match), on any hit
 
 Hits: secret-shaped strings and email addresses (the same patterns ``session_text.py`` redacts, run over the
 whole text so a private-key block spanning lines is seen whole), absolute paths (a drive letter with either
@@ -26,7 +26,7 @@ from pathlib import Path
 
 from session_text import EMAIL_PATTERN, SECRET_PATTERNS
 
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 
 PRIVATE_REPOS: tuple[str, ...] = (
     "HogJonny-AMZN/SpriteJammer",
@@ -42,6 +42,12 @@ ABSOLUTE_PATH = re.compile(
 )
 PRIVATE_URL = re.compile(r"github\.com/(?:" + "|".join(re.escape(r) for r in PRIVATE_REPOS) + r")", re.IGNORECASE)
 SECRET_MARKER = "[secret shape, not shown]"
+MARKERS = {
+    "secret": SECRET_MARKER,
+    "email address": "[email address, not shown]",
+    "absolute path": "[absolute path, not shown]",
+    "private repository URL": "[private repository URL, not shown]",
+}
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -63,7 +69,7 @@ def scan_text(text: str) -> list[Hit]:
     ]:
         for m in pattern.finditer(text):
             # a secret is never echoed, not even in part: the gate's own output may land in a CI log
-            shown = SECRET_MARKER if kind == "secret" else m.group(0).splitlines()[0][:40]
+            shown = MARKERS[kind]  # nothing disallowed is echoed: this output may land in a public CI log
             hits.append(Hit(text.count("\n", 0, m.start()) + 1, kind, shown))
     return sorted(hits, key=lambda h: (h.line, h.kind, h.match))
 
@@ -76,7 +82,8 @@ def main(argv: list[str] | None = None) -> int:
     total = 0
     for path in args.files:
         if not path.exists():
-            print(f"{path}: missing (skipped)")
+            print(f"{path}: missing: a file the run should have written is not there")
+            total += 1
             continue
         for hit in scan_text(path.read_text(encoding="utf-8", errors="replace")):
             print(f"{path}:{hit.line}: {hit.kind}: {hit.match}")

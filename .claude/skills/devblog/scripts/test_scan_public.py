@@ -81,9 +81,26 @@ def test_main_reports_file_and_line_and_fails(tmp_path: Path, capsys) -> None:
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-def test_no_hit_is_echoed_and_a_missing_file_fails(tmp_path: Path, capsys) -> None:
+def test_markerized_hits_are_reported_and_raw_values_are_not_echoed(tmp_path: Path, capsys) -> None:
     hits = sp.scan_text("mail me@example.com at /home/someone and github.com/HogJonny-AMZN/SpriteJammer")
     assert [h.match for h in hits] == [sp.MARKERS[h.kind] for h in hits]
+    bad = tmp_path / "memo.md"
+    bad.write_text(
+        "mail me@example.com at /home/someone and github.com/HogJonny-AMZN/SpriteJammer and "
+        "ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef012345\n",
+        encoding="utf-8",
+    )
+    assert sp.main([str(bad)]) == 1
+    out = capsys.readouterr().out
+    assert "[email address, not shown]" in out
+    assert "[absolute path, not shown]" in out
+    assert "[private repository URL, not shown]" in out
+    assert "[secret shape, not shown]" in out
+    assert "me@example.com" not in out
+    assert "/home/someone" not in out
+    assert "github.com/HogJonny-AMZN/SpriteJammer" not in out
+    assert "ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef012345" not in out
+
     assert sp.main([str(tmp_path / "absent.md")]) == 1
     out = capsys.readouterr().out
     assert "absent.md: missing" in out and "HALT" in out

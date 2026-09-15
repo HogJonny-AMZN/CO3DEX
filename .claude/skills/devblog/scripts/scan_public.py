@@ -3,7 +3,7 @@
 
 Usage::
 
-    python scan_public.py <file>...        # exit 1 and print file:line: kind: the match, on any hit
+    python scan_public.py <file>...        # exit 1 and print file:line: kind: safe marker (never raw match), on any hit
 
 Hits: secret-shaped strings and email addresses (the same patterns ``session_text.py`` redacts, run over the
 whole text so a private-key block spanning lines is seen whole), absolute paths (a drive letter with either

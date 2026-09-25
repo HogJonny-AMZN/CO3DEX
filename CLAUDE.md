@@ -120,14 +120,33 @@ Author pages live in `_authors/<slug>.md` and are rendered via `_layouts/author.
 
 ### Draft workflow
 
-There are **two** distinct draft holding areas — they are not interchangeable:
+There are **four** distinct draft holding areas — they are not interchangeable.
 
-- `.docs/wip/` — free-form Markdown drafts and concept memos. Tracked in git, ignored by Jekyll entirely (outside its source tree). Use for early writing that isn't post-shaped yet.
-- `_drafts/` — Jekyll's **native** drafts directory. Files here are fully post-shaped (complete front matter, `permalink`, etc.) but are **not built or previewed** by `jekyll serve`/`build` because neither the Makefile nor `scripts/serve.ps1` passes `--drafts`. To preview them, run `bundle exec jekyll serve --livereload --drafts`. Use for finished posts staged ahead of their publish date (e.g. the lane-breaking series).
+#### `.docs/wip/` — live free-form drafts
 
-Publishing either way means moving the file to `_posts/YYYY-MM-DD-slug.md` and setting `date:` to today or earlier (see the future-date rule above).
+Early writing that isn't post-shaped yet. Tracked in git, ignored by Jekyll entirely (outside its source tree).
 
-`_posts_archive/` and `_archive/` hold retired content — do not publish from these without review.
+> **This repository is PUBLIC.** Anything committed to `.docs/wip/` is immediately readable by anyone on GitHub. Only put drafts here that you are comfortable publishing in their current state. Work material, employer or partner strategy, and anything under NDA goes in `.docs/private/` instead.
+
+#### `.docs/private/` — work material, never published
+
+Gitignored by the `.docs/*` rule in `.gitignore`, which has explicit exceptions only for `wip/` and `archive/`. Files here live on disk and never enter git. Use for anything work-related, commercially sensitive, or not yet cleared to be public.
+
+**Do not add a negation rule for this directory.** Its whole purpose is staying untracked.
+
+#### `.docs/archive/` — retired drafts
+
+Working drafts whose posts are already published, plus editorial process artifacts. Tracked, never built. See `.docs/archive/README.md` for the draft-to-post mapping. Move a draft here after publishing so `wip/` only ever shows live work.
+
+#### `_drafts/` — Jekyll native drafts
+
+Fully post-shaped files (complete front matter, `permalink`, etc.) that are **not built or previewed** by `jekyll serve`/`build`, because neither the Makefile nor `scripts/serve.ps1` passes `--drafts`. To preview them, run `bundle exec jekyll serve --livereload --drafts`. Use for finished posts staged ahead of their publish date.
+
+#### Publishing
+
+Move the file to `_posts/YYYY-MM-DD-slug.md` and set `date:` to today or earlier (see the future-date rule above). Then move the source draft to `.docs/archive/` and add a row to its README.
+
+`_posts_archive/` and `_archive/` are separate legacy locations holding retired posts and brand image assets — do not publish from these without review.
 
 ### Windows scripts
 

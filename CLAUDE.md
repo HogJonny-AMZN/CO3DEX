@@ -148,6 +148,12 @@ Move the file to `_posts/YYYY-MM-DD-slug.md` and set `date:` to today or earlier
 
 `_posts_archive/` and `_archive/` are separate legacy locations holding retired posts and brand image assets — do not publish from these without review.
 
+### Editing a draft toward publication
+
+**Read [EDITORIAL_PIPELINE.md](EDITORIAL_PIPELINE.md) before running any editing pass.** It defines the layered review order (structure → facts → voice → rhythm → reach), the measured voice baselines to calibrate against, which skill in `.claude/skills/` each layer uses, and the publish checklist.
+
+The order is load-bearing: voice work is never first, because restructuring rewrites sentences. Do not polish prose before the structure settles.
+
 ### Windows scripts
 
 `scripts/` contains PowerShell equivalents of the Makefile targets (`serve.ps1`, `build.ps1`, `clean.ps1`, `install.ps1`). Use these on Windows if `make` is unavailable.

@@ -1,0 +1,29 @@
+name: Jekyll CI
+
+# Build check only. Deployment is GitHub Pages' built-in build from main
+# (the pages-build-deployment run), not this workflow.
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Jekyll Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby (version from .ruby-version, gems cached)
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Build the site
+        run: bundle exec jekyll build

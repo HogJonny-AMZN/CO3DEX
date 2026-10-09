@@ -20,7 +20,7 @@ git diff pre-cleanup HEAD --stat            # everything the cleanup changed
 | Disqus comments | Hosted comment service | `_includes/blog_post_comments.html`, `disqus_shortname` in `_config.yml` | Its mount point was already commented out, so it never showed a comment box. Planned replacement is giscus (GitHub Discussions). |
 | Hyvor comments | Paid comment service | `_includes/hyvor_comments.html`, `hyvor_talk_website_id` | Needs a Hyvor account. |
 | Olvy | "What's new" changelog popup for SaaS products | `_layouts/full-width.html`, `_includes/hero.html`, `olvy_*` config | Needs your own Olvy org. Low value on a blog. |
-| Snipcart | E-commerce cart | `_layouts/default.html`, `_layouts/full-width.html` | Needs your own Snipcart API key. The upstream key was removed. |
+| Snipcart | E-commerce cart | `_layouts/default.html`, `_layouts/full-width.html`, the cart icon in `_includes/header.html`, the stylesheet link in `_includes/head.html` | Needs your own Snipcart API key. The upstream key was removed. |
 | Netlify Identity / Netlify CMS | Browser-based post editor and login | `admin/`, `_includes/head.html` | `admin/config.yml` pointed at upstream's repo and needs rewriting for yours. |
 | Mailchimp newsletter form | Email signup box | `_includes/blog_newsletter.html` (commented block), `mailchimp_form_url` | Needs your own Mailchimp form URL. |
 | WakaTime charts | Coding-time activity charts | `_includes/coding_activity.html`, `_layouts/about-me.html` | Needs your own WakaTime share links. |

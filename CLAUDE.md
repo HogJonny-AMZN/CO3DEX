@@ -108,7 +108,7 @@ Update this table when adding a new category.
 
 ### How layouts and includes connect
 
-- `_layouts/post.html` — wraps all blog posts; includes `blog_post_article.html`, `blog_sidebar.html`, `blog_post_comments.html`
+- `_layouts/post.html` — wraps all blog posts; includes `blog_post_article.html`, `blog_sidebar.html`
 - `_includes/blog_post_article.html` — renders post content, category links, share buttons
 - `_includes/blog_sidebar.html` — sidebar with recent posts, categories, author info
 - `_includes/head.html` — SEO tags via `jekyll-seo-tag`; reads `thumbnail`, `keywords`, and `description` from post front matter
@@ -146,7 +146,7 @@ Fully post-shaped files (complete front matter, `permalink`, etc.) that are **no
 
 Move the file to `_posts/YYYY-MM-DD-slug.md` and set `date:` to today or earlier (see the future-date rule above). Then move the source draft to `.docs/archive/` and add a row to its README.
 
-`_posts_archive/` and `_archive/` are separate legacy locations holding retired posts and brand image assets — do not publish from these without review.
+`_archive/` is a separate legacy location holding brand image assets (the old `_posts_archive/` of theme demo posts was removed; see `docs/origins.md`) — do not publish from these without review.
 
 ### Editing a draft toward publication
 

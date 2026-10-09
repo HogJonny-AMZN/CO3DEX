@@ -210,6 +210,22 @@ exclude:
   - gemfiles/
   - Gemfile
   - Gemfile.lock
+  - build/
+  - README.md
+  - CLAUDE.md
+  - AGENTS.md
+  - EDITORIAL_PIPELINE.md
+  - SEO_BEST_PRACTICES.md
+  - SEO_IMPLEMENTATION_SUMMARY.md
+  - SEO_REVIEW_UPDATED.md
+  - SECURITY.md
+  - LICENSE
+  - Makefile
+  - Dockerfile
+  - docker-compose-dev.yml
+  - docker-compose-prod.yml
+  - CO3DEX.code-workspace
+  - scripts/
   - node_modules/
   - vendor/bundle/
   - vendor/cache/

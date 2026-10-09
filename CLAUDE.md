@@ -181,6 +181,10 @@ When Copilot or anyone else leaves a review on a PR, and you assess it, **reply 
 3. Each reply says what happened: addressed (cite the commit and what you verified), declined (say why), or deferred (say to what and why). Never leave a thread silent.
 4. Do not resolve threads unless asked. The reviewer or the owner resolves them.
 
+### Chat conventions (REQUIRED)
+
+When you mention a pull request or issue in chat, **always make it a clickable hyperlink**, for example `[PR #103](https://github.com/HogJonny-AMZN/CO3DEX/pull/103)`. Never write a bare `#103` or "PR 103". Issues use `/issues/<n>`. Get the URL from the `gh pr create` output or `gh pr view <n> --json url`.
+
 ## Universal AI Agent Instructions
 
 For universal guidelines across coding assistants (GitHub Copilot, Cursor, Windsurf, OpenAI, Claude, etc.), refer to:

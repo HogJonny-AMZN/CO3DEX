@@ -142,6 +142,10 @@ When a PR review (Copilot or human) is assessed, post an inline reply on **every
 
 Full detail is in [CLAUDE.md](CLAUDE.md#handling-pr-reviews-required).
 
+### G. Mandatory Rule: Hyperlink PR and Issue References
+
+When you mention a pull request or issue in chat, always write it as a clickable link, e.g. `[PR #103](https://github.com/HogJonny-AMZN/CO3DEX/pull/103)`, never a bare `#103`. Issues use `/issues/<n>`.
+
 ---
 
 ## 5. Instructions & Prompt Alignment

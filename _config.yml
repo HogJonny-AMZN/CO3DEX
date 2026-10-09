@@ -156,12 +156,10 @@ plugins:
   - jekyll-gist
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-admin
 
 # Sitemap settings
 sitemap:
   exclude:
-    - "/admin/"
     - "/build/"
   include:
     - "/index.html"
@@ -180,15 +178,6 @@ social:
     - https://www.facebook.com/hogjonny
     - https://www.instagram.com/hogjonny
 
-# Jekyll Admin Config
-jekyll_admin:
-  # hidden_links:
-  #   - posts
-  #   - pages
-  #   - staticfiles
-  #   - datafiles
-  #   - configuration
-  homepage: "posts"
 
 
 # Exclude from processing.
@@ -218,9 +207,6 @@ exclude:
   - SECURITY.md
   - LICENSE
   - Makefile
-  - Dockerfile
-  - docker-compose-dev.yml
-  - docker-compose-prod.yml
   - CO3DEX.code-workspace
   - scripts/
   - docs/

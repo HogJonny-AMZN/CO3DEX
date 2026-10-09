@@ -226,6 +226,7 @@ exclude:
   - docker-compose-prod.yml
   - CO3DEX.code-workspace
   - scripts/
+  - docs/
   - node_modules/
   - vendor/bundle/
   - vendor/cache/

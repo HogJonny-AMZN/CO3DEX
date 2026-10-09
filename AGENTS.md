@@ -7,7 +7,7 @@ This document provides definitive guidance for all AI assistants, agents, and au
 ## 1. Project Overview & Architecture
 
 - **Project**: CO3DEX (<https://www.co3dex.com>) — personal tech art, programming, and gamedev static blog.
-- **Engine**: Jekyll 4.x static site generator based on the `devlopr-jekyll` theme.
+- **Engine**: Jekyll 4.x static site generator, originally forked from the `devlopr-jekyll` theme (see `docs/origins.md`).
 - **Backend / Database**: None. Pure static HTML/CSS/JS generation outputted to `./build/`.
 - **Primary Languages**: Liquid templates, HTML5, SCSS/Sass, Markdown, YAML.
 

@@ -23,7 +23,7 @@ bundle exec jekyll clean
 
 ## Architecture
 
-This is a **Jekyll 4.x static blog** based on the devlopr-jekyll theme, hosted at <https://www.co3dex.com>. It is a pure static site — no backend, no database.
+This is a **Jekyll 4.x static blog** originally forked from the devlopr-jekyll theme (see `docs/origins.md`), hosted at <https://www.co3dex.com>. It is a pure static site — no backend, no database.
 
 ### Key directories
 
@@ -160,7 +160,11 @@ The order is load-bearing: voice work is never first, because restructuring rewr
 
 ### Deployment
 
-The `DEPLOY_STRATEGY` file controls CI/CD target (`none`, `gh-pages`, or `firebase`). Currently set to `none`. The site builds to `./build/`. Docker Compose files exist for containerized dev/prod if needed.
+GitHub Pages builds and deploys from `main` using GitHub's built-in Jekyll builder (the `pages-build-deployment` run in the Actions tab), with CNAME `www.co3dex.com`. A push to `main` goes live in about a minute. No workflow in `.github/workflows/` does the deploy. Locally the site builds to `./build/`.
+
+The builder is GitHub's pinned Jekyll with a plugin whitelist, which can differ from the Jekyll 4.x used locally. Moving to an Actions-based build is planned.
+
+Internal repo files (`CLAUDE.md`, `AGENTS.md`, `README.md`, the SEO notes, `scripts/`, and so on) are kept out of the published site by the `exclude:` list in `_config.yml`. Add any new root-level non-site file there.
 
 ## Universal AI Agent Instructions
 

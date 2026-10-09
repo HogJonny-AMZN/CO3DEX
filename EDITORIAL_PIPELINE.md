@@ -231,9 +231,9 @@ Only after the author signs off.
 - [ ] Move the source draft to `.docs/archive/` and add a row to its README
 - [ ] Bump `modified_date` on any post-publication edit
 
-**This repo auto-deploys.** `DEPLOY_STRATEGY` says `none`, but GitHub Pages is configured at the repo
-level against `main` with CNAME `www.co3dex.com`. A push to `main` goes live in about a minute.
-The `DEPLOY_STRATEGY` file does not reflect reality.
+**This repo auto-deploys.** GitHub Pages is configured at the repo level against `main` with CNAME
+`www.co3dex.com`, and GitHub's built-in `pages-build-deployment` run does the build. A push to `main`
+goes live in about a minute.
 
 ---
 

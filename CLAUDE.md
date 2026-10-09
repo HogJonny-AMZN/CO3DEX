@@ -16,9 +16,6 @@ bundle exec jekyll build
 
 # Clean build artifacts
 bundle exec jekyll clean
-
-# Local CMS admin UI at http://localhost:4000/admin
-# (available automatically when serving locally via jekyll-admin gem)
 ```
 
 ## Architecture

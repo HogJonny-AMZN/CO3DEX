@@ -27,6 +27,9 @@ git diff pre-cleanup HEAD --stat            # everything the cleanup changed
 | Shop | Product pages | `_products/`, `_layouts/product.html`, `_includes/product*.html`, `shop.md` | Pairs with Snipcart. |
 | About-me layout | Alternate about page with skills and coding activity | `_layouts/about-me.html`, `_includes/author_skills.html` | Superseded by `about-single-column`. |
 | Theme docs | Styleguide, install guide, demo posts | `styleguide.md`, `install.md`, `_posts_archive/` | Reference only. |
+| Local CMS (jekyll-admin) | Browser-based post editor served at `/admin` during `jekyll serve` | `jekyll-admin` in `Gemfile` and `_config.yml` (plugin and `jekyll_admin:` block) | Re-add the gem and the config block from tag `pre-cleanup`. It was never part of the live site. |
+| Docker setup | Containerized dev and prod | `Dockerfile`, `docker-compose-dev.yml`, `docker-compose-prod.yml` | They built from `jekyll/jekyll:latest` and deleted `Gemfile.lock`, so they did not match the real build. |
+| Old Jekyll CI and markdown lint | A workflow pointed at `master` (it only ever ran on its weekly cron) that built in an old Jekyll container and linted `_posts/` with auto-fix | `.github/workflows/codeql-analysis.yml`, `markdownlint-config.json` | Replaced by `.github/workflows/ci.yml`, a plain build check on PRs to `main`. Lint was left out on purpose: it would rewrite post prose. |
 | Other deploy targets | Heroku, Netlify, Firebase, nginx, Forestry, gnome-builder | `Procfile`, `netlify.toml`, `firebase.json`, `nginx/`, `.forestry/`, ... | The live site uses GitHub Pages only. |
 | Upstream project files | Contributor guide, code of conduct, funding links, greeting bot | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `.github/FUNDING.yml`, ... | `FUNDING.yml` pointed at upstream's donation links. |
 

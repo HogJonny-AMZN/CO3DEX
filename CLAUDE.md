@@ -166,6 +166,21 @@ The builder is GitHub's pinned Jekyll with a plugin whitelist, which can differ 
 
 Internal repo files (`CLAUDE.md`, `AGENTS.md`, `README.md`, the SEO notes, `scripts/`, and so on) are kept out of the published site by the `exclude:` list in `_config.yml`. Add any new root-level non-site file there.
 
+### Handling PR reviews (REQUIRED)
+
+When Copilot or anyone else leaves a review on a PR, and you assess it, **reply on every open review comment and thread**, not only the ones you fixed. The point is that the PR itself shows at a glance what has been handled.
+
+1. Verify each finding against the repo before answering it. Reviews are sometimes wrong, and sometimes right about things a diff can't show.
+2. Post an inline reply on each comment:
+
+   ```bash
+   gh api -X POST repos/:owner/:repo/pulls/<n>/comments/<comment_id>/replies -f body="..."
+   ```
+
+   List the comments with `gh api repos/:owner/:repo/pulls/<n>/comments`. Also answer any findings that live only in the review body or in issue-level comments.
+3. Each reply says what happened: addressed (cite the commit and what you verified), declined (say why), or deferred (say to what and why). Never leave a thread silent.
+4. Do not resolve threads unless asked. The reviewer or the owner resolves them.
+
 ## Universal AI Agent Instructions
 
 For universal guidelines across coding assistants (GitHub Copilot, Cursor, Windsurf, OpenAI, Claude, etc.), refer to:

@@ -11,10 +11,6 @@
         >{{ page.date | date: "%b %-d, %Y" }}</time
       >
     </p>
-    <span
-      class="disqus-comment-count"
-      data-disqus-identifier="{{ page.url }}"
-    ></span>
     <div class="post-categories">
       {% if post %} {% assign categories = post.categories %} {% else %} {%
       assign categories = page.categories %} {% endif %} Category : {% for
@@ -52,14 +48,6 @@
       {% include author.html %}
     {% endif %}
   </div>
-  {%- if site.hyvor_talk_website_id -%}
-  <div class="comments">
-    {%- include hyvor_comments.html -%}
-   </div>
-    {%- endif -%}
-  <!-- Incomment incase you want to use Disqus
-      <div id="disqus_thread"></div>
-   -->
 
 
 </article>

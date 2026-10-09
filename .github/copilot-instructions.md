@@ -1,6 +1,6 @@
 # GitHub Copilot Instructions: CO3DEX
 
-This repository is **CO3DEX** (<https://www.co3dex.com>), a Jekyll 4.x static blog built on the `devlopr-jekyll` theme.
+This repository is **CO3DEX** (<https://www.co3dex.com>), a Jekyll 4.x static blog originally forked from the `devlopr-jekyll` theme (see `docs/origins.md`).
 
 ## Core Rules for Copilot
 

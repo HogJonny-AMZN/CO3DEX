@@ -23,7 +23,7 @@ bundle exec jekyll clean
 
 ## Architecture
 
-This is a **Jekyll 4.x static blog** based on the devlopr-jekyll theme, hosted at <https://www.co3dex.com>. It is a pure static site — no backend, no database.
+This is a **Jekyll 4.x static blog** originally forked from the devlopr-jekyll theme (see `docs/origins.md`), hosted at <https://www.co3dex.com>. It is a pure static site — no backend, no database.
 
 ### Key directories
 
@@ -108,7 +108,7 @@ Update this table when adding a new category.
 
 ### How layouts and includes connect
 
-- `_layouts/post.html` — wraps all blog posts; includes `blog_post_article.html`, `blog_sidebar.html`, `blog_post_comments.html`
+- `_layouts/post.html` — wraps all blog posts; includes `blog_post_article.html`, `blog_sidebar.html`
 - `_includes/blog_post_article.html` — renders post content, category links, share buttons
 - `_includes/blog_sidebar.html` — sidebar with recent posts, categories, author info
 - `_includes/head.html` — SEO tags via `jekyll-seo-tag`; reads `thumbnail`, `keywords`, and `description` from post front matter
@@ -146,7 +146,7 @@ Fully post-shaped files (complete front matter, `permalink`, etc.) that are **no
 
 Move the file to `_posts/YYYY-MM-DD-slug.md` and set `date:` to today or earlier (see the future-date rule above). Then move the source draft to `.docs/archive/` and add a row to its README.
 
-`_posts_archive/` and `_archive/` are separate legacy locations holding retired posts and brand image assets — do not publish from these without review.
+`_archive/` is a separate legacy location holding brand image assets (the old `_posts_archive/` of theme demo posts was removed; see `docs/origins.md`) — do not publish from these without review.
 
 ### Editing a draft toward publication
 
@@ -160,7 +160,26 @@ The order is load-bearing: voice work is never first, because restructuring rewr
 
 ### Deployment
 
-The `DEPLOY_STRATEGY` file controls CI/CD target (`none`, `gh-pages`, or `firebase`). Currently set to `none`. The site builds to `./build/`. Docker Compose files exist for containerized dev/prod if needed.
+GitHub Pages builds and deploys from `main` using GitHub's built-in Jekyll builder (the `pages-build-deployment` run in the Actions tab), with CNAME `www.co3dex.com`. A push to `main` goes live in about a minute. No workflow in `.github/workflows/` does the deploy. Locally the site builds to `./build/`.
+
+The builder is GitHub's pinned Jekyll with a plugin whitelist, which can differ from the Jekyll 4.x used locally. Moving to an Actions-based build is planned.
+
+Internal repo files (`CLAUDE.md`, `AGENTS.md`, `README.md`, the SEO notes, `scripts/`, and so on) are kept out of the published site by the `exclude:` list in `_config.yml`. Add any new root-level non-site file there.
+
+### Handling PR reviews (REQUIRED)
+
+When Copilot or anyone else leaves a review on a PR, and you assess it, **reply on every open review comment and thread**, not only the ones you fixed. The point is that the PR itself shows at a glance what has been handled.
+
+1. Verify each finding against the repo before answering it. Reviews are sometimes wrong, and sometimes right about things a diff can't show.
+2. Post an inline reply on each comment:
+
+   ```bash
+   gh api -X POST repos/:owner/:repo/pulls/<n>/comments/<comment_id>/replies -f body="..."
+   ```
+
+   List the comments with `gh api repos/:owner/:repo/pulls/<n>/comments`. Also answer any findings that live only in the review body or in issue-level comments.
+3. Each reply says what happened: addressed (cite the commit and what you verified), declined (say why), or deferred (say to what and why). Never leave a thread silent.
+4. Do not resolve threads unless asked. The reviewer or the owner resolves them.
 
 ## Universal AI Agent Instructions
 

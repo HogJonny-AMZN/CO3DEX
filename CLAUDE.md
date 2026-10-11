@@ -159,7 +159,11 @@ The order is load-bearing: voice work is never first, because restructuring rewr
 
 GitHub Pages builds and deploys from `main` using GitHub's built-in Jekyll builder (the `pages-build-deployment` run in the Actions tab), with CNAME `www.co3dex.com`. A push to `main` goes live in about a minute. No workflow in `.github/workflows/` does the deploy. Locally the site builds to `./build/`.
 
-The builder is GitHub's pinned Jekyll with a plugin whitelist, which can differ from the Jekyll 4.x used locally. Moving to an Actions-based build is planned.
+The builder is GitHub's pinned Jekyll 3.10 with a plugin whitelist, which differs from the Jekyll 4.4 used locally. Two differences you will meet: it silently enables plugins such as `jekyll-titles-from-headings` (a page with no `title:` gets one from its first heading), and its Rouge is older, so code blocks get different highlight class names (same colors).
+
+**Actions build (added, not yet the live deploy).** `.github/workflows/pages.yml` builds with Jekyll 4.4 and `Gemfile.lock` in production mode on PRs and pushes to `main` and uploads the site as an artifact (download it with `gh run download <run-id> -n github-pages`). Its deploy job runs only when the repo variable `PAGES_DEPLOY_VIA_ACTIONS` is `true`. To cut over: set that variable, set the Pages source to "GitHub Actions", run the workflow, check the live site. To roll back: set the Pages source back to "Deploy from a branch" (`main`, `/`) and delete the variable. Before cutover, the Jekyll 4 build was compared with the live Jekyll 3 build: the visible text of every page is identical, and 8 pages render pixel-identical.
+
+**Local Windows builds show wrong date offsets.** Windows ignores the `America/Chicago` time zone Jekyll sets, so a local build renders every date with today's UTC offset (`-0500` in summer) and shifts times by an hour. Linux (CI and Pages) is correct. Use the CI artifact when exact date output matters.
 
 Internal repo files (`CLAUDE.md`, `AGENTS.md`, `README.md`, the SEO notes, `scripts/`, and so on) are kept out of the published site by the `exclude:` list in `_config.yml`. Add any new root-level non-site file there.
 

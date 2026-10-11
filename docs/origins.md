@@ -38,7 +38,9 @@ git diff pre-cleanup HEAD --stat            # everything the cleanup changed
 
 `assets/bower_components/` holds committed copies of the libraries the site loads (Bower itself is
 gone; nothing installs them). Only files that `_includes/head.html` actually loads are kept, plus
-each library's license file.
+the license file where the library shipped one. Bootstrap and imagesLoaded have none in their folder:
+Bootstrap's MIT notice is in the header of each file, and imagesLoaded's is in the header of the
+packaged file.
 
 | Library | Version | Kept |
 | ------- | ------- | ---- |
@@ -52,6 +54,16 @@ each library's license file.
 | jquery.easing | 1.4.1 | `jquery.easing.min.js` |
 | nanobar | 0.4.2 | `nanobar.min.js` |
 | typewrite | 1.0.0 | `dist/` |
+
+Licensing, as the files themselves state it:
+
+- **lightGallery 1.6.12's header says "Licensed GPLv3."** Whether that fits a site whose repo is MIT
+  is the owner's call and is not settled here. Decide it in the modernization pass, when the gallery is
+  rebuilt anyway.
+- Bootstrap 4.1.1, jquery-mousewheel 3.1.13 and imagesLoaded 4.1.4 state MIT in their headers. Font
+  Awesome Free 5.1.0 states icons CC BY 4.0, fonts SIL OFL 1.1, code MIT.
+- The license text of nanobar, jquery.easing, typewrite, ghostHunter and Icono has not been audited;
+  each ships its LICENSE file next to the library.
 
 jQuery 3.4.1 loads from `code.jquery.com`, not from this folder. For the modernization pass: Bootstrap
 4.1.1 and jQuery 3.4.1 both predate later security fixes (Bootstrap 4.1.2, jQuery 3.5.0) and Font Awesome

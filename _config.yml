@@ -188,7 +188,7 @@ social:
 # Excluded items can be processed by explicitly listing the directories or
 # their entries' file path in the `include:` list.
 
-### Deployment: GitHub Pages builds and serves this site from `main` (see CNAME). No file here selects a target.
+### Deployment: the Pages GitHub Actions workflow builds this site and deploys it from `main` (see CNAME). See CLAUDE.md.
 
 exclude:
   - .sass-cache/

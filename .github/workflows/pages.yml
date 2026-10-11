@@ -1,15 +1,15 @@
 name: Pages
 
-# Builds the site with the repo's own Jekyll 4 and Gemfile.lock, and, once the cutover switch is on,
-# deploys that build to GitHub Pages.
+# Builds the site with the repo's own Jekyll 4 and Gemfile.lock, and deploys pushes to main to GitHub Pages.
+# This is also the CI build check: every pull request builds, and the deploy job is skipped.
 #
-# Cutover is gated so it can be reversed:
-#   1. Repo variable PAGES_DEPLOY_VIA_ACTIONS = true   (this workflow starts deploying)
-#   2. Pages source set to "GitHub Actions"            (GitHub's built-in Jekyll build stops)
+# Live since 2026-10-11. The deploy is controlled by two settings, not by this file:
+#   1. Repo variable PAGES_DEPLOY_VIA_ACTIONS = true   (the deploy job runs)
+#   2. Pages source set to "GitHub Actions"            (GitHub's built-in Jekyll build is off)
 # To roll back, set the Pages source back to "Deploy from a branch" (main, /) and delete the variable.
-# While the variable is unset this workflow only builds, so merging it changes nothing on the live site.
+# Not exercised yet.
 #
-# Pull requests build and upload the site as an artifact so a build can be inspected or compared with
+# Pull requests upload the built site as an artifact so a build can be inspected or compared with
 # what is live before it is merged.
 
 on:

@@ -40,12 +40,17 @@ confirm each license when choosing).
 That site is the source for portfolio entries to import. New work is added alongside it. Entries live in a
 Jekyll collection so each is a Markdown file.
 
-### The deploy moves to a GitHub Actions build
+### The deploy moved to a GitHub Actions build (done)
 
-Pages is built today by GitHub's pinned Jekyll 3.10, which differs from the Jekyll 4.4 used locally and
-blocks plugins. The Actions build removes the mismatch. Cutover is gated on a repo variable and a Pages
-setting, so it can be reversed. Differences found between the two builds are listed in the PR that adds
-the workflow.
+Pages used to be built by GitHub's pinned Jekyll 3.10, which differs from the Jekyll 4.4 used locally and
+blocks plugins. The Actions build removes the mismatch. It went live on 2026-10-11 by setting the repo
+variable `PAGES_DEPLOY_VIA_ACTIONS` and switching the Pages source to "GitHub Actions"; reversing both rolls
+it back (not exercised). Measured, not assumed: a snapshot of the live site before and after shows no
+change in status codes, headers, redirects or the TLS certificate, and identical visible text on all 31
+HTML pages. The old `ci.yml` was retired because `pages.yml` already builds every PR.
+
+**Left over:** the compiled stylesheet is now expanded with comments (57 KB, 29 KB gzipped, from 51 KB).
+Setting `sass: style: compressed` would take most of that back; not done yet.
 
 ### Housekeeping decided in the owner's favor
 

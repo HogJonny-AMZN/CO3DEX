@@ -247,3 +247,13 @@ goes live in about a minute.
 4. **Name the audience of the piece before editing it**, and say so. A memo for a team is not a blog
    post and should not be edited into one.
 5. **Work material never enters `.docs/wip/`.** That directory is public. See CLAUDE.md.
+6. **Candor is the point; flag exposure once.** This is a personal blog under the author's real name,
+   and it is built on saying hard things forthrightly, including politically edgy or employer-adjacent
+   material. If something carries a genuine exposure risk, say so once, briefly, then respect the
+   author's call and move on. Aim feedback at craft and impact, not risk-avoidance. This does not
+   loosen rule 5: work material, NDA material and anything not cleared to be public still never enters
+   `.docs/wip/` or the published tree.
+7. **Specific beats dressed-up.** Specific lived detail is central to the voice: a post with no war
+   stories in it does not read as him, however the sentences are built. Prefer plain verbs to
+   metaphor; phrasing like "a guess wearing a target's clothes" is the kind of thing the author flags
+   as not sounding like him.

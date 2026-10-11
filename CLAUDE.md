@@ -178,9 +178,29 @@ When Copilot or anyone else leaves a review on a PR, and you assess it, **reply 
 3. Each reply says what happened: addressed (cite the commit and what you verified), declined (say why), or deferred (say to what and why). Never leave a thread silent.
 4. Do not resolve threads unless asked. The reviewer or the owner resolves them.
 
+### Repository workflow (REQUIRED)
+
+- **Never commit to `main`.** Branch from an up-to-date `main` (`chore/...`, `docs/...`, `fix/...`, `feat/...`), open a PR, squash-merge it, delete the branch. A push to `main` deploys the site.
+- **One PR per change set.** Review fixes and small related rule or doc changes go on the same PR, not in extra ones.
+- **Sign off every commit** with `git commit -s`. A DCO check on the repo fails any PR with an unsigned commit. It is not a required check, but keep it green. Never rewrite or force-push existing commits just to add sign-offs without asking the owner: a sign-off is a certification in the owner's name.
+- **Titles** use `type: summary` (`chore`, `docs`, `fix`, `feat`, `ci`). A PR description says what changes on the live site, how it was verified, and what is deliberately not included.
+- **CI** (`.github/workflows/ci.yml`) runs `bundle exec jekyll build` on PRs and on `main`, using the Ruby in `.ruby-version`, which must stay the Ruby actually used locally. It does not deploy.
+
+### Removing or replacing a site feature (REQUIRED procedure)
+
+1. **Keep it restorable.** Tag `pre-cleanup` holds the state before the first cleanup. Record every removal in `docs/origins.md`: what it was, where it lived, how to revive it.
+2. **Build a trustworthy baseline.** Build `main` in a clean worktree (`git worktree add <dir> main`) and the branch into a separate directory. Never reuse a leftover scratch build as the baseline: one silently held 62 files instead of 8,199.
+3. **Compare file sets** (`LC_ALL=C sort`, then `comm`). Only the intended files may disappear, and nothing may appear.
+4. **Run the tools in [scripts/verify/](scripts/verify/)** (see [scripts/README.md](scripts/README.md)). `refcheck.py` must show no reference that resolves on `main` and breaks on the branch. `render_compare.py` must exit 0 on the pages the change could touch. Prove the render tool can fail before trusting a "same" (delete a needed stylesheet in a copy; it must say CHANGED). It checks the initial render only, so click-driven UI is not covered.
+5. **Search the built output for the names of what you removed.** A before/after diff proves you removed what you meant to; it cannot show something you forgot to remove (a dead cart icon survived one pass this way).
+6. **Count references only from live code.** A grep also matches HTML comments, so a commented-out `<script>` looks like a dependency.
+7. **Update `docs/origins.md`** and any CLAUDE.md or AGENTS.md text that describes the removed thing.
+
 ### Chat conventions (REQUIRED)
 
 When you mention a pull request or issue in chat, **always make it a clickable hyperlink**, for example `[PR #103](https://github.com/HogJonny-AMZN/CO3DEX/pull/103)`. Never write a bare `#103` or "PR 103". Issues use `/issues/<n>`. Get the URL from the `gh pr create` output or `gh pr view <n> --json url`.
+
+**Explain jargon plainly.** When you use a technical term, gloss it right away in plain language with a concrete, slightly playful image, ideally pulled from the author's own text. The author is a polymath who learns by that pause; a bare term reads as gatekeeping.
 
 ## Universal AI Agent Instructions
 

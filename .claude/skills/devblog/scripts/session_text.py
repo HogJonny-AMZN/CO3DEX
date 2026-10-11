@@ -27,7 +27,7 @@ from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 from pathlib import Path
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 REDACTED = "[redacted]"
 
@@ -38,12 +38,12 @@ SECRET_PATTERNS: tuple[re.Pattern[str], ...] = (
     re.compile(r"\bxox[abprs]-[A-Za-z0-9-]{10,}\b"),  # Slack
     re.compile(r"\bAKIA[0-9A-Z]{16}\b"),  # AWS access key id
     re.compile(r"\bsk-(?:ant-)?[A-Za-z0-9_-]{20,}\b"),  # Anthropic / OpenAI style
-    re.compile(r"\bBearer\s+[A-Za-z0-9._~+/=-]{20,}"),
+    re.compile(r"(?i)\bbearer\s+[A-Za-z0-9._~+/=-]{20,}"),  # HTTP schemes are case-insensitive
     # password=..., secret: ..., AWS_SECRET_ACCESS_KEY=..., api_key="a quoted value with spaces": the key word
     # may carry affixes, and a quoted value is taken whole
     re.compile(
         r"(?i)\b[A-Za-z0-9_-]*(?:password|passwd|secret|token|api[_-]?key)[A-Za-z0-9_-]*\s*[=:]\s*"
-        r"(?:\"[^\"\n]{6,}\"|'[^'\n]{6,}'|[^\s'\"]{6,})"
+        r"(?:\"[^\"\n]+\"|'[^'\n]+'|[^\s'\"]+)"  # no lower bound: password=x is still a password
     ),
 )
 EMAIL_PATTERN = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
@@ -155,7 +155,9 @@ def _measure(path: Path) -> tuple[int, int, int, set[str]]:
     for record in _records(path):
         if record.get("type") not in ("user", "assistant") or record.get("isSidechain") or record.get("isMeta"):
             continue
-        text = _text_of(record.get("message", {}).get("content"))
+        text = clean(_text_of(record.get("message", {}).get("content")))
+        if not text:
+            continue
         text_bytes += len(text.encode("utf-8"))
         secrets += sum(len(p.findall(text)) for p in SECRET_PATTERNS)
         emails.update(EMAIL_PATTERN.findall(text))

@@ -4,8 +4,7 @@
 User-agent: *
 Allow: /
 
-# Disallow admin and build directories
-Disallow: /admin/
+# Disallow build and internal directories
 Disallow: /build/
 Disallow: /scripts/
 Disallow: /assets/bower_components/

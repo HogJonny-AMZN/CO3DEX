@@ -28,8 +28,6 @@ bundle exec jekyll build
 # Clean build artifacts and Jekyll cache
 bundle exec jekyll clean
 
-# Local CMS admin UI at http://localhost:4000/admin (via jekyll-admin gem)
-# (Automatically available when running jekyll serve)
 
 # Preview native Jekyll drafts (_drafts/ directory)
 bundle exec jekyll serve --livereload --drafts

@@ -30,8 +30,32 @@ git diff pre-cleanup HEAD --stat            # everything the cleanup changed
 | Local CMS (jekyll-admin) | Browser-based post editor served at `/admin` during `jekyll serve` | `jekyll-admin` in `Gemfile` and `_config.yml` (plugin and `jekyll_admin:` block) | Re-add the gem and the config block from tag `pre-cleanup`. It was never part of the live site. |
 | Docker setup | Containerized dev and prod | `Dockerfile`, `docker-compose-dev.yml`, `docker-compose-prod.yml` | They built from `jekyll/jekyll:latest` and deleted `Gemfile.lock`, so they did not match the real build. |
 | Old Jekyll CI and markdown lint | A workflow pointed at `master` (it only ever ran on its weekly cron) that built in an old Jekyll container and linted `_posts/` with auto-fix | `.github/workflows/codeql-analysis.yml`, `markdownlint-config.json` | Replaced by `.github/workflows/ci.yml`, a plain build check on PRs to `main`. Lint was left out on purpose: it would rewrite post prose. |
+| Unused bower libraries | Isotope, Masonry and their helpers; Font Awesome's Node/SVG/less/scss variants; each library's src, demo and test folders; a vendored jQuery 3.3.1 | `assets/bower_components/` | Bower copies were committed to the repo, not installed. Restore any of it from tag `pre-cleanup`. jQuery now loads from the CDN, so the vendored copy was dead. |
 | Other deploy targets | Heroku, Netlify, Firebase, nginx, Forestry, gnome-builder | `Procfile`, `netlify.toml`, `firebase.json`, `nginx/`, `.forestry/`, ... | The live site uses GitHub Pages only. |
 | Upstream project files | Contributor guide, code of conduct, funding links, greeting bot | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `.github/FUNDING.yml`, ... | `FUNDING.yml` pointed at upstream's donation links. |
+
+## Vendored front-end libraries
+
+`assets/bower_components/` holds committed copies of the libraries the site loads (Bower itself is
+gone; nothing installs them). Only files that `_includes/head.html` actually loads are kept, plus
+each library's license file.
+
+| Library | Version | Kept |
+| ------- | ------- | ---- |
+| Bootstrap | 4.1.1 | `dist/` (css and js) |
+| Font Awesome Free | 5.1.0 | `css/fontawesome-all.min.css` and `webfonts/` |
+| lightGallery | 1.6.12 | `dist/` |
+| ghostHunter (search) | 0.6.0 | `dist/` |
+| Icono | 1.3.0 | `dist/icono.min.css` |
+| imagesLoaded | 4.1.4 | `imagesloaded.pkgd.min.js` |
+| jquery-mousewheel | 3.1.13 | `jquery.mousewheel.min.js` |
+| jquery.easing | 1.4.1 | `jquery.easing.min.js` |
+| nanobar | 0.4.2 | `nanobar.min.js` |
+| typewrite | 1.0.0 | `dist/` |
+
+jQuery 3.4.1 loads from `code.jquery.com`, not from this folder. For the modernization pass: Bootstrap
+4.1.1 and jQuery 3.4.1 both predate later security fixes (Bootstrap 4.1.2, jQuery 3.5.0) and Font Awesome
+5.1.0 is years old, so plan to replace them, not patch them.
 
 Still in the tree on purpose: the Formspree contact form, the lightGallery-based gallery, the
 Bootstrap-era layouts and the bower components. Those are planned for the modernization pass.

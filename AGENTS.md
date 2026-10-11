@@ -140,6 +140,22 @@ When a PR review (Copilot or human) is assessed, post an inline reply on **every
 
 Full detail is in [CLAUDE.md](CLAUDE.md#handling-pr-reviews-required).
 
+### G. Mandatory Rule: Hyperlink PR and Issue References
+
+When you mention a pull request or issue in chat, always write it as a clickable link, e.g. `[PR #103](https://github.com/HogJonny-AMZN/CO3DEX/pull/103)`, never a bare `#103`. Issues use `/issues/<n>`.
+
+### H. Mandatory Rule: Sign Off Every Commit
+
+Use `git commit -s`. A DCO check fails any PR containing an unsigned commit. Do not rewrite or force-push existing commits just to add sign-offs without asking the owner.
+
+### I. Repository Workflow and Removing Features
+
+Never commit to `main`: branch, open one PR per change set, squash-merge, delete the branch. CI (`.github/workflows/ci.yml`) only builds; GitHub Pages deploys from `main`. When removing or replacing a site feature, follow the verification procedure in [CLAUDE.md](CLAUDE.md#removing-or-replacing-a-site-feature-required-procedure): clean-worktree baseline, file-set comparison, `scripts/verify/` tools, a search of the built output, and a `docs/origins.md` entry.
+
+### J. Explain Jargon Plainly
+
+When you use a technical term, gloss it immediately in plain language with a concrete, slightly playful image, ideally from the author's own text.
+
 ---
 
 ## 5. Instructions & Prompt Alignment

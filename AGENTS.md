@@ -150,7 +150,7 @@ Use `git commit -s`. A DCO check fails any PR containing an unsigned commit. Do 
 
 ### I. Repository Workflow and Removing Features
 
-Never commit to `main`: branch, open one PR per change set, squash-merge, delete the branch. CI (`.github/workflows/ci.yml`) only builds; GitHub Pages deploys from `main`. When removing or replacing a site feature, follow the verification procedure in [CLAUDE.md](CLAUDE.md#removing-or-replacing-a-site-feature-required-procedure): clean-worktree baseline, file-set comparison, `scripts/verify/` tools, a search of the built output, and a `docs/origins.md` entry.
+Never commit to `main`: branch, open one PR per change set, squash-merge, delete the branch. The Pages workflow (`.github/workflows/pages.yml`) is both the CI build check and the deploy: it builds every PR, and deploys pushes to `main`. When removing or replacing a site feature, follow the verification procedure in [CLAUDE.md](CLAUDE.md#removing-or-replacing-a-site-feature-required-procedure): clean-worktree baseline, file-set comparison, `scripts/verify/` tools, a search of the built output, and a `docs/origins.md` entry.
 
 ### J. Explain Jargon Plainly
 

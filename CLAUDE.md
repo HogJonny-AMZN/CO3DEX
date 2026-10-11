@@ -157,11 +157,13 @@ The order is load-bearing: voice work is never first, because restructuring rewr
 
 ### Deployment
 
-GitHub Pages builds and deploys from `main` using GitHub's built-in Jekyll builder (the `pages-build-deployment` run in the Actions tab), with CNAME `www.co3dex.com`. A push to `main` goes live in about a minute. No workflow in `.github/workflows/` does the deploy. Locally the site builds to `./build/`.
+**GitHub Actions builds and deploys the site** (live since 2026-10-11). `.github/workflows/pages.yml` builds with Jekyll 4.4 and `Gemfile.lock` in production mode on every PR and every push to `main`, and uploads the result as an artifact (download it with `gh run download <run-id> -n github-pages`). On a push to `main` (or a manual run) its deploy job publishes that build to GitHub Pages, with CNAME `www.co3dex.com`. A merge goes live in about a minute. On a PR the deploy job is skipped, so the run is the build check. Locally the site builds to `./build/`.
 
-The builder is GitHub's pinned Jekyll 3.10 with a plugin whitelist, which differs from the Jekyll 4.4 used locally. Two differences you will meet: it silently enables plugins such as `jekyll-titles-from-headings` (a page with no `title:` gets one from its first heading), and its Rouge is older, so code blocks get different highlight class names (same colors).
+**The deploy is controlled by two settings, not by code:** the repo variable `PAGES_DEPLOY_VIA_ACTIONS` (must be `true`) and the Pages source (must be "GitHub Actions"). To roll back to GitHub's built-in Jekyll 3.10 builder: set the Pages source back to "Deploy from a branch" (`main`, `/`) and delete the variable. The rollback has not been exercised.
 
-**Actions build (added, not yet the live deploy).** `.github/workflows/pages.yml` builds with Jekyll 4.4 and `Gemfile.lock` in production mode on PRs and pushes to `main` and uploads the site as an artifact (download it with `gh run download <run-id> -n github-pages`). Its deploy job runs only when the repo variable `PAGES_DEPLOY_VIA_ACTIONS` is `true`. To cut over: set that variable, set the Pages source to "GitHub Actions", run the workflow, check the live site. To roll back: set the Pages source back to "Deploy from a branch" (`main`, `/`) and delete the variable. Before cutover, the Jekyll 4 build was compared with the live Jekyll 3 build: the visible text of every page is identical, and 8 pages render pixel-identical.
+Before the cutover the Jekyll 4 build was compared with the live Jekyll 3 build, and after it the live site was snapshotted before and after (see `scripts/verify/`): the visible text of all 31 HTML pages was identical, no status code, header or redirect changed, and the TLS certificate was unchanged. What did change: the generator tag, build timestamps, code-block highlight class names (same colors) and the compiled stylesheet (expanded, with comments, 57 KB instead of 51 KB; `sass: style: compressed` would shrink it).
+
+Two things the old builder did that this one does not: it silently enabled plugins such as `jekyll-titles-from-headings` (a page with no `title:` got one from its first heading, so give every page a `title:`), and it pinned an older Rouge.
 
 **Local Windows builds show wrong date offsets.** Windows ignores the `America/Chicago` time zone Jekyll sets, so a local build renders every date with today's UTC offset (`-0500` in summer) and shifts times by an hour. Linux (CI and Pages) is correct. Use the CI artifact when exact date output matters.
 
@@ -188,7 +190,7 @@ When Copilot or anyone else leaves a review on a PR, and you assess it, **reply 
 - **One PR per change set.** Review fixes and small related rule or doc changes go on the same PR, not in extra ones.
 - **Sign off every commit** with `git commit -s`. A DCO check on the repo fails any PR with an unsigned commit. It is not a required check, but keep it green. Never rewrite or force-push existing commits just to add sign-offs without asking the owner: a sign-off is a certification in the owner's name.
 - **Titles** use `type: summary` (`chore`, `docs`, `fix`, `feat`, `ci`). A PR description says what changes on the live site, how it was verified, and what is deliberately not included.
-- **CI** (`.github/workflows/ci.yml`) runs `bundle exec jekyll build` on PRs and on `main`, using the Ruby in `.ruby-version`, which must stay the Ruby actually used locally. It does not deploy.
+- **CI is the Pages workflow** (`.github/workflows/pages.yml`): it runs `bundle exec jekyll build` on PRs and on `main`, using the Ruby in `.ruby-version`, which must stay the Ruby actually used locally. It deploys only from `main`.
 
 ### Removing or replacing a site feature (REQUIRED procedure)
 

@@ -232,7 +232,7 @@ Only after the author signs off.
 - [ ] Bump `modified_date` on any post-publication edit
 
 **This repo auto-deploys.** GitHub Pages is configured at the repo level against `main` with CNAME
-`www.co3dex.com`, and GitHub's built-in `pages-build-deployment` run does the build. A push to `main`
+`www.co3dex.com`, and the `Pages` GitHub Actions workflow builds and deploys it. A push to `main`
 goes live in about a minute.
 
 ---

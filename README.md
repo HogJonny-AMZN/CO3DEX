@@ -18,7 +18,7 @@ On Windows without `make`, the PowerShell equivalents are in `scripts/`.
 
 ## Publishing
 
-Push to `main`. GitHub Pages builds the site and serves it at the custom domain in `CNAME`. Posts
+Push to `main`. A GitHub Actions workflow builds the site and deploys it to GitHub Pages at the custom domain in `CNAME`. Posts
 dated in the future are silently skipped by Jekyll, so keep `date:` at today or earlier.
 
 ## Where things are

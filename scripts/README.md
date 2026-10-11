@@ -109,3 +109,11 @@ feature" in [CLAUDE.md](../CLAUDE.md) for when and how to run them.
     needs, and confirm it reports CHANGED.
   - In Git Bash on Windows, path arguments are rewritten. Set `MSYS_NO_PATHCONV=1` and pass `C:/...`
     paths for the directories and `/about/`-style paths for `--pages`.
+- `snapshot_live.py <output-dir> [--site URL]` records a live site: the body, status code and key headers of
+  every sitemap URL, plus how the apex, `www`, HTTP and HTTPS variants redirect. Take one before a hosting or
+  build change and one after, then run `snapshot_diff.py <before> <after>`. It exits 1 if any status code,
+  redirect, URL set or visible page text changed; changes that leave the visible text alone (markup,
+  timestamps, compiled CSS) are listed but do not fail it. Check the tool the way you check the others: two
+  snapshots of an unchanged site must give no problems, and an altered copy must give some. Used for the
+  2026-10-11 Pages cutover.
+

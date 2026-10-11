@@ -1,0 +1,73 @@
+# Origins
+
+CO3DEX started as a fork of [devlopr-jekyll](https://github.com/sujaykundu777/devlopr-jekyll) by
+Sujay Kundu (MIT licensed; his copyright notice stays in [LICENSE](../LICENSE)). It has since been
+modified heavily and does not track upstream.
+
+Pass 1 of the cleanup removed everything from the theme that this site doesn't use. Nothing is
+lost: the full pre-cleanup state is the git tag **`pre-cleanup`**.
+
+```bash
+git show pre-cleanup:<path>                 # read an old file
+git checkout pre-cleanup -- <path>          # bring it back into the working tree
+git diff pre-cleanup HEAD --stat            # everything the cleanup changed
+```
+
+## What was removed, and how to revive it
+
+| Feature | What it was | Where it lived | Reviving it |
+| ------- | ----------- | -------------- | ----------- |
+| Disqus comments | Hosted comment service | `_includes/blog_post_comments.html`, `disqus_shortname` in `_config.yml` | Its mount point was already commented out, so it never showed a comment box. Planned replacement is giscus (GitHub Discussions). |
+| Hyvor comments | Paid comment service | `_includes/hyvor_comments.html`, `hyvor_talk_website_id` | Needs a Hyvor account. |
+| Olvy | "What's new" changelog popup for SaaS products | `_layouts/full-width.html`, `_includes/hero.html`, `olvy_*` config | Needs your own Olvy org. Low value on a blog. |
+| Snipcart | E-commerce cart | `_layouts/default.html`, `_layouts/full-width.html`, the cart icon in `_includes/header.html`, the stylesheet link in `_includes/head.html` | Needs your own Snipcart API key. The upstream key was removed. |
+| Netlify Identity / Netlify CMS | Browser-based post editor and login | `admin/`, `_includes/head.html` | `admin/config.yml` pointed at upstream's repo and needs rewriting for yours. |
+| Mailchimp newsletter form | Email signup box | `_includes/blog_newsletter.html` (commented block), `mailchimp_form_url` | Needs your own Mailchimp form URL. |
+| WakaTime charts | Coding-time activity charts | `_includes/coding_activity.html`, `_layouts/about-me.html` | Needs your own WakaTime share links. |
+| Shop | Product pages | `_products/`, `_layouts/product.html`, `_includes/product*.html`, `shop.md` | Pairs with Snipcart. |
+| About-me layout | Alternate about page with skills and coding activity | `_layouts/about-me.html`, `_includes/author_skills.html` | Superseded by `about-single-column`. |
+| Theme docs | Styleguide, install guide, demo posts | `styleguide.md`, `install.md`, `_posts_archive/` | Reference only. |
+| Local CMS (jekyll-admin) | Browser-based post editor served at `/admin` during `jekyll serve` | `jekyll-admin` in `Gemfile` and `_config.yml` (plugin and `jekyll_admin:` block) | Re-add the gem and the config block from tag `pre-cleanup`. It was never part of the live site. |
+| Docker setup | Containerized dev and prod | `Dockerfile`, `docker-compose-dev.yml`, `docker-compose-prod.yml` | They built from `jekyll/jekyll:latest` and deleted `Gemfile.lock`, so they did not match the real build. |
+| Old Jekyll CI and markdown lint | A workflow pointed at `master` (it only ever ran on its weekly cron) that built in an old Jekyll container and linted `_posts/` with auto-fix | `.github/workflows/codeql-analysis.yml`, `markdownlint-config.json` | Replaced by `.github/workflows/ci.yml`, a plain build check on PRs to `main`. Lint was left out on purpose: it would rewrite post prose. |
+| Unused bower libraries | Isotope, Masonry and their helpers; Font Awesome's Node/SVG/less/scss variants; each library's src, demo and test folders; a vendored jQuery 3.3.1 | `assets/bower_components/` | Bower copies were committed to the repo, not installed. Restore any of it from tag `pre-cleanup`. jQuery now loads from the CDN, so the vendored copy was dead. |
+| Other deploy targets | Heroku, Netlify, Firebase, nginx, Forestry, gnome-builder | `Procfile`, `netlify.toml`, `firebase.json`, `nginx/`, `.forestry/`, ... | The live site uses GitHub Pages only. |
+| Upstream project files | Contributor guide, code of conduct, funding links, greeting bot | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `.github/FUNDING.yml`, ... | `FUNDING.yml` pointed at upstream's donation links. |
+
+## Vendored front-end libraries
+
+`assets/bower_components/` holds committed copies of the libraries the site loads (Bower itself is
+gone; nothing installs them). Only files that `_includes/head.html` actually loads are kept, plus
+the license file where the library shipped one. Bootstrap and imagesLoaded have none in their folder:
+Bootstrap's MIT notice is in the header of each file, and imagesLoaded's is in the header of the
+packaged file.
+
+| Library | Version | Kept |
+| ------- | ------- | ---- |
+| Bootstrap | 4.1.1 | `dist/` (css and js) |
+| Font Awesome Free | 5.1.0 | `css/fontawesome-all.min.css` and `webfonts/` |
+| lightGallery | 1.6.12 | `dist/` |
+| ghostHunter (search) | 0.6.0 | `dist/` |
+| Icono | 1.3.0 | `dist/icono.min.css` |
+| imagesLoaded | 4.1.4 | `imagesloaded.pkgd.min.js` |
+| jquery-mousewheel | 3.1.13 | `jquery.mousewheel.min.js` |
+| jquery.easing | 1.4.1 | `jquery.easing.min.js` |
+| nanobar | 0.4.2 | `nanobar.min.js` |
+| typewrite | 1.0.0 | `dist/` |
+
+Licensing, as the files themselves state it:
+
+- **lightGallery 1.6.12's header says "Licensed GPLv3."** Whether that fits a site whose repo is MIT
+  is the owner's call and is not settled here. Decide it in the modernization pass, when the gallery is
+  rebuilt anyway.
+- Bootstrap 4.1.1, jquery-mousewheel 3.1.13 and imagesLoaded 4.1.4 state MIT in their headers. Font
+  Awesome Free 5.1.0 states icons CC BY 4.0, fonts SIL OFL 1.1, code MIT.
+- The license text of nanobar, jquery.easing, typewrite, ghostHunter and Icono has not been audited;
+  each ships its LICENSE file next to the library.
+
+jQuery 3.4.1 loads from `code.jquery.com`, not from this folder. For the modernization pass: Bootstrap
+4.1.1 and jQuery 3.4.1 both predate later security fixes (Bootstrap 4.1.2, jQuery 3.5.0) and Font Awesome
+5.1.0 is years old, so plan to replace them, not patch them.
+
+Still in the tree on purpose: the Formspree contact form, the lightGallery-based gallery, the
+Bootstrap-era layouts and the bower components. Those are planned for the modernization pass.

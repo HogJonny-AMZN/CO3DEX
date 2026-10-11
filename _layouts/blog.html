@@ -16,8 +16,7 @@ layout: default
                               <h6 class="card-subtitle mb-2 text-muted">{{ post.date | date: "%b %-d, %Y" }}</h6>
                               <p class="card-text">{{ post.summary }} </p>
 
-                              <a href="{{ post.url | prepend: site.baseurl }}" data-disqus-identifier="{{ post.url }}" class="btn btn-dark btn-lg">Read</a>
-                              <span class="disqus-comment-count" data-disqus-identifier="{{ post.url }}"></span>
+                              <a href="{{ post.url | prepend: site.baseurl }}" class="btn btn-dark btn-lg">Read</a>
 
                           </div>
                       </div>

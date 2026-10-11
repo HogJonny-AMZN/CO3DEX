@@ -1,6 +1,7 @@
-# Local docs — track wip subfolder, ignore everything else
+# Local docs: track wip/ (public-safe drafts) and archive/ (retired drafts). Everything else under .docs/ stays local - notably .docs/private/ for work material that must not be published.
 .docs/*
 !.docs/wip/
+!.docs/archive/
 
 *.gem
 

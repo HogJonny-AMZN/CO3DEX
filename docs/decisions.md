@@ -51,10 +51,13 @@ the workflow.
 
 - **LICENSE** keeps the upstream copyright line (MIT requires it) and adds the owner's own line for the
   work since the fork (first commit 2022-06-03).
-- **Personal images** that nothing referenced (`ProfilePicture.jpg`, `CoverPicture.jpg`,
-  `CoverPictture.jpg`, `Vectorfile.eps`, `High Resolution File.jpg`) moved from `assets/img/` to
-  `_archive/CO3DEX/source-images/`. They stay in the repo for the portfolio, and stop being published as
-  static files.
+- **Personal images** that nothing referenced stopped being published from `assets/img/`. Four of them
+  (`ProfilePicture.jpg`, `CoverPicture.jpg`, `CoverPictture.jpg`, `High Resolution File.jpg`) were already archived
+  in `_archive/CO3DEX/` as Git LFS objects, byte-identical (verified by SHA-256 and by fetching them from
+  GitHub's LFS server), so the copies in `assets/img/` were removed, not duplicated. `Vectorfile.eps` was not
+  archived anywhere and is not covered by the LFS rules, so it moved to `_archive/CO3DEX/Vectorfile.eps`.
+  `.gitattributes` sends every JPEG outside `assets/` through LFS, so a raw JPEG must never be committed
+  outside `assets/`.
 - **The three `SEO_*.md` notes** moved unchanged to `docs/seo/` with an index. They are dated snapshots from
   February and March 2026; verify before relying on them.
 - **CI runner** pinned to `ubuntu-24.04`. GitHub moves `ubuntu-latest` to Ubuntu 26 on 2026-10-19, and a

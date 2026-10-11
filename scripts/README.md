@@ -88,10 +88,14 @@ Use these when a change should leave the site looking and behaving the same: rem
 slimming assets, upgrading a library. Standard library Python only. See "Removing or replacing a site
 feature" in [CLAUDE.md](../CLAUDE.md) for when and how to run them.
 
-- `refcheck.py <built-site-dir> [site-url]` lists asset references (HTML attributes and CSS `url(...)`)
-  that point at nothing. Run it on a build of `main` and on your branch; a reference missing only on the
-  branch is a regression. Some hits exist on both sides (a link inside an HTML comment, markdown pasted
-  into an `href`), so only the difference matters.
+- `refcheck.py <built-site-dir> --baseline <main-build-dir>` reports asset references (HTML attributes,
+  `srcset`, and CSS `url(...)`) that point at nothing in your build but resolve in the `main` build, and
+  exits 1 if there are any. Without `--baseline` it just lists every unresolved reference (about 40
+  harmless ones exist today: a link inside an HTML comment, markdown pasted into an `href`) and exits 0.
+  If the two builds were made with different `url:` values (as `render_compare.py` needs), pass
+  `--site-url` and `--baseline-site-url`. Exit code 2 means bad input: a directory with no `index.html`,
+  or a scan that found no references at all, since "nothing missing" from a scan that looked at nothing
+  is not a pass. It cannot see URLs assembled by JavaScript.
 - `render_compare.py <before-dir> <after-dir> [--pages /,/about/]` renders pages from two builds in
   headless Chrome and compares pixels. Build both with the site `url:` set to `http://localhost:4101`
   (before) and `http://localhost:4102` (after), or the pages load their assets from the live site. Each

@@ -1,0 +1,66 @@
+name: Pages
+
+# Builds the site with the repo's own Jekyll 4 and Gemfile.lock, and, once the cutover switch is on,
+# deploys that build to GitHub Pages.
+#
+# Cutover is gated so it can be reversed:
+#   1. Repo variable PAGES_DEPLOY_VIA_ACTIONS = true   (this workflow starts deploying)
+#   2. Pages source set to "GitHub Actions"            (GitHub's built-in Jekyll build stops)
+# To roll back, set the Pages source back to "Deploy from a branch" (main, /) and delete the variable.
+# While the variable is unset this workflow only builds, so merging it changes nothing on the live site.
+#
+# Pull requests build and upload the site as an artifact so a build can be inspected or compared with
+# what is live before it is merged.
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    name: Build site (Jekyll 4)
+    runs-on: ubuntu-24.04
+    env:
+      JEKYLL_ENV: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby (version from .ruby-version, gems cached)
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Build the site into ./build
+        run: bundle exec jekyll build
+
+      - name: Upload the built site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: github.event_name != 'pull_request' && vars.PAGES_DEPLOY_VIA_ACTIONS == 'true'
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,3 +1,5 @@
+<!-- Written by the owner, 2026-09; committed 2026-10-12 so an agent session loads it rather than remembers it. Executed by .claude/skills/edit (/edit <draft>), whose scripts/measure.py regenerates the Layer 0 table into .claude/skills/edit/references/BASELINES.md; the table below is the hand-measured original and BASELINES.md supersedes it. The devblog skill (.claude/skills/devblog) follows the same layer order. -->
+
 # Editorial pipeline
 
 How a draft becomes a post here: layered review passes, each with one job, run in a fixed order,
@@ -231,9 +233,9 @@ Only after the author signs off.
 - [ ] Move the source draft to `.docs/archive/` and add a row to its README
 - [ ] Bump `modified_date` on any post-publication edit
 
-**This repo auto-deploys.** GitHub Pages is configured at the repo level against `main` with CNAME
-`www.co3dex.com`, and the `Pages` GitHub Actions workflow builds and deploys it. A push to `main`
-goes live in about a minute.
+**This repo auto-deploys.** `DEPLOY_STRATEGY` says `none`, but GitHub Pages is configured at the repo
+level against `main` with CNAME `www.co3dex.com`. A push to `main` goes live in about a minute.
+The `DEPLOY_STRATEGY` file does not reflect reality.
 
 ---
 
@@ -247,13 +249,3 @@ goes live in about a minute.
 4. **Name the audience of the piece before editing it**, and say so. A memo for a team is not a blog
    post and should not be edited into one.
 5. **Work material never enters `.docs/wip/`.** That directory is public. See CLAUDE.md.
-6. **Candor is the point; flag exposure once.** This is a personal blog under the author's real name,
-   and it is built on saying hard things forthrightly, including politically edgy or employer-adjacent
-   material. If something carries a genuine exposure risk, say so once, briefly, then respect the
-   author's call and move on. Aim feedback at craft and impact, not risk-avoidance. This does not
-   loosen rule 5: work material, NDA material and anything not cleared to be public still never enters
-   `.docs/wip/` or the published tree.
-7. **Specific beats dressed-up.** Specific lived detail is central to the voice: a post with no war
-   stories in it does not read as him, however the sentences are built. Prefer plain verbs to
-   metaphor; phrasing like "a guess wearing a target's clothes" is the kind of thing the author flags
-   as not sounding like him.

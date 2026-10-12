@@ -158,6 +158,14 @@ When you use a technical term, gloss it immediately in plain language with a con
 
 ---
 
+## 4b. Editing a post
+
+[EDITORIAL_PIPELINE.md](EDITORIAL_PIPELINE.md) is the editing process: structure, facts, voice, rhythm, reach, in that
+order, measured against the published corpus. Run it with `/edit <draft>` (`.claude/skills/edit/`); quote numbers
+only from its `measure.py`. Work material never enters `.docs/wip/`, which is public.
+
+---
+
 ## 5. Instructions & Prompt Alignment
 
 For tool-specific setups:

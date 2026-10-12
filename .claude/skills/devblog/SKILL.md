@@ -43,10 +43,17 @@ the files it needs and the previous pass's output, and nothing else. Passes neve
 | 2 Angle check | `references/passes/2-angle.md` | `opus` |
 | 3 Draft | `references/passes/3-draft.md` | `fable` |
 | 4 Fresh reader | `references/passes/4-fresh-reader.md` | `sonnet` |
-| 5 Cut | `references/passes/5-cut.md` | `opus` |
-| 6 Fact-check | `references/passes/6-factcheck.md` | `sonnet` |
-| 7 Humanizer | `references/passes/7-humanizer.md` | `fable` |
-| 8 Score | `references/passes/8-score.md` | `sonnet` |
+| 5 Structure | `../edit/references/layers/1-structure.md`, then `2-apply-structure.md` | `opus`, then `fable` |
+| 6 Facts | `../edit/references/layers/3-facts.md` | `sonnet` |
+| 7 Voice | `../edit/references/layers/4-voice.md` | `fable` |
+| 8 Rhythm | `../edit/references/layers/5-rhythm.md`, after `measure.py rhythm` | `sonnet` |
+| 9 Scorecard | `../edit/references/layers/8-scorecard.md`, after `measure.py scorecard` and `draft` | `sonnet` |
+| 10 Reach (optional, `--reach`) | `../edit/references/layers/6-reach.md`, title and summary only | `opus` |
+
+Passes 5 to 10 are the editorial pipeline's layers (`EDITORIAL_PIPELINE.md`, executed by the `edit` skill). The
+devblog's own passes 1 to 4 produce the draft; from there it is edited like any other draft, in the pipeline's
+order: structure → facts → voice → rhythm → scorecard, reach last and off by default. The old passes 5–8
+(`5-cut.md` … `8-score.md`) are kept in `references/passes/` as the record of the first run and are not used.
 
 ## The run, in order
 
@@ -83,8 +90,9 @@ Write `sources/MANIFEST.md`: one line per file with its size, so the memo can co
 
 For each pass, send the Agent tool one message that contains: the pass file's full text; the absolute paths of
 its inputs (the source set, the reference files it names, the previous pass's output); the absolute path(s) it
-must write; the period; and, for passes 2 and 3, the owner's brief when there is one. For pass 3, the length:
-target 3,000–6,000 words, hard ceiling 12,549 (the longest 2026 post). For `first`, the brief is the owner's:
+must write; the period; and, for passes 2 and 3, the owner's brief when there is one and the open notes in
+`next.md`. For pass 3, the targets come from `BASELINES.md`: the p25–p75 band on body words, words per
+paragraph, citations and contractions, with the corpus min–max as the edge. For `first`, the brief is the owner's:
 
 > A human story, from the very first prompt, telling how a 2.5D metroidvania became a horde survivors-like
 > research project — but most important, how the repository was set up AI-first: docs as managed context, the
@@ -95,19 +103,34 @@ target 3,000–6,000 words, hard ceiling 12,549 (the longest 2026 post). For `fi
 Outputs, all under `RUN_DIR`: `1-ledger.md`, `2-angle.md`, `draft.md`, `4-reader.md`. After each pass, record
 the token count the Agent result reports, in `RUN_DIR/cost.md`, as `pass, round, tokens`.
 
-### 4 · Loop passes 5 to 8
+### 4 · The editorial layers, and the loop
+
+**One store:** the plan file, `RUN_DIR/EDIT-PLAN.md`. Every layer appends its notes to it under its own heading
+(`## Layer n — <name> (round r)`), as the layer briefs say; there are no separate per-layer files, and `memo.py`
+puts the plan file whole into the memo's *Pass notes*. `M` is `python .claude/skills/edit/scripts/measure.py`,
+`D` is `RUN_DIR/draft.md`, `B` is `.claude/skills/edit/references/BASELINES.md`.
+
+First, once: measure (`M draft D --baselines B`, `M rhythm D`, `M scorecard D`, `M words D`) into the plan file
+under `## Round 1 — measured`; then layer 1 (structural review, changes nothing) and layer 2 (apply), then
+layer 3 (facts, with the source ledger and the source set as its sources).
 
 Round `r` = 1, 2, 3:
 
-- Pass 5 rewrites `draft.md` in place and writes `5-cut-r.md`; on round 2+ it also gets `8-score-(r-1).md`.
-- Pass 6 rewrites `draft.md` in place (facts only) and writes `6-facts-r.md`.
-- Pass 7 rewrites `draft.md` in place and writes `7-humanizer-r.md`; on round 2+ it also gets `8-score-(r-1).md`.
-- Pass 8 writes `8-score-r.md` and **changes nothing**. Read its total.
+- Layer 4, voice, rewrites `D`. Re-measure into the plan file.
+- Layer 5, rhythm: run `M rhythm D` and `M words D`, hand both over; the subagent moves paragraph breaks only;
+  run `M words D` again and **the fingerprint must match**, or restore the pre-layer copy and record the
+  violation in the plan file.
+- Layer 8, scorecard: run `M scorecard D` and `M draft D --baselines B`; the subagent scores with the numbers in
+  front of it and changes nothing.
 
-Total ≥ 30/50: stop looping. Total < 30 and r < 3: next round. Total < 30 after round 3: **halt** — locally,
-write the memo (step 5) with `HALTED` in its header, touch neither continuity file nor git, print the three
-rounds' scores and ask the owner to revise. In the cloud, commit and open the pull request titled
-`revision request: devblog DATE` with the scores in its body.
+**Gates are numbers.** Stop looping when body words, words per paragraph, citations and contractions per
+thousand words are all inside the corpus min–max in `B` and stop-slop is at least 35/50; otherwise next round,
+at most three. A dimension flat across three rounds is named a trade in the plan file. Still outside after
+round 3: **halt** as before — locally, write the memo with `HALTED` in its header and ask the owner to revise;
+in the cloud, open the pull request as `revision request: devblog DATE` with the scorecard in its body.
+
+If any layer reports that the structure must change, stop the round and go back to layer 1.
+`--reach` adds layer 6 after the loop, on the memo's proposed title and `summary:` only.
 
 ### 5 · Write the memo and the continuity files
 
@@ -121,12 +144,15 @@ Period FROM to TO · N sources (J journal files, S sessions, C commits) · score
 (a cloud run with no session export: "Drafted from the journal alone; the session export was older than this
 run.")
 
+## Draft              draft.md, whole, footnotes included — first, because it is what the owner came to read
 ## Angle              2-angle.md, whole
-## Draft              draft.md, whole, footnotes included
 ## Source ledger      1-ledger.md's Entries table, with a ✓ on every entry the draft's footnotes cite
-## Pass notes         2, 4, then per round 5, 6, 7, 8, each under its own heading, in order
+## Pass notes         the fresh reader, then every layer's notes per round, in order (the plan file's content)
 ## Cost               tokens per pass per round, and the total
 ```
+
+The memo is assembled by `python .claude/skills/devblog/scripts/memo.py DATE FROM TO --run RUN_DIR --out
+.docs/wip/devblog-DATE.md --score "<total> after <r> round(s)" --tokens <n>`, not by hand.
 
 Unless `--dry`: append to `ledger.md` (create with a `# Devblog ledger` header on `first`):
 
@@ -171,7 +197,9 @@ The memo's *Cost* section is the design's one open measurement. Report it in you
 - Private in, public out, fail-closed. Cite by stable identifiers; quote only redacted session text and
   committed docs; no raw `.jsonl` reaches a pass; scan before commit; a hit halts.
 - Every pass is a fresh subagent on its assigned model.
-- `stop-slop` scores; it never rewrites. Gate 30/50; three rounds; then halt.
+- The editorial order holds: structure → facts → voice → rhythm → scorecard; reach last and optional. Gates are
+  the corpus numbers from `measure.py` plus stop-slop at 35; three rounds; then halt. Layer 5 changes zero
+  words, proven by the fingerprint.
 - The memo touches nothing in `_posts/`, `_drafts/` or `_authors/`.
 - Footnotes and citations are breadcrumbs, never links: the sources are private.
 - No AI attribution anywhere.

@@ -23,7 +23,8 @@
     "blog-persona",
     "blog-factcheck",
     "stop-slop",
-    "devblog"
+    "devblog",
+    "edit"
   ],
   "permissions": {
     "allow": [

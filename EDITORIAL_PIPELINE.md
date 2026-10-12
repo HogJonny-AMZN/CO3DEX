@@ -1,4 +1,4 @@
-<!-- Written by the owner, 2026-09; committed 2026-10-12 so an agent session loads it rather than remembers it. Executed by .claude/skills/edit (/edit <draft>), whose scripts/measure.py regenerates the Layer 0 table into .claude/skills/edit/references/BASELINES.md; the table below is the hand-measured original and BASELINES.md supersedes it. The devblog skill (.claude/skills/devblog) follows the same layer order. -->
+<!-- Written by the owner, 2026-09; committed 2026-10-12 so an agent session loads it rather than remembers it. Executed by .claude/skills/edit (/edit <draft>), whose scripts/measure.py regenerates the Layer 0 table into .claude/skills/edit/references/BASELINES.md; the table below is the hand-measured original and BASELINES.md supersedes it. The devblog skill (.claude/skills/devblog) follows the same layer order. Layer 10 below describes the deployment as it was when the document was written; since 2026-10-11 the site deploys through GitHub Actions (.github/workflows/pages.yml) and the DEPLOY_STRATEGY file is gone, so CLAUDE.md is the current word on deployment and that paragraph is historical. -->
 
 # Editorial pipeline
 

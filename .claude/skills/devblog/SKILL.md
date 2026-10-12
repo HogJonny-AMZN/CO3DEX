@@ -105,21 +105,23 @@ the token count the Agent result reports, in `RUN_DIR/cost.md`, as `pass, round,
 
 ### 4 · The editorial layers, and the loop
 
-The plan file is `RUN_DIR/EDIT-PLAN.md`; every layer appends to it. `M` is
-`python .claude/skills/edit/scripts/measure.py`, `B` is `.claude/skills/edit/references/BASELINES.md`.
+**One store:** the plan file, `RUN_DIR/EDIT-PLAN.md`. Every layer appends its notes to it under its own heading
+(`## Layer n — <name> (round r)`), as the layer briefs say; there are no separate per-layer files, and `memo.py`
+puts the plan file whole into the memo's *Pass notes*. `M` is `python .claude/skills/edit/scripts/measure.py`,
+`D` is `RUN_DIR/draft.md`, `B` is `.claude/skills/edit/references/BASELINES.md`.
 
-First, once: measure (`M draft draft.md --baselines B`, `M rhythm`, `M scorecard`, `M words`) into the plan
-file; then layer 1 (structural review, changes nothing, `L1-1.md`) and layer 2 (apply, `L2-1.md`), then layer 3
-(facts, `L3-1.md`, with the source ledger and the source set as its sources).
+First, once: measure (`M draft D --baselines B`, `M rhythm D`, `M scorecard D`, `M words D`) into the plan file
+under `## Round 1 — measured`; then layer 1 (structural review, changes nothing) and layer 2 (apply), then
+layer 3 (facts, with the source ledger and the source set as its sources).
 
 Round `r` = 1, 2, 3:
 
-- Layer 4, voice, rewrites `draft.md` and writes `L4-r.md`. Re-measure.
-- Layer 5, rhythm: run `M rhythm` and `M words`, hand both over; the subagent moves paragraph breaks only and
-  writes `L5-r.md`; run `M words` again and **the fingerprint must match**, or restore the pre-layer copy and
-  record the violation.
-- Layer 8, scorecard: run `M scorecard` and `M draft`; the subagent scores with the numbers in front of it,
-  changes nothing, writes `L8-r.md`.
+- Layer 4, voice, rewrites `D`. Re-measure into the plan file.
+- Layer 5, rhythm: run `M rhythm D` and `M words D`, hand both over; the subagent moves paragraph breaks only;
+  run `M words D` again and **the fingerprint must match**, or restore the pre-layer copy and record the
+  violation in the plan file.
+- Layer 8, scorecard: run `M scorecard D` and `M draft D --baselines B`; the subagent scores with the numbers in
+  front of it and changes nothing.
 
 **Gates are numbers.** Stop looping when body words, words per paragraph, citations and contractions per
 thousand words are all inside the corpus min–max in `B` and stop-slop is at least 35/50; otherwise next round,

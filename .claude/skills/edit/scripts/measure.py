@@ -30,7 +30,9 @@ __version__ = "1.0.0"
 FRONT_MATTER = re.compile(r"\A---\n.*?\n---\n", re.DOTALL)
 CODE_FENCE = re.compile(r"```.*?```", re.DOTALL)
 HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
-SKIP_LINE = re.compile(r"^\s*(?:#|>|\||[-*+]\s|\d+\.\s|!\[|<|\[\^[^\]]+\]:)")
+SKIP_LINE = re.compile(
+    r"^\s*(?:#|>|\||[-*+]\s|\d+\.\s|!\[|<|\[\^[^\]]+\]:|(?:[-*_]\s*){3,}$)"
+)  # the last: a thematic break
 LINK_CITATION = re.compile(r"\]\(https?://[^)\s]+\)")
 FOOTNOTE_REF = re.compile(r"\[\^[^\]]+\](?!:)")
 BARE_URL = re.compile(r"(?<![(\]])https?://\S+")
@@ -89,7 +91,9 @@ COLUMNS = (
     "ellipses",
     "citations",
     "contractions_per_1k",
+    "short_paragraph_ratio",
 )
+SHORT_PARAGRAPH = 25  # words; Layer 5 doses breaks against the corpus's share of these
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -105,6 +109,7 @@ class Metrics:
     citations: int
     contractions: int
     contractions_per_1k: float
+    short_paragraph_ratio: float  # paragraphs under SHORT_PARAGRAPH words, as a share of all paragraphs
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -170,6 +175,9 @@ def measure_text(markdown: str) -> Metrics:
         citations=citations(body),
         contractions=contractions,
         contractions_per_1k=round(1000 * contractions / max(1, words), 1),
+        short_paragraph_ratio=round(sum(1 for c in counts if c < SHORT_PARAGRAPH) / max(1, len(paras)), 2)
+        if paras
+        else 0.0,
     )
 
 

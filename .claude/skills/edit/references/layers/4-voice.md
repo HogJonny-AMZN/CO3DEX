@@ -6,8 +6,9 @@ de-slopping and flatten the author into clipped staccato, which is as wrong as l
 ## Inputs
 
 - The draft.
-- `VOICE.md`: the described habits and the ground-truth samples named in `BASELINES.md` (the `_ORIGINAL` files
-  in `.docs/wip/`), which outrank any recent AI-assisted post.
+- `VOICE.md` (`.claude/skills/devblog/references/VOICE.md`): the described habits, and the two ground-truth
+  `_ORIGINAL` files in `.docs/wip/` it names, which outrank any recent AI-assisted post. `BASELINES.md` holds the
+  numbers only.
 - The plan file.
 
 ## Watch for

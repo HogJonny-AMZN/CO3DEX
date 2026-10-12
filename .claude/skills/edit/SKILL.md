@@ -67,9 +67,10 @@ Its `_ORIGINAL` ground-truth samples are named in `VOICE.md` (the devblog skill'
    must match**, or you revert the draft to the pre-layer copy you kept and report the violation.
 6. **Layer 6** if `--reach`; **Layer 7** if `--argument` or if Layer 1 said the post argues.
 7. **Layer 8.** Run `scorecard` and `draft`; the subagent scores with the numbers in front of it.
-8. **Loop:** while body words, words per paragraph or citations is OUT of the corpus range, or stop-slop is
-   under 35, run layers 4, 5 and 8 again — at most three rounds. A dimension flat across three rounds is named
-   a trade and left.
+8. **Loop:** while body words, words per paragraph, citations or contractions per thousand words is OUT of the
+   corpus min–max, or stop-slop is under 35, run layers 4, 5 and 8 again — at most three rounds. The same four
+   gates as the devblog's; one pipeline, two entry points. A dimension flat across three rounds is named a
+   trade and left.
 9. **Layer 9.** Write the handover at the top of the plan file. Stop. The author reads.
 10. **Cost.** Each Agent result's token count goes in the plan file, per layer per round.
 

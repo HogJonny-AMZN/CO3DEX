@@ -159,3 +159,12 @@ def test_main_subcommands_run(tmp_path: Path, capsys) -> None:
     assert out_md.exists() and "<!-- " in out_md.read_text(encoding="utf-8")
     assert m.main(["draft", str(f), "--baselines", str(out_md)]) == 0
     assert "body_words" in capsys.readouterr().out
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+def test_thematic_breaks_are_not_paragraphs_and_short_ratio_is_measured() -> None:
+    text = "---\nt: x\n---\n\nOne long enough paragraph of prose with more than a handful of words in it for the count, and a few more words so that it clears the twenty-five word line comfortably.\n\n---\n\nShort one.\n\n* * *\n\nAnother short one here.\n"
+    x = m.measure_text(text)
+    assert x.paragraphs == 3  # the two thematic breaks are not paragraphs
+    assert x.short_paragraph_ratio == 0.67  # two of three under 25 words
+    assert "short_paragraph_ratio" in m.COLUMNS

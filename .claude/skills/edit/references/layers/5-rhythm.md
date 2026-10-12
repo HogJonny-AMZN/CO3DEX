@@ -9,7 +9,8 @@ and the fingerprint must match.
 - The draft.
 - The rhythm map: every paragraph's word count in order, the flat runs (three or more consecutive paragraphs
   over 120 words), the isolation candidates (a paragraph of 100 or more words ending in a sentence under 25).
-- `BASELINES.md`: the corpus's paragraph mass and its ratio of short paragraphs.
+- `BASELINES.md`: the corpus's paragraph mass and its `short_paragraph_ratio` (paragraphs under 25 words as a
+  share of all paragraphs), both measured columns.
 
 ## What to do
 
